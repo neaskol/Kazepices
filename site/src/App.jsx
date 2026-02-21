@@ -1,4 +1,5 @@
 import { BrowserRouter } from 'react-router-dom'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 
 import ErrorBoundary from './components/ErrorBoundary'
 import NoiseOverlay from './components/NoiseOverlay'
@@ -25,6 +26,7 @@ export default function App() {
         </main>
         <Footer />
         <WhatsAppFloat />
+        <SpeedInsights />
       </BrowserRouter>
     </ErrorBoundary>
   )
