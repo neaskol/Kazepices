@@ -142,11 +142,10 @@ export default function ProductsPage() {
                 key={cat.key}
                 onClick={() => { setActiveCategory(cat.key); setExpandedProduct(null) }}
                 aria-pressed={activeCategory === cat.key}
-                className={`font-heading font-semibold text-sm px-5 py-2.5 transition-all duration-300 ${
-                  activeCategory === cat.key
+                className={`font-heading font-semibold text-sm px-5 py-2.5 transition-all duration-300 ${activeCategory === cat.key
                     ? 'bg-forest text-white'
                     : 'bg-forest/5 text-forest hover:bg-forest/10'
-                }`}
+                  }`}
                 style={{ borderRadius: '2rem' }}
               >
                 {cat.label}
@@ -169,6 +168,11 @@ export default function ProductsPage() {
                   {product.image ? (
                     <img
                       src={product.image}
+                      srcSet={`
+                        ${product.image.replace('w=600', 'w=400').replace('q=85', 'q=80')} 400w,
+                        ${product.image} 600w,
+                        ${product.image.replace('w=600', 'w=800')} 800w`}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       alt={product.alt || product.name}
                       loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"

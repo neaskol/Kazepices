@@ -1,12 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Link } from 'react-router-dom'
 import usePageMeta from './hooks/usePageMeta'
 import { BreadcrumbSchema } from './components/StructuredData'
 import { ArrowLeft, ArrowRight, Globe, Leaf, Heart, Package, Users, Sprout, HandHeart, Award, MapPin, MessageCircle, Quote } from 'lucide-react'
-
-import logoImg from './assets/logo.webp'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -115,7 +113,7 @@ function OriginStory() {
 
           <p className="origin-text font-body text-warm-gray text-base mt-4 leading-relaxed">
             Au coeur de Kazépices, il y a cette mission claire et nette : <span className="text-forest font-semibold">offrir des produits naturels
-            de haute qualité</span>, tout en respectant l'homme et l'environnement. La marque nous prouve qu'on peut parfaitement
+              de haute qualité</span>, tout en respectant l'homme et l'environnement. La marque nous prouve qu'on peut parfaitement
             avoir les deux : des produits exceptionnels cultivés dans le plus grand respect de ceux qui les font pousser
             et de la terre qui les nourrit.
           </p>
@@ -133,6 +131,11 @@ function OriginStory() {
           <div className="overflow-hidden" style={{ borderRadius: '2.5rem' }}>
             <img
               src="https://images.unsplash.com/photo-1564198729838-cb82ee0c733c?w=800&q=85"
+              srcSet="
+                https://images.unsplash.com/photo-1564198729838-cb82ee0c733c?w=400&q=80 400w,
+                https://images.unsplash.com/photo-1564198729838-cb82ee0c733c?w=800&q=85 800w,
+                https://images.unsplash.com/photo-1564198729838-cb82ee0c733c?w=1200&q=85 1200w"
+              sizes="(max-width: 768px) 100vw, 50vw"
               alt="Avenue des Baobabs, Madagascar"
               loading="lazy"
               crossOrigin="anonymous"
@@ -204,6 +207,11 @@ function Founder() {
               >
                 <img
                   src="https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=600&q=85"
+                  srcSet="
+                    https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=300&q=80 300w,
+                    https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=600&q=85 600w,
+                    https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=900&q=85 900w"
+                  sizes="(max-width: 768px) 224px, 256px"
                   alt="Savoir-faire artisanal"
                   loading="lazy"
                   crossOrigin="anonymous"
@@ -335,6 +343,11 @@ function SavoirFaire() {
                 <div className="relative h-52 overflow-hidden">
                   <img
                     src={step.image}
+                    srcSet={`
+                      ${step.image.replace('w=600', 'w=400').replace('q=85', 'q=80')} 400w,
+                      ${step.image} 600w,
+                      ${step.image.replace('w=600', 'w=800')} 800w`}
+                    sizes="(max-width: 768px) 100vw, 33vw"
                     alt={step.title}
                     loading="lazy"
                     crossOrigin="anonymous"

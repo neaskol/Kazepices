@@ -24,6 +24,12 @@ export default function Hero() {
       {/* Hero image background */}
       <img
         src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=1920&q=90"
+        srcSet="
+          https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=640&q=80 640w,
+          https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=1024&q=85 1024w,
+          https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=1920&q=90 1920w"
+        sizes="100vw"
+        fetchPriority="high"
         alt="Épices de Madagascar"
         crossOrigin="anonymous"
         referrerPolicy="no-referrer"

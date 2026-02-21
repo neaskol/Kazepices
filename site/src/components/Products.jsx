@@ -63,6 +63,11 @@ export default function Products() {
                 {product.image ? (
                   <img
                     src={product.image}
+                    srcSet={`
+                      ${product.image.replace('w=600', 'w=400').replace('q=85', 'q=80')} 400w,
+                      ${product.image} 600w,
+                      ${product.image.replace('w=600', 'w=800')} 800w`}
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     alt={product.alt || product.name}
                     loading="lazy"
                     className="w-full h-full object-cover"

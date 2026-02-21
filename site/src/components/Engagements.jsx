@@ -59,29 +59,30 @@ function ShufflerCard() {
   )
 }
 
+const TYPEWRITER_MESSAGES = [
+  '> Biodiversité préservée à Madagascar...',
+  '> Empreinte carbone réduite de 40%...',
+  '> Zéro produits chimiques utilisés...',
+  '> Emballages recyclables et bio...',
+  '> Reforestation : 200 arbres plantés...',
+]
+
 /* Card 2: Telemetry Typewriter */
 function TypewriterCard() {
-  const messages = [
-    '> Biodiversité préservée à Madagascar...',
-    '> Empreinte carbone réduite de 40%...',
-    '> Zéro produits chimiques utilisés...',
-    '> Emballages recyclables et bio...',
-    '> Reforestation : 200 arbres plantés...',
-  ]
   const [currentMsg, setCurrentMsg] = useState(0)
   const [text, setText] = useState('')
   const [charIndex, setCharIndex] = useState(0)
 
   useEffect(() => {
-    if (charIndex < messages[currentMsg].length) {
+    if (charIndex < TYPEWRITER_MESSAGES[currentMsg].length) {
       const timeout = setTimeout(() => {
-        setText((prev) => prev + messages[currentMsg][charIndex])
+        setText((prev) => prev + TYPEWRITER_MESSAGES[currentMsg][charIndex])
         setCharIndex((prev) => prev + 1)
       }, 35)
       return () => clearTimeout(timeout)
     } else {
       const timeout = setTimeout(() => {
-        setCurrentMsg((prev) => (prev + 1) % messages.length)
+        setCurrentMsg((prev) => (prev + 1) % TYPEWRITER_MESSAGES.length)
         setText('')
         setCharIndex(0)
       }, 2000)
@@ -174,11 +175,10 @@ function SchedulerCard() {
             {days.map((day, i) => (
               <div
                 key={i}
-                className={`w-9 h-9 flex items-center justify-center text-xs font-heading font-semibold transition-all duration-300 ${
-                  activeDay === i
-                    ? 'bg-madagascar text-white'
-                    : 'bg-cream text-forest'
-                }`}
+                className={`w-9 h-9 flex items-center justify-center text-xs font-heading font-semibold transition-all duration-300 ${activeDay === i
+                  ? 'bg-madagascar text-white'
+                  : 'bg-cream text-forest'
+                  }`}
                 style={{
                   borderRadius: '0.75rem',
                   transform: activeDay === i ? 'scale(0.95)' : 'scale(1)',
@@ -189,9 +189,8 @@ function SchedulerCard() {
             ))}
           </div>
           <button
-            className={`font-heading text-xs font-semibold px-4 py-2 transition-all duration-300 ${
-              saved ? 'bg-moss text-white' : 'bg-forest/10 text-forest'
-            }`}
+            className={`font-heading text-xs font-semibold px-4 py-2 transition-all duration-300 ${saved ? 'bg-moss text-white' : 'bg-forest/10 text-forest'
+              }`}
             style={{ borderRadius: '1rem' }}
           >
             {saved ? 'Planifié !' : 'Planifier'}

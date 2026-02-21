@@ -5,7 +5,6 @@ import usePageMeta from './hooks/usePageMeta'
 import { BreadcrumbSchema } from './components/StructuredData'
 import { Mail, MessageCircle, MapPin, Globe, Send, CheckCircle, AlertCircle, ArrowLeft } from 'lucide-react'
 
-import logoImg from './assets/logo.webp'
 import { whatsappUrl } from './data/config'
 
 // Input sanitization: strip HTML tags and trim
@@ -34,7 +33,7 @@ function checkRateLimit() {
 export default function ContactPage() {
   const heroRef = useRef(null)
   const formRef = useRef(null)
-  const loadTime = useRef(Date.now())
+  const loadTime = useRef(0)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -43,6 +42,11 @@ export default function ContactPage() {
   })
   const [status, setStatus] = useState('idle')
   const [errors, setErrors] = useState({})
+
+  // Initialize loadTime inside useEffect to prevent purely hook errors during render
+  useEffect(() => {
+    loadTime.current = Date.now()
+  }, [])
 
   usePageMeta({
     title: 'Contactez-Nous — Kazépices Madagascar',
