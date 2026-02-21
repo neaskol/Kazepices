@@ -38,11 +38,6 @@ export default function Navbar() {
     return () => ctx.revert()
   }, [])
 
-  // Close menu on route change
-  useEffect(() => {
-    setMenuOpen(false)
-  }, [location.pathname])
-
   // Escape key closes mobile menu
   useEffect(() => {
     if (!menuOpen) return
