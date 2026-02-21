@@ -68,7 +68,7 @@ export default function Products() {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <Package size={48} className="text-forest/20" />
+                  <Package size={48} className="text-forest/20" aria-hidden="true" />
                 )}
               </div>
               <div className="p-6 flex flex-col flex-1">

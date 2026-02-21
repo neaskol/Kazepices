@@ -63,7 +63,7 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Kazépices Madagascar. Tous droits réservés.
           </p>
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 bg-moss-light rounded-full pulse-dot" />
+            <span className="w-2 h-2 bg-moss-light rounded-full pulse-dot" aria-hidden="true" />
             <span className="font-mono text-xs text-white/60">Système opérationnel</span>
           </div>
         </div>

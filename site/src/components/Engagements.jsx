@@ -103,7 +103,7 @@ function TypewriterCard() {
       </p>
       <div className="mt-6 flex-1">
         <div className="flex items-center gap-2 mb-3">
-          <span className="w-2 h-2 bg-moss rounded-full pulse-dot" />
+          <span className="w-2 h-2 bg-moss rounded-full pulse-dot" aria-hidden="true" />
           <span className="font-mono text-xs text-moss">Éco-impact en direct</span>
         </div>
         <div className="bg-forest/5 p-4 font-mono text-xs text-forest leading-relaxed" style={{ borderRadius: '1rem', minHeight: '80px' }}>

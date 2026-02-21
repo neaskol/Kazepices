@@ -68,11 +68,11 @@ export default function ContactCTA() {
 
         <div className="flex flex-wrap items-center justify-center gap-8 mt-12 text-sm text-warm-gray font-body">
           <div className="flex items-center gap-2">
-            <MapPin size={16} className="text-moss" />
+            <MapPin size={16} className="text-moss" aria-hidden="true" />
             Madagascar
           </div>
           <div className="flex items-center gap-2">
-            <Globe size={16} className="text-moss" />
+            <Globe size={16} className="text-moss" aria-hidden="true" />
             Livraison internationale
           </div>
         </div>

@@ -77,7 +77,7 @@ export default function Protocol() {
               {/* Decorative SVG animation */}
               <div className="mt-auto pt-6">
                 {step.num === '01' && (
-                  <svg viewBox="0 0 120 40" className="w-full h-10 opacity-30">
+                  <svg viewBox="0 0 120 40" className="w-full h-10 opacity-30" aria-hidden="true">
                     <circle cx="20" cy="20" r="8" fill="none" stroke="#D42B1E" strokeWidth="1">
                       <animate attributeName="r" values="6;12;6" dur="3s" repeatCount="indefinite" />
                       <animate attributeName="opacity" values="1;0.3;1" dur="3s" repeatCount="indefinite" />
@@ -93,7 +93,7 @@ export default function Protocol() {
                   </svg>
                 )}
                 {step.num === '02' && (
-                  <svg viewBox="0 0 120 40" className="w-full h-10 opacity-30">
+                  <svg viewBox="0 0 120 40" className="w-full h-10 opacity-30" aria-hidden="true">
                     <line x1="0" y1="20" x2="120" y2="20" stroke="#4A6741" strokeWidth="0.5" />
                     <rect x="0" y="18" width="4" height="4" fill="#D42B1E">
                       <animate attributeName="x" values="0;116;0" dur="4s" repeatCount="indefinite" />
@@ -104,7 +104,7 @@ export default function Protocol() {
                   </svg>
                 )}
                 {step.num === '03' && (
-                  <svg viewBox="0 0 120 40" className="w-full h-10 opacity-30">
+                  <svg viewBox="0 0 120 40" className="w-full h-10 opacity-30" aria-hidden="true">
                     <path
                       d="M0,20 Q15,5 30,20 Q45,35 60,20 Q75,5 90,20 Q105,35 120,20"
                       fill="none"
