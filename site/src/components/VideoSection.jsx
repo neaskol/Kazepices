@@ -48,7 +48,7 @@ export default function VideoSection() {
           <div className="w-full aspect-video relative">
             <iframe
               className="absolute inset-0 w-full h-full"
-              src={`https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?controls=1&rel=0&modestbranding=1&playsinline=1`}
+              src={`https://www.youtube-nocookie.com/embed/5gqF1BTWVDc?controls=1&rel=0&modestbranding=1&playsinline=1`}
               title="Vidéo de présentation Kazepices Madagascar"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
