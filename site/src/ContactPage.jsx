@@ -278,6 +278,7 @@ export default function ContactPage() {
           <div className="contact-form-block lg:col-span-3">
             <form
               onSubmit={handleSubmit}
+              aria-busy={status === 'submitting'}
               className="card-kazepices bg-cream p-8 md:p-10 flex flex-col gap-6"
             >
               <div>
@@ -298,10 +299,12 @@ export default function ContactPage() {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Votre nom"
+                    aria-invalid={!!errors.name}
+                    aria-describedby={errors.name ? 'error-name' : undefined}
                     className={inputClasses}
                     style={inputStyle}
                   />
-                  {errors.name && <p className="text-madagascar text-xs mt-1 font-body">{errors.name}</p>}
+                  {errors.name && <p id="error-name" role="alert" className="text-madagascar text-xs mt-1 font-body">{errors.name}</p>}
                 </div>
                 <div>
                   <label htmlFor="contact-email" className="font-heading text-xs font-semibold text-forest mb-1.5 block">Email</label>
@@ -315,10 +318,12 @@ export default function ContactPage() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="votre@email.com"
+                    aria-invalid={!!errors.email}
+                    aria-describedby={errors.email ? 'error-email' : undefined}
                     className={inputClasses}
                     style={inputStyle}
                   />
-                  {errors.email && <p className="text-madagascar text-xs mt-1 font-body">{errors.email}</p>}
+                  {errors.email && <p id="error-email" role="alert" className="text-madagascar text-xs mt-1 font-body">{errors.email}</p>}
                 </div>
               </div>
 
@@ -330,6 +335,8 @@ export default function ContactPage() {
                   required
                   value={formData.subject}
                   onChange={handleChange}
+                  aria-invalid={!!errors.subject}
+                  aria-describedby={errors.subject ? 'error-subject' : undefined}
                   className={`${inputClasses} ${!formData.subject ? 'text-warm-gray/50' : ''}`}
                   style={inputStyle}
                 >
@@ -339,7 +346,7 @@ export default function ContactPage() {
                   <option value="Partenariat">Partenariat</option>
                   <option value="Autre">Autre</option>
                 </select>
-                {errors.subject && <p className="text-madagascar text-xs mt-1 font-body">{errors.subject}</p>}
+                {errors.subject && <p id="error-subject" role="alert" className="text-madagascar text-xs mt-1 font-body">{errors.subject}</p>}
               </div>
 
               <div>
@@ -353,10 +360,12 @@ export default function ContactPage() {
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Décrivez votre demande..."
+                  aria-invalid={!!errors.message}
+                  aria-describedby={errors.message ? 'error-message' : undefined}
                   className={`${inputClasses} resize-none`}
                   style={inputStyle}
                 />
-                {errors.message && <p className="text-madagascar text-xs mt-1 font-body">{errors.message}</p>}
+                {errors.message && <p id="error-message" role="alert" className="text-madagascar text-xs mt-1 font-body">{errors.message}</p>}
               </div>
 
               {/* Honeypot anti-spam — accessible label for screen readers but visually hidden */}
@@ -392,7 +401,7 @@ export default function ContactPage() {
 
               {/* Success message */}
               {status === 'success' && (
-                <div className="flex items-center gap-3 bg-moss/10 text-moss px-5 py-4 font-body text-sm" style={{ borderRadius: '1rem' }}>
+                <div role="status" className="flex items-center gap-3 bg-moss/10 text-moss px-5 py-4 font-body text-sm" style={{ borderRadius: '1rem' }}>
                   <CheckCircle size={18} className="flex-shrink-0" />
                   Message envoyé avec succès ! Nous vous répondrons sous 24h.
                 </div>
@@ -400,7 +409,7 @@ export default function ContactPage() {
 
               {/* Error message */}
               {status === 'error' && (
-                <div className="flex items-center gap-3 bg-madagascar/10 text-madagascar px-5 py-4 font-body text-sm" style={{ borderRadius: '1rem' }}>
+                <div role="status" className="flex items-center gap-3 bg-madagascar/10 text-madagascar px-5 py-4 font-body text-sm" style={{ borderRadius: '1rem' }}>
                   <AlertCircle size={18} className="flex-shrink-0" />
                   Une erreur est survenue. Réessayez ou contactez-nous via WhatsApp.
                 </div>
@@ -408,7 +417,7 @@ export default function ContactPage() {
 
               {/* Rate limit message */}
               {status === 'rate-limited' && (
-                <div className="flex items-center gap-3 bg-madagascar/10 text-madagascar px-5 py-4 font-body text-sm" style={{ borderRadius: '1rem' }}>
+                <div role="status" className="flex items-center gap-3 bg-madagascar/10 text-madagascar px-5 py-4 font-body text-sm" style={{ borderRadius: '1rem' }}>
                   <AlertCircle size={18} className="flex-shrink-0" />
                   Trop de messages envoyés. Veuillez patienter quelques minutes avant de réessayer.
                 </div>
