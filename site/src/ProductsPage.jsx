@@ -105,7 +105,7 @@ export default function ProductsPage() {
             <span className="font-drama italic text-madagascar-light">100% naturels.</span>
           </h1>
 
-          <p className="products-hero-desc font-body text-white/60 text-base md:text-lg mt-6 max-w-xl mx-auto leading-relaxed">
+          <p className="products-hero-desc font-body text-white/70 text-base md:text-lg mt-6 max-w-xl mx-auto leading-relaxed">
             Chaque produit est cultivé, récolté et conditionné à Madagascar avec un savoir-faire artisanal unique.
             Provenance garantie, qualité sans compromis.
           </p>
@@ -114,17 +114,17 @@ export default function ProductsPage() {
           <div className="products-hero-stats flex flex-wrap items-center justify-center gap-8 mt-10">
             <div className="text-center">
               <p className="font-heading font-extrabold text-white text-2xl md:text-3xl">6</p>
-              <p className="font-mono text-xs text-white/40 mt-1">Produits</p>
+              <p className="font-mono text-xs text-white/60 mt-1">Produits</p>
             </div>
             <div className="w-px h-10 bg-white/15" />
             <div className="text-center">
               <p className="font-heading font-extrabold text-white text-2xl md:text-3xl">100%</p>
-              <p className="font-mono text-xs text-white/40 mt-1">Naturel</p>
+              <p className="font-mono text-xs text-white/60 mt-1">Naturel</p>
             </div>
             <div className="w-px h-10 bg-white/15" />
             <div className="text-center">
               <p className="font-heading font-extrabold text-white text-2xl md:text-3xl">0</p>
-              <p className="font-mono text-xs text-white/40 mt-1">Produits chimiques</p>
+              <p className="font-mono text-xs text-white/60 mt-1">Produits chimiques</p>
             </div>
           </div>
         </div>
@@ -251,7 +251,7 @@ export default function ProductsPage() {
             Une question sur nos{' '}
             <span className="font-drama italic text-madagascar-light">produits ?</span>
           </h2>
-          <p className="font-body text-white/60 text-sm md:text-base mt-4 max-w-lg mx-auto leading-relaxed">
+          <p className="font-body text-white/70 text-sm md:text-base mt-4 max-w-lg mx-auto leading-relaxed">
             Contactez-nous directement via WhatsApp pour une réponse rapide, ou envoyez-nous un message via notre formulaire.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 mt-8">

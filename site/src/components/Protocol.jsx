@@ -72,7 +72,7 @@ export default function Protocol() {
             >
               <span className="font-mono text-madagascar-light text-sm">{step.num}</span>
               <h3 className="font-heading font-bold text-white text-2xl mt-3">{step.title}</h3>
-              <p className="font-body text-white/60 text-sm mt-3 leading-relaxed">{step.description}</p>
+              <p className="font-body text-white/70 text-sm mt-3 leading-relaxed">{step.description}</p>
 
               {/* Decorative SVG animation */}
               <div className="mt-auto pt-6">

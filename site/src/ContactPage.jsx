@@ -197,7 +197,7 @@ export default function ContactPage() {
             <span className="font-drama italic text-madagascar-light">Kazépices.</span>
           </h1>
 
-          <p className="contact-hero-desc font-body text-white/60 text-base md:text-lg mt-6 max-w-xl mx-auto leading-relaxed">
+          <p className="contact-hero-desc font-body text-white/70 text-base md:text-lg mt-6 max-w-xl mx-auto leading-relaxed">
             Une question, une commande ou un partenariat ? Nous sommes à votre écoute.
             Remplissez le formulaire ci-dessous et nous vous répondrons sous 24 heures.
           </p>

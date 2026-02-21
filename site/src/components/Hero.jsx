@@ -75,7 +75,7 @@ export default function Hero() {
           </a>
         </div>
 
-        <a href="#engagements" className="hero-scroll flex items-center gap-2 text-white/40 text-xs font-mono mt-12 hover-lift">
+        <a href="#engagements" className="hero-scroll flex items-center gap-2 text-white/60 text-xs font-mono mt-12 hover-lift">
           <ChevronDown size={14} className="animate-bounce" />
           DÉFILER POUR DÉCOUVRIR
         </a>

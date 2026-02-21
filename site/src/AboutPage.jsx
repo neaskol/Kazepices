@@ -53,7 +53,7 @@ function AboutHero() {
           <span className="font-drama italic text-madagascar-light">nos engagements.</span>
         </h1>
 
-        <p className="about-hero-desc font-body text-white/60 text-base md:text-lg mt-6 max-w-2xl mx-auto leading-relaxed">
+        <p className="about-hero-desc font-body text-white/70 text-base md:text-lg mt-6 max-w-2xl mx-auto leading-relaxed">
           Née au coeur de Madagascar, Kazépices est bien plus qu'une marque d'épices.
           C'est une mission : offrir des produits naturels d'exception, tout en respectant
           l'homme et l'environnement.
@@ -229,7 +229,7 @@ function Founder() {
               </h2>
             </div>
 
-            <p className="founder-content font-body text-white/60 text-base mt-6 leading-relaxed">
+            <p className="founder-content font-body text-white/70 text-base mt-6 leading-relaxed">
               Derrière chaque belle initiative, il y a toujours une histoire humaine, une passion.
               Ikbal Charifou n'est pas qu'un entrepreneur — c'est avant tout un passionné. Intimement
               convaincu que la nature recèle des trésors pour notre bien-être, son engagement est de
@@ -244,7 +244,7 @@ function Founder() {
               </p>
             </div>
 
-            <p className="founder-content font-mono text-xs text-white/40 mt-6">
+            <p className="founder-content font-mono text-xs text-white/60 mt-6">
               — Ikbal Charifou, Fondateur de Kazépices Madagascar
             </p>
           </div>
@@ -452,7 +452,7 @@ function Engagements() {
             Des engagements{' '}
             <span className="font-drama italic text-madagascar-light">concrets.</span>
           </h2>
-          <p className="font-body text-white/50 text-base mt-4 max-w-xl mx-auto leading-relaxed">
+          <p className="font-body text-white/70 text-base mt-4 max-w-xl mx-auto leading-relaxed">
             Ces quatre piliers ne sont pas juste des mots — c'est un engagement total et cohérent
             qui guide chacune de nos actions.
           </p>
@@ -479,14 +479,14 @@ function Engagements() {
                   <span className="text-2xl">{pillar.emoji}</span>
                 </div>
 
-                <p className="font-body text-white/50 text-sm leading-relaxed flex-1">
+                <p className="font-body text-white/70 text-sm leading-relaxed flex-1">
                   {pillar.description}
                 </p>
 
                 {/* Stat */}
                 <div className="mt-6 pt-5 border-t border-white/10 flex items-end gap-3">
                   <span className="font-heading font-extrabold text-white text-2xl leading-none">{pillar.stat}</span>
-                  <span className="font-mono text-xs text-white/40 pb-0.5">{pillar.statLabel}</span>
+                  <span className="font-mono text-xs text-white/60 pb-0.5">{pillar.statLabel}</span>
                 </div>
               </div>
             )
@@ -579,7 +579,7 @@ function AboutCTA() {
           Prêt à goûter à l'
           <span className="font-drama italic text-madagascar-light">excellence malgache ?</span>
         </h2>
-        <p className="font-body text-white/60 text-sm md:text-base mt-4 max-w-lg mx-auto leading-relaxed">
+        <p className="font-body text-white/70 text-sm md:text-base mt-4 max-w-lg mx-auto leading-relaxed">
           Découvrez nos produits 100% naturels ou contactez-nous pour en savoir plus sur notre démarche.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-4 mt-8">

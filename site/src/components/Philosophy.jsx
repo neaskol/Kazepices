@@ -35,7 +35,7 @@ export default function Philosophy() {
         }}
       />
       <div className="relative z-10 max-w-5xl mx-auto">
-        <p className="philo-line font-body text-white/50 text-lg md:text-xl leading-relaxed">
+        <p className="philo-line font-body text-white/70 text-lg md:text-xl leading-relaxed">
           La plupart des marques d'épices se concentrent sur :
           <span className="text-white/70"> le volume, l'industrialisation, le rendement.</span>
         </p>
@@ -43,7 +43,7 @@ export default function Philosophy() {
           Nous, nous cultivons la{' '}
           <span className="text-madagascar-light">patience.</span>
         </h2>
-        <p className="philo-line font-body text-white/60 text-base md:text-lg mt-8 max-w-2xl leading-relaxed">
+        <p className="philo-line font-body text-white/70 text-base md:text-lg mt-8 max-w-2xl leading-relaxed">
           Chaque épice Kazépices est récoltée à la main, séchée naturellement et conditionnée avec soin à Madagascar.
           Pas de raccourcis. Pas de compromis. Juste la terre, le soleil et le savoir-faire artisanal transmis de génération en génération.
         </p>
