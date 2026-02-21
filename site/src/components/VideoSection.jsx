@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Volume2, VolumeX } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -11,6 +12,7 @@ export default function VideoSection() {
   const playerRef = useRef(null)
   const containerRef = useRef(null)
   const [isInView, setIsInView] = useState(false)
+  const [isMuted, setIsMuted] = useState(true)
 
   const onPlayerReady = useCallback((event) => {
     playerRef.current = event.target
@@ -18,27 +20,40 @@ export default function VideoSection() {
     if (isInView) event.target.playVideo()
   }, [isInView])
 
+  const toggleMute = () => {
+    if (!playerRef.current) return
+    if (isMuted) {
+      playerRef.current.unMute()
+      playerRef.current.setVolume(100)
+    } else {
+      playerRef.current.mute()
+    }
+    setIsMuted(!isMuted)
+  }
+
   // Load YouTube IFrame API & create player
   useEffect(() => {
+    const playerVars = {
+      autoplay: 0,
+      mute: 1,
+      controls: 0,
+      showinfo: 0,
+      rel: 0,
+      iv_load_policy: 3,
+      modestbranding: 1,
+      disablekb: 1,
+      playsinline: 1,
+      loop: 1,
+      playlist: VIDEO_ID,
+      fs: 0,
+      cc_load_policy: 0,
+      origin: window.location.origin,
+    }
+
     if (window.YT && window.YT.Player) {
       new window.YT.Player('yt-player', {
         videoId: VIDEO_ID,
-        playerVars: {
-          autoplay: 0,
-          mute: 1,
-          controls: 0,
-          showinfo: 0,
-          rel: 0,
-          iv_load_policy: 3,
-          modestbranding: 1,
-          disablekb: 1,
-          playsinline: 1,
-          loop: 1,
-          playlist: VIDEO_ID,
-          fs: 0,
-          cc_load_policy: 0,
-          origin: window.location.origin,
-        },
+        playerVars,
         events: { onReady: onPlayerReady },
       })
       return
@@ -51,22 +66,7 @@ export default function VideoSection() {
     window.onYouTubeIframeAPIReady = () => {
       new window.YT.Player('yt-player', {
         videoId: VIDEO_ID,
-        playerVars: {
-          autoplay: 0,
-          mute: 1,
-          controls: 0,
-          showinfo: 0,
-          rel: 0,
-          iv_load_policy: 3,
-          modestbranding: 1,
-          disablekb: 1,
-          playsinline: 1,
-          loop: 1,
-          playlist: VIDEO_ID,
-          fs: 0,
-          cc_load_policy: 0,
-          origin: window.location.origin,
-        },
+        playerVars,
         events: { onReady: onPlayerReady },
       })
     }
@@ -129,20 +129,28 @@ export default function VideoSection() {
           className="relative overflow-hidden bg-charcoal"
           style={{ borderRadius: '2.5rem' }}
         >
-          {/* Scaled container to crop YouTube branding */}
-          <div className="w-full aspect-video relative overflow-hidden">
-            <div
-              className="absolute"
-              style={{
-                top: '-5%',
-                left: '-2%',
-                width: '104%',
-                height: '110%',
-              }}
-            >
-              <div id="yt-player" className="w-full h-full" />
-            </div>
+          <div className="w-full aspect-video relative">
+            <div id="yt-player" className="absolute inset-0 w-full h-full" />
           </div>
+
+          {/* Sound toggle button */}
+          <button
+            onClick={toggleMute}
+            className="absolute bottom-6 right-6 z-10 flex items-center gap-2 px-4 py-2 rounded-full bg-black/60 backdrop-blur-sm text-white text-sm font-body transition-all hover:bg-black/80 cursor-pointer"
+            aria-label={isMuted ? 'Activer le son' : 'Couper le son'}
+          >
+            {isMuted ? (
+              <>
+                <VolumeX size={18} />
+                <span>Cliquez pour le son</span>
+              </>
+            ) : (
+              <>
+                <Volume2 size={18} />
+                <span>Son actif</span>
+              </>
+            )}
+          </button>
 
           <p className="sr-only">
             Lecteur video montrant la presentation de Kazepices Madagascar.
