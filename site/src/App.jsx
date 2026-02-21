@@ -12,12 +12,15 @@ export default function App() {
   return (
     <ErrorBoundary>
       <BrowserRouter>
+        <a href="#main-content" className="skip-link">
+          Aller au contenu principal
+        </a>
         <OrganizationSchema />
         <NoiseOverlay />
         <header>
           <Navbar />
         </header>
-        <main>
+        <main id="main-content">
           <AppRouter />
         </main>
         <Footer />
