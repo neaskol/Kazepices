@@ -61,13 +61,19 @@ export default function VideoSection() {
     }
   }, [])
 
-  const toggleMute = useCallback((e) => {
-    e.stopPropagation()
+  const toggleMute = useCallback(() => {
     if (videoRef.current) {
       videoRef.current.muted = !videoRef.current.muted
       setIsMuted(videoRef.current.muted)
     }
   }, [])
+
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === 'm' || e.key === 'M') {
+      e.preventDefault()
+      toggleMute()
+    }
+  }, [toggleMute])
 
   return (
     <section id="video" ref={sectionRef} className="py-24 md:py-32 px-6 md:px-16 lg:px-24">
@@ -76,60 +82,70 @@ export default function VideoSection() {
           <span className="font-mono text-xs text-moss tracking-widest uppercase">Notre histoire</span>
           <h2 className="font-heading font-extrabold text-forest text-3xl md:text-5xl mt-3 tracking-tight">
             L'histoire de{' '}
-            <span className="font-drama italic text-madagascar">Kazépices.</span>
+            <span className="font-drama italic text-madagascar">Kazepices.</span>
           </h2>
           <p className="font-body text-warm-gray text-base mt-4 max-w-lg mx-auto leading-relaxed">
-            Découvrez notre parcours, nos valeurs et la passion qui anime chaque produit Kazépices.
+            Decouvrez notre parcours, nos valeurs et la passion qui anime chaque produit Kazepices.
           </p>
         </div>
 
         <div
-          className="relative overflow-hidden cursor-pointer group"
+          className="relative overflow-hidden"
           style={{ borderRadius: '2.5rem' }}
-          onClick={toggleVideo}
+          onKeyDown={handleKeyDown}
         >
           <video
             ref={videoRef}
             muted
             playsInline
+            aria-label="Video de presentation Kazepices Madagascar"
             className="w-full aspect-video object-cover"
             style={{ borderRadius: '2.5rem' }}
           >
             <source src={presentationVideo} type="video/mp4" />
           </video>
 
-          {/* Play/Pause overlay */}
-          <div
-            className={`absolute inset-0 bg-charcoal/40 flex items-center justify-center transition-opacity duration-500 ${
-              isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'
+          <p className="sr-only">
+            Video de presentation de Kazepices Madagascar montrant le processus de recolte,
+            de transformation et de conditionnement des epices naturelles a Madagascar.
+          </p>
+
+          {/* Play/Pause button */}
+          <button
+            onClick={toggleVideo}
+            aria-label={isPlaying ? 'Mettre en pause' : 'Lire la video'}
+            className={`absolute inset-0 bg-charcoal/40 flex items-center justify-center transition-opacity duration-500 cursor-pointer ${
+              isPlaying ? 'opacity-0 hover:opacity-100 focus-visible:opacity-100' : 'opacity-100'
             }`}
             style={{ borderRadius: '2.5rem' }}
           >
-            <div className="w-20 h-20 md:w-24 md:h-24 bg-white/20 backdrop-blur-md flex items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110">
+            <div className="w-20 h-20 md:w-24 md:h-24 bg-white/20 backdrop-blur-md flex items-center justify-center rounded-full transition-transform duration-300 hover:scale-110">
               {isPlaying ? (
-                <Pause size={32} className="text-white" />
+                <Pause size={32} className="text-white" aria-hidden="true" />
               ) : (
-                <Play size={32} className="text-white ml-1" />
+                <Play size={32} className="text-white ml-1" aria-hidden="true" />
               )}
             </div>
-          </div>
+          </button>
 
           {/* Sound toggle button */}
           <button
             onClick={toggleMute}
+            aria-label={isMuted ? 'Activer le son' : 'Couper le son'}
             className="absolute bottom-5 right-5 z-10 w-11 h-11 bg-charcoal/60 backdrop-blur-md flex items-center justify-center rounded-full transition-all duration-300 hover:bg-charcoal/80 hover:scale-110"
           >
             {isMuted ? (
-              <VolumeX size={18} className="text-white" />
+              <VolumeX size={18} className="text-white" aria-hidden="true" />
             ) : (
-              <Volume2 size={18} className="text-white" />
+              <Volume2 size={18} className="text-white" aria-hidden="true" />
             )}
           </button>
 
-          {/* Border glow */}
+          {/* Border glow — decorative */}
           <div
             className="absolute inset-0 border-2 border-moss/20 pointer-events-none"
             style={{ borderRadius: '2.5rem' }}
+            aria-hidden="true"
           />
         </div>
       </div>
