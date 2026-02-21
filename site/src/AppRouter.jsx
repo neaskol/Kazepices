@@ -11,8 +11,9 @@ const NotFoundPage = lazy(() => import('./components/NotFoundPage'))
 
 function LoadingSpinner() {
   return (
-    <div className="min-h-dvh flex items-center justify-center">
+    <div className="min-h-dvh flex items-center justify-center" role="status" aria-label="Chargement de la page">
       <div className="w-8 h-8 border-2 border-madagascar border-t-transparent rounded-full animate-spin" />
+      <span className="sr-only">Chargement en cours...</span>
     </div>
   )
 }
