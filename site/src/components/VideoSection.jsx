@@ -1,15 +1,99 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const VIDEO_ID = '5gqF1BTWVDc'
+
 export default function VideoSection() {
   const sectionRef = useRef(null)
+  const playerRef = useRef(null)
+  const containerRef = useRef(null)
+  const [isInView, setIsInView] = useState(false)
 
-  // YouTube IFrame API initialization would go here for custom controls,
-  // For simplicity and immediate performance gain, we use standard iframe with params
+  const onPlayerReady = useCallback((event) => {
+    playerRef.current = event.target
+    event.target.mute()
+    if (isInView) event.target.playVideo()
+  }, [isInView])
 
+  // Load YouTube IFrame API & create player
+  useEffect(() => {
+    if (window.YT && window.YT.Player) {
+      new window.YT.Player('yt-player', {
+        videoId: VIDEO_ID,
+        playerVars: {
+          autoplay: 0,
+          mute: 1,
+          controls: 0,
+          showinfo: 0,
+          rel: 0,
+          iv_load_policy: 3,
+          modestbranding: 1,
+          disablekb: 1,
+          playsinline: 1,
+          loop: 1,
+          playlist: VIDEO_ID,
+          fs: 0,
+          cc_load_policy: 0,
+          origin: window.location.origin,
+        },
+        events: { onReady: onPlayerReady },
+      })
+      return
+    }
+
+    const tag = document.createElement('script')
+    tag.src = 'https://www.youtube.com/iframe_api'
+    document.head.appendChild(tag)
+
+    window.onYouTubeIframeAPIReady = () => {
+      new window.YT.Player('yt-player', {
+        videoId: VIDEO_ID,
+        playerVars: {
+          autoplay: 0,
+          mute: 1,
+          controls: 0,
+          showinfo: 0,
+          rel: 0,
+          iv_load_policy: 3,
+          modestbranding: 1,
+          disablekb: 1,
+          playsinline: 1,
+          loop: 1,
+          playlist: VIDEO_ID,
+          fs: 0,
+          cc_load_policy: 0,
+          origin: window.location.origin,
+        },
+        events: { onReady: onPlayerReady },
+      })
+    }
+  }, [onPlayerReady])
+
+  // Scroll-triggered autoplay
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting)
+        if (!playerRef.current) return
+        if (entry.isIntersecting) {
+          playerRef.current.playVideo()
+        } else {
+          playerRef.current.pauseVideo()
+        }
+      },
+      { threshold: 0.4 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  // GSAP fade-in animation
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo('.video-content', { y: 50, opacity: 0 }, {
@@ -41,24 +125,27 @@ export default function VideoSection() {
         </div>
 
         <div
-          className="relative overflow-hidden group bg-charcoal"
+          ref={containerRef}
+          className="relative overflow-hidden bg-charcoal"
           style={{ borderRadius: '2.5rem' }}
         >
-          {/* YouTube Embed */}
-          <div className="w-full aspect-video relative">
-            <iframe
-              className="absolute inset-0 w-full h-full"
-              src="https://www.youtube.com/embed/5gqF1BTWVDc"
-              title="Vidéo de présentation Kazepices Madagascar"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              loading="lazy"
-            ></iframe>
+          {/* Scaled container to crop YouTube branding */}
+          <div className="w-full aspect-video relative overflow-hidden">
+            <div
+              className="absolute"
+              style={{
+                top: '-5%',
+                left: '-2%',
+                width: '104%',
+                height: '110%',
+              }}
+            >
+              <div id="yt-player" className="w-full h-full" />
+            </div>
           </div>
 
           <p className="sr-only">
-            Lecteur vidéo YouTube intégré montrant la présentation de Kazepices Madagascar. Lecteur externe pour des performances optimales.
+            Lecteur video montrant la presentation de Kazepices Madagascar.
           </p>
 
           {/* Border glow — decorative */}
