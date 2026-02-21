@@ -8,7 +8,7 @@
 
 ## Resume Executif
 
-Le site Kazepices est une SPA (Single Page Application) React visuellement soignee, avec des animations GSAP professionnelles et un design coherent. Cependant, **le SEO est gravement insuffisant** pour un site e-commerce/vitrine qui depend du trafic organique. Le code presente aussi des problemes de performance, de duplication et d'accessibilite.
+Le site Kazepices est une SPA (Single Page Application) React visuellement soignee, avec des animations GSAP professionnelles et un design coherent. Cependant, **le SEO est gravement insuffisant** pour un site e-commerce/vitrine qui depend du trafic organique. Le code presente aussi des problemes de performance. L'accessibilite a ete significativement amelioree (session 4) avec skip-link, focus-visible, route announcer, focus trap, contrastes WCAG AA, ARIA formulaire/filtres/video, et aria-hidden sur les elements decoratifs.
 
 ### Score Global
 
@@ -20,7 +20,7 @@ Le site Kazepices est une SPA (Single Page Application) React visuellement soign
 | SEO on-page | 6.5/10 | Ameliore (meta dynamiques, alt descriptifs, breadcrumbs, structured data) |
 | AI SEO | 7/10 | Bon (robots.txt AI bots, JSON-LD, contenu extractable) |
 | Performance | 5.5/10 | Ameliore (lazy loading, code splitting) |
-| Accessibilite | 5/10 | Ameliore (labels, aria, prefers-reduced-motion) |
+| Accessibilite | 7.5/10 | Bon (skip-link, focus-visible, route announcer, focus trap, contrastes, ARIA formulaire/filtres, video accessible, aria-hidden decoratifs) |
 | Securite | 8.5/10 | Tres bon (CSP, HSTS, headers complets, validation, rate limiting, honeypot avance, config centralisee) |
 
 ---
@@ -29,7 +29,7 @@ Le site Kazepices est une SPA (Single Page Application) React visuellement soign
 
 ### 1.1 Architecture & Structure
 
-**Fichiers source (mis a jour le 21/02/2026 — session 3 securite) :**
+**Fichiers source (mis a jour le 21/02/2026 — session 4 accessibilite) :**
 ```
 site/
   index.html              # Point d'entree HTML (+ meta securite CSP/X-Frame/referrer)
@@ -40,12 +40,12 @@ site/
   eslint.config.js        # Config ESLint
   src/
     main.jsx              # Bootstrap React + GSAP prefers-reduced-motion
-    App.jsx               # ~26 lignes — shell layout (ErrorBoundary + BrowserRouter + header/main)
+    App.jsx               # ~28 lignes — shell layout (ErrorBoundary + BrowserRouter + skip-link + header/main#main-content)
     AppRouter.jsx          # Routes + React.lazy/Suspense + ScrollToTop + 404
     ProductsPage.jsx      # ~273 lignes — page produits (imports data/products.js)
     AboutPage.jsx         # ~619 lignes — page a propos
     ContactPage.jsx       # ~325 lignes — page contact
-    index.css             # ~173 lignes — styles globaux + Tailwind + prefers-reduced-motion
+    index.css             # ~190 lignes — styles globaux + Tailwind + prefers-reduced-motion + sr-only + focus-visible + skip-link
     data/
       products.js         # Source unique des donnees produits (6 produits)
       config.js           # Configuration centralisee (numero WhatsApp)
@@ -54,11 +54,11 @@ site/
     components/
       ErrorBoundary.jsx   # Catch erreurs JS globales (class component)
       NotFoundPage.jsx    # Page 404
-      ScrollToTop.jsx     # Scroll to top sur changement de route
+      ScrollToTop.jsx     # Scroll to top + aria-live route announcer pour lecteurs d'ecran
       NoiseOverlay.jsx    # Overlay SVG bruit
-      Navbar.jsx          # Barre de navigation (aria-expanded + aria-label)
+      Navbar.jsx          # Barre de navigation (aria-expanded, aria-label, aria-controls, focus trap, Escape, role=menu)
       Hero.jsx            # Section hero (H1 unique corrige)
-      VideoSection.jsx    # Lecteur video presentation
+      VideoSection.jsx    # Lecteur video accessible (boutons, aria-labels, clavier M pour mute, sr-only description)
       Engagements.jsx     # Section engagements (ShufflerCard, TypewriterCard, SchedulerCard)
       Philosophy.jsx      # Section philosophie
       Products.jsx        # Grille produits homepage (loading="lazy")
@@ -338,17 +338,23 @@ H1: "La nature est le secret." (components/Hero.jsx) ← CORRIGE — fusionne en
 
 ## PARTIE 3 — AUDIT ACCESSIBILITE (a11y)
 
-| # | Probleme | Norme WCAG | Severite |
-|---|---|---|---|
-| 1 | **Pas de skip-to-content link** | 2.4.1 | Haute |
-| 2 | ~~**Labels formulaire non connectes** via `htmlFor`/`id`~~ | 1.3.1 | ~~Haute~~ CORRIGÉ |
-| 3 | ~~**Menu mobile** sans gestion du focus / `aria-expanded`~~ | 4.1.2 | ~~Haute~~ CORRIGÉ — `aria-expanded` + `aria-label` ajoutés |
-| 4 | **Video** sans sous-titres ni description textuelle | 1.2.1 | Haute |
-| 5 | **Lecteur video custom** sans controles accessibles au clavier | 2.1.1 | Haute |
-| 6 | ~~**Animations GSAP** non desactivables (`prefers-reduced-motion` non respecte)~~ | 2.3.3 | ~~Moyenne~~ CORRIGÉ |
-| 7 | **Contraste texte** `text-white/40` et `text-white/50` probablement insuffisant (< 4.5:1) | 1.4.3 | Moyenne |
-| 8 | Un seul `aria-label` dans tout le site (WhatsApp float) | 4.1.2 | Haute |
-| 9 | ~~Boutons sans texte accessible (ex: bouton menu mobile avec juste une icone)~~ | 4.1.2 | ~~Moyenne~~ PARTIELLEMENT CORRIGÉ — `aria-label` ajoute sur le bouton menu mobile |
+| # | Probleme | Norme WCAG | Severite | Statut |
+|---|---|---|---|---|
+| 1 | ~~**Pas de skip-to-content link**~~ | 2.4.1 | ~~Haute~~ | CORRIGÉ — skip-link + `#main-content` dans App.jsx |
+| 2 | ~~**Labels formulaire non connectes** via `htmlFor`/`id`~~ | 1.3.1 | ~~Haute~~ | CORRIGÉ (session precedente) |
+| 3 | ~~**Menu mobile** sans gestion du focus / `aria-expanded`~~ | 4.1.2 | ~~Haute~~ | CORRIGÉ — focus trap, Escape key, aria-controls, role=menu, role=menuitem |
+| 4 | **Video** sans sous-titres | 1.2.1 | Moyenne | PARTIELLEMENT CORRIGÉ — description textuelle sr-only ajoutee, controles accessibles. Sous-titres restent a faire |
+| 5 | ~~**Lecteur video custom** sans controles accessibles au clavier~~ | 2.1.1 | ~~Haute~~ | CORRIGÉ — boutons `<button>`, aria-labels dynamiques, raccourci clavier M pour mute |
+| 6 | ~~**Animations GSAP** non desactivables (`prefers-reduced-motion` non respecte)~~ | 2.3.3 | ~~Moyenne~~ | CORRIGÉ (session precedente) |
+| 7 | ~~**Contraste texte** `text-white/40` et `text-white/50` insuffisant (< 4.5:1)~~ | 1.4.3 | ~~Moyenne~~ | CORRIGÉ — opacites relevees sur toutes les pages (Footer, Hero, Philosophy, Protocol, About, Products, Contact) |
+| 8 | ~~Un seul `aria-label` dans tout le site~~ | 4.1.2 | ~~Haute~~ | CORRIGÉ — aria-labels sur nav, video, boutons, filtres produits, formulaire |
+| 9 | ~~Boutons sans texte accessible~~ | 4.1.2 | ~~Moyenne~~ | CORRIGÉ — aria-label dynamique sur tous les boutons (menu, play/pause, mute, filtres, expand) |
+| 10 | **Pas d'annonce de changement de route** pour les lecteurs d'ecran | 4.1.3 | Haute | CORRIGÉ — aria-live region dans ScrollToTop.jsx |
+| 11 | **Pas de styles focus-visible** sur les elements interactifs | 2.4.7 | Haute | CORRIGÉ — outline 2px forest sur a, button, input, select, textarea, [tabindex] |
+| 12 | **Elements decoratifs** non masques des technologies d'assistance | 1.3.1 | Moyenne | CORRIGÉ — aria-hidden sur pulse-dots, icones decoratives, SVGs, NoiseOverlay |
+| 13 | **Formulaire** sans retour d'erreur accessible | 3.3.1 | Haute | CORRIGÉ — aria-invalid, aria-describedby, role=alert sur erreurs, role=status sur feedback, aria-busy |
+| 14 | **Filtres produits** sans indication d'etat pour les lecteurs d'ecran | 4.1.2 | Moyenne | CORRIGÉ — role=group, aria-pressed, aria-live sur le compteur |
+| 15 | **Details produits expandables** sans ARIA | 4.1.2 | Moyenne | CORRIGÉ — aria-expanded + aria-controls sur les boutons "En savoir plus" |
 
 ---
 
@@ -381,7 +387,7 @@ H1: "La nature est le secret." (components/Hero.jsx) ← CORRIGE — fusionne en
 17. ~~Ajouter `<link rel="canonical">` sur chaque page~~ FAIT — canonical dans index.html + dynamique via `usePageMeta` avec `canonicalPath` par page
 18. Ajouter une page mentions legales / CGV
 19. ~~Gerer `prefers-reduced-motion` pour desactiver les animations~~ FAIT
-20. Ajouter les controles d'accessibilite au lecteur video
+20. ~~Ajouter les controles d'accessibilite au lecteur video~~ FAIT — boutons accessibles, aria-labels, raccourci clavier M, sr-only description
 21. Optimiser les Google Fonts (ne charger que les poids utilises)
 22. Ajouter `srcset` et `sizes` aux images pour le responsive
 
@@ -414,7 +420,7 @@ Pas de vulnerabilites connues dans les dependances principales.
 
 ---
 
-*Audit realise le 21/02/2026 par Claude Opus 4.6 — Derniere mise a jour : session 3 (securite)*
+*Audit realise le 21/02/2026 par Claude Opus 4.6 — Derniere mise a jour : session 4 (accessibilite)*
 
 ---
 
@@ -545,3 +551,70 @@ Pas de vulnerabilites connues dans les dependances principales.
 | 3 | Obfusquer l'email contact (base64 ou JS decode au clic) pour limiter le scraping | Basse |
 | 4 | Ajouter Subresource Integrity (SRI) si des scripts CDN sont ajoutes a l'avenir | Basse |
 | 5 | Mettre en place un WAF (Web Application Firewall) si deploye sur Cloudflare/Vercel | Basse |
+
+---
+
+## CORRECTIONS ACCESSIBILITE APPLIQUEES — 21/02/2026 (session 4)
+
+### Modifications par fichier
+
+| # | Correction | Fichiers modifies |
+|---|---|---|
+| A11Y-1 | **CSS Foundations** — Classe `.sr-only` (contenu invisible sauf lecteurs d'ecran), styles `:focus-visible` (outline 2px forest) sur tous les elements interactifs, classe `.skip-link` | `index.css` |
+| A11Y-2 | **Skip-to-content link** — Lien "Aller au contenu principal" en premiere position, `id="main-content"` sur `<main>` | `App.jsx` |
+| A11Y-3 | **NoiseOverlay + Spinner** — `aria-hidden="true"` sur le SVG decoratif NoiseOverlay. Spinner de chargement : `role="status"`, `aria-label`, texte sr-only | `NoiseOverlay.jsx`, `AppRouter.jsx` |
+| A11Y-4 | **Route announcer** — ScrollToTop reecrit avec `aria-live="polite"` region qui annonce le titre de page apres chaque navigation SPA | `ScrollToTop.jsx` |
+| A11Y-5 | **Navbar accessible** — `aria-label="Menu principal"` sur `<nav>`, `aria-controls="mobile-menu"` sur le toggle, `id="mobile-menu"` + `role="menu"` sur le menu, `role="menuitem"` sur les liens, `aria-hidden="true"` sur les icones decoratives, fermeture Escape avec retour focus, focus trap cyclique | `Navbar.jsx` |
+| A11Y-6 | **Contraste Footer** — `text-white/50`→`/70`, `text-white/40`→`/70` (liens nav), `hover:text-white/70`→`/90`, `text-white/30`→`/60` (copyright), `text-white/40`→`/60` (status), `text-white/40`→`/70` (produits) | `Footer.jsx` |
+| A11Y-7 | **Contraste Hero/Philosophy/Protocol** — Hero: `text-white/40`→`/60` (scroll hint). Philosophy: `text-white/50`→`/70`, `text-white/60`→`/70`. Protocol: `text-white/60`→`/70` | `Hero.jsx`, `Philosophy.jsx`, `Protocol.jsx` |
+| A11Y-8 | **Contraste AboutPage** — 7 corrections : hero desc `/60`→`/70`, founder desc `/60`→`/70`, attribution `/40`→`/60`, engagements subtitle `/50`→`/70`, pillar desc `/50`→`/70`, stat labels `/40`→`/60`, CTA desc `/60`→`/70` | `AboutPage.jsx` |
+| A11Y-9 | **Contraste ProductsPage + ContactPage** — ProductsPage: stats labels `/40`→`/60`, hero desc `/60`→`/70`, CTA desc `/60`→`/70`. ContactPage: hero desc `/60`→`/70` | `ProductsPage.jsx`, `ContactPage.jsx` |
+| A11Y-10 | **VideoSection accessible** — `<div onClick>` remplace par `<button>` pour play/pause, aria-labels dynamiques ("Mettre en pause"/"Lire la video"), aria-labels dynamiques mute ("Couper le son"/"Activer le son"), raccourci clavier M pour mute, `aria-label` sur `<video>`, description sr-only, `aria-hidden` sur icones decoratives et border glow | `VideoSection.jsx` |
+| A11Y-11 | **Formulaire contact accessible** — `aria-busy` sur `<form>` pendant soumission, `aria-invalid` + `aria-describedby` sur les 4 champs (name, email, subject, message), `id` + `role="alert"` sur les messages d'erreur, `role="status"` sur les messages de feedback (succes, erreur, rate-limit) | `ContactPage.jsx` |
+| A11Y-12 | **Filtres produits accessibles** — `role="group"` + `aria-label` sur le conteneur de filtres, `aria-hidden` sur l'icone Filter decorative, `aria-pressed` sur les boutons de categorie, `aria-live="polite"` sur le compteur de resultats, `aria-expanded` + `aria-controls` sur les boutons "En savoir plus" | `ProductsPage.jsx` |
+| A11Y-13 | **Elements decoratifs aria-hidden** — `aria-hidden="true"` ajoute sur : pulse-dots (Engagements, Footer), icone Package fallback (Products), icones MapPin/Globe (ContactCTA), 3 SVGs decoratifs (Protocol) | `Engagements.jsx`, `Products.jsx`, `ContactCTA.jsx`, `Protocol.jsx`, `Footer.jsx` |
+
+### Evolution des scores
+
+| Categorie | Avant (session 3) | Apres (session 4) | Gain |
+|---|---|---|---|
+| Accessibilite | 5/10 | 7.5/10 | +2.5 |
+
+### Detail du score accessibilite 7.5/10
+
+| Element | Score | Detail |
+|---|---|---|
+| Navigation clavier | 9/10 | Skip-link, focus-visible, focus trap menu, Escape key, raccourci M video |
+| Lecteur d'ecran | 8/10 | aria-labels, role=menu/menuitem/group/alert/status, aria-live route announcer, sr-only descriptions |
+| Contraste | 8/10 | Toutes les opacites text-white relevees vers WCAG AA 4.5:1 |
+| Formulaire | 9/10 | aria-invalid, aria-describedby, role=alert, aria-busy, labels connectes |
+| Elements decoratifs | 9/10 | aria-hidden sur NoiseOverlay, pulse-dots, icones, SVGs decoratifs |
+| Video | 6/10 | Controles accessibles et description sr-only, mais pas de sous-titres/captions |
+| Points restants | -2.5 | Pas de sous-titres video (1.2.1), SPA sans SSR (contenu invisible au chargement initial), pas de tests a11y automatises |
+
+**Build verifie** : `vite build` passe sans erreur (4.50s). Zero nouveau warning ESLint introduit.
+
+### Commits (branche `feature/accessibility`)
+
+```
+6ccbd0e a11y: remove redundant route-change useEffect in Navbar
+ecced6b a11y: add aria-hidden to decorative elements across components
+a347a23 a11y: add ARIA attributes to contact form and product filters
+e315e8b a11y: rewrite VideoSection with accessible controls and keyboard support
+5d84cbc a11y: fix color contrast ratios across all pages for WCAG AA compliance
+3103b57 a11y: navbar aria-label, focus trap, Escape key, aria-controls
+491db3a a11y: announce route changes to screen readers via aria-live
+b8539bd a11y: hide decorative noise overlay, make loading spinner accessible
+cbe09f2 a11y: add skip-to-content link and main-content landmark id
+4166c5d a11y: add sr-only utility, focus-visible styles, and skip-link class
+```
+
+### Reste a faire (accessibilite)
+
+| # | Element | Priorite |
+|---|---|---|
+| 1 | Ajouter des sous-titres/captions a la video de presentation (WCAG 1.2.1) | Haute |
+| 2 | Migrer vers SSR (Next.js/Astro) pour que le contenu soit accessible au chargement initial | Haute |
+| 3 | Ajouter des tests a11y automatises (axe-core, jest-axe, ou Lighthouse CI) | Moyenne |
+| 4 | Ajouter des breadcrumbs visuels (le schema JSON-LD est deja en place) | Basse |
+| 5 | Tester avec un vrai lecteur d'ecran (VoiceOver, NVDA) pour validation manuelle | Moyenne |
