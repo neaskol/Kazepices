@@ -88,14 +88,14 @@ export default function Navbar() {
           ? 'bg-cream/85 backdrop-blur-xl border border-moss/20 shadow-lg'
           : 'bg-charcoal/40 backdrop-blur-md border border-white/15'
       }`}
-      style={{ borderRadius: '3rem', padding: '0.6rem 1.2rem 0.6rem 1.5rem' }}
+      style={{ borderRadius: '3rem', padding: '0.6rem 1.2rem', maxWidth: 'calc(100vw - 2rem)' }}
     >
-      <div className="flex items-center gap-4 md:gap-6">
+      <div className="flex items-center gap-3 md:gap-6">
         <Link to="/" className="flex-shrink-0">
           <img
             src={logoImg}
             alt="Kazepices — Accueil"
-            className="h-10 w-auto"
+            className="h-8 md:h-10 w-auto"
           />
         </Link>
 
