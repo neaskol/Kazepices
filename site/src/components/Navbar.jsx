@@ -90,7 +90,7 @@ export default function Navbar() {
       }`}
       style={{ borderRadius: '3rem', padding: '0.6rem 1.5rem', maxWidth: '90vw' }}
     >
-      <div className="flex items-center gap-6">
+      <div className="flex items-center justify-center gap-6">
         <Link to="/" className="flex-shrink-0">
           <img
             src={logoImg}
