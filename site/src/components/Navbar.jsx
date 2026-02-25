@@ -1,66 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, ArrowRight, Sun, Moon } from 'lucide-react'
+import { Menu, X, ArrowRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useLanguageRouter } from '../hooks/useLanguageRouter'
 import { useTheme } from '../context/ThemeContext'
 
 import logoImg from '../assets/logo.webp'
-
-function LanguageToggle({ scrolled, isHome, lang, switchLanguage, isDark }) {
-  return (
-    <div className="flex items-center gap-1">
-      <button
-        onClick={() => switchLanguage('fr')}
-        className={`text-xs font-heading font-semibold px-2 py-1 rounded-full transition-colors ${lang === 'fr'
-            ? (scrolled || !isHome
-              ? isDark ? 'bg-white/20 text-white' : 'bg-forest text-white'
-              : 'bg-white/20 text-white')
-            : (scrolled || !isHome
-              ? isDark ? 'text-white/50 hover:text-white' : 'text-forest/50 hover:text-forest'
-              : 'text-white/50 hover:text-white')
-          }`}
-      >
-        FR
-      </button>
-      <button
-        onClick={() => switchLanguage('en')}
-        className={`text-xs font-heading font-semibold px-2 py-1 rounded-full transition-colors ${lang === 'en'
-            ? (scrolled || !isHome
-              ? isDark ? 'bg-white/20 text-white' : 'bg-forest text-white'
-              : 'bg-white/20 text-white')
-            : (scrolled || !isHome
-              ? isDark ? 'text-white/50 hover:text-white' : 'text-forest/50 hover:text-forest'
-              : 'text-white/50 hover:text-white')
-          }`}
-      >
-        EN
-      </button>
-    </div>
-  )
-}
-
-function ThemeToggle({ scrolled, isHome, isDark, toggleTheme }) {
-  const isLight = scrolled || !isHome
-  return (
-    <button
-      onClick={toggleTheme}
-      aria-label={isDark ? 'Activer le mode clair' : 'Activer le mode sombre'}
-      className={`p-1.5 rounded-full transition-all duration-300 hover:scale-110 ${isLight
-          ? isDark
-            ? 'text-white/70 hover:text-white hover:bg-white/10'
-            : 'text-forest/70 hover:text-forest hover:bg-forest/10'
-          : 'text-white/70 hover:text-white hover:bg-white/10'
-        }`}
-    >
-      {isDark
-        ? <Sun size={16} aria-hidden="true" />
-        : <Moon size={16} aria-hidden="true" />
-      }
-    </button>
-  )
-}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -71,8 +17,8 @@ export default function Navbar() {
   const location = useLocation()
   const isHome = location.pathname === '/'
   const { t } = useTranslation()
-  const { lang, routes, switchLanguage } = useLanguageRouter()
-  const { isDark, toggleTheme } = useTheme()
+  const { routes } = useLanguageRouter()
+  const { isDark } = useTheme()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -181,12 +127,6 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Desktop language + theme toggles */}
-        <div className="hidden md:flex items-center gap-2">
-          <LanguageToggle scrolled={scrolled} isHome={isHome} lang={lang} switchLanguage={switchLanguage} isDark={isDark} />
-          <ThemeToggle scrolled={scrolled} isHome={isHome} isDark={isDark} toggleTheme={toggleTheme} />
-        </div>
-
         <Link
           to={routes.products}
           className="hidden md:inline-flex btn-magnetic items-center gap-2 bg-madagascar text-white text-sm font-semibold font-heading px-5 py-2.5 rounded-4xl"
@@ -234,11 +174,6 @@ export default function Navbar() {
           >
             {t('nav.contact')}
           </Link>
-          {/* Mobile language + theme toggles */}
-          <div className="flex items-center gap-3">
-            <LanguageToggle scrolled={scrolled} isHome={isHome} lang={lang} switchLanguage={switchLanguage} isDark={isDark} />
-            <ThemeToggle scrolled={scrolled} isHome={isHome} isDark={isDark} toggleTheme={toggleTheme} />
-          </div>
           <Link
             to={routes.products}
             role="menuitem"

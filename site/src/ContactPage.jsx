@@ -270,9 +270,9 @@ export default function ContactPage() {
             </div>
 
             {/* Trust signal */}
-            <div className="mt-12 p-5 bg-forest/5 border border-forest/10 rounded-3xl">
-              <p className="font-body text-forest/80 text-sm leading-relaxed">
-                <span className="font-heading font-semibold text-forest">{t('contact.directOrder')}</span>{' '}
+            <div className="mt-12 p-5 bg-forest/5 dark:bg-moss/10 border border-forest/10 dark:border-moss/20 rounded-3xl">
+              <p className="font-body text-forest/80 dark:text-white/70 text-sm leading-relaxed">
+                <span className="font-heading font-semibold text-forest dark:text-moss-light">{t('contact.directOrder')}</span>{' '}
                 {t('contact.directOrderDesc')}
               </p>
             </div>
@@ -292,7 +292,7 @@ export default function ContactPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="contact-name" className="font-heading text-xs font-semibold text-forest mb-1.5 block">{t('contact.labelName')}</label>
+                  <label htmlFor="contact-name" className="font-heading text-xs font-semibold text-forest dark:text-moss-light mb-1.5 block">{t('contact.labelName')}</label>
                   <input
                     id="contact-name"
                     type="text"
@@ -311,7 +311,7 @@ export default function ContactPage() {
                   {errors.name && <p id="error-name" role="alert" className="text-madagascar text-xs mt-1 font-body">{errors.name}</p>}
                 </div>
                 <div>
-                  <label htmlFor="contact-email" className="font-heading text-xs font-semibold text-forest mb-1.5 block">{t('contact.labelEmail')}</label>
+                  <label htmlFor="contact-email" className="font-heading text-xs font-semibold text-forest dark:text-moss-light mb-1.5 block">{t('contact.labelEmail')}</label>
                   <input
                     id="contact-email"
                     type="email"
@@ -332,7 +332,7 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label htmlFor="contact-subject" className="font-heading text-xs font-semibold text-forest mb-1.5 block">{t('contact.labelSubject')}</label>
+                <label htmlFor="contact-subject" className="font-heading text-xs font-semibold text-forest dark:text-moss-light mb-1.5 block">{t('contact.labelSubject')}</label>
                 <select
                   id="contact-subject"
                   name="subject"
@@ -354,7 +354,7 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label htmlFor="contact-message" className="font-heading text-xs font-semibold text-forest mb-1.5 block">{t('contact.labelMessage')}</label>
+                <label htmlFor="contact-message" className="font-heading text-xs font-semibold text-forest dark:text-moss-light mb-1.5 block">{t('contact.labelMessage')}</label>
                 <textarea
                   id="contact-message"
                   name="message"

@@ -234,16 +234,16 @@ export default function ProductDetailPage() {
 
           {/* Visual breadcrumb */}
           <nav aria-label="Breadcrumb" className="mb-10">
-            <ol className="flex items-center gap-1.5 font-mono text-xs text-warm-gray">
+            <ol className="flex items-center gap-1.5 font-mono text-xs text-warm-gray dark:text-white/50">
               <li>
-                <Link to="/" className="hover:text-forest transition-colors">{t('footer.home')}</Link>
+                <Link to="/" className="hover:text-forest dark:hover:text-moss-light transition-colors">{t('footer.home')}</Link>
               </li>
               <li aria-hidden="true"><ChevronRight size={12} /></li>
               <li>
-                <Link to={routes.products} className="hover:text-forest transition-colors">{t('nav.products')}</Link>
+                <Link to={routes.products} className="hover:text-forest dark:hover:text-moss-light transition-colors">{t('nav.products')}</Link>
               </li>
               <li aria-hidden="true"><ChevronRight size={12} /></li>
-              <li aria-current="page" className="text-forest font-medium">{pt(product.name, lang)}</li>
+              <li aria-current="page" className="text-forest dark:text-moss-light font-medium">{pt(product.name, lang)}</li>
             </ol>
           </nav>
 
@@ -256,12 +256,12 @@ export default function ProductDetailPage() {
                   className="detail-benefit card-kazepices bg-cream dark:bg-[#282828] p-8"
                 >
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 bg-forest/10 flex items-center justify-center rounded-2xl">
-                      <Leaf size={18} className="text-forest" />
+                    <div className="w-10 h-10 bg-forest/10 dark:bg-moss/20 flex items-center justify-center rounded-2xl">
+                      <Leaf size={18} className="text-forest dark:text-moss-light" />
                     </div>
-                    <h3 className="font-heading font-bold text-forest text-lg">{pt(benefit.label, lang)}</h3>
+                    <h3 className="font-heading font-bold text-forest dark:text-cream text-lg">{pt(benefit.label, lang)}</h3>
                   </div>
-                  <p className="font-body text-warm-gray text-sm leading-relaxed">
+                  <p className="font-body text-warm-gray dark:text-white/70 text-sm leading-relaxed">
                     {pt(benefit.text, lang)}
                   </p>
                 </div>
