@@ -6,6 +6,8 @@ import usePageMeta from './hooks/usePageMeta'
 import { BreadcrumbSchema } from './components/StructuredData'
 import { ArrowLeft, ArrowRight, Globe, Leaf, Heart, Package, Users, Sprout, HandHeart, Award, MapPin, MessageCircle, Quote } from 'lucide-react'
 
+import ikbalImg from './assets/ikbal-charifou.webp'
+
 gsap.registerPlugin(ScrollTrigger)
 
 /* ─── HERO ─── */
@@ -206,16 +208,9 @@ function Founder() {
                 style={{ borderRadius: '2.5rem' }}
               >
                 <img
-                  src="https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=600&q=85"
-                  srcSet="
-                    https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=300&q=80 300w,
-                    https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=600&q=85 600w,
-                    https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=900&q=85 900w"
-                  sizes="(max-width: 768px) 224px, 256px"
-                  alt="Savoir-faire artisanal"
+                  src={ikbalImg}
+                  alt="Ikbal Charifou — Fondateur de Kazépices Madagascar"
                   loading="lazy"
-                  crossOrigin="anonymous"
-                  referrerPolicy="no-referrer"
                   className="w-full h-full object-cover"
                 />
               </div>
