@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { gsap } from 'gsap'
 import { Link } from 'react-router-dom'
 import usePageMeta from './hooks/usePageMeta'
+import { useLanguageRouter } from './hooks/useLanguageRouter'
 import { BreadcrumbSchema } from './components/StructuredData'
 import { Mail, MessageCircle, MapPin, Globe, Send, CheckCircle, AlertCircle, ArrowLeft } from 'lucide-react'
 
@@ -31,6 +33,8 @@ function checkRateLimit() {
 }
 
 export default function ContactPage() {
+  const { t } = useTranslation()
+  const { lang, routes } = useLanguageRouter()
   const heroRef = useRef(null)
   const formRef = useRef(null)
   const loadTime = useRef(0)
@@ -49,8 +53,8 @@ export default function ContactPage() {
   }, [])
 
   usePageMeta({
-    title: 'Contactez-Nous — Kazépices Madagascar',
-    description: 'Commandez vos épices naturelles de Madagascar via WhatsApp ou notre formulaire de contact. Réponse garantie sous 24h.',
+    title: t('contact.title'),
+    description: t('contact.metaDesc'),
     canonicalPath: '/contact',
   })
 
@@ -96,12 +100,12 @@ export default function ContactPage() {
     const email = sanitize(formData.email)
     const message = sanitize(formData.message)
 
-    if (!name || name.length < 2) newErrors.name = 'Le nom doit contenir au moins 2 caractères.'
-    if (name.length > 100) newErrors.name = 'Le nom ne doit pas dépasser 100 caractères.'
-    if (!email || !isValidEmail(email)) newErrors.email = 'Veuillez entrer une adresse email valide.'
-    if (!formData.subject) newErrors.subject = 'Veuillez choisir un sujet.'
-    if (!message || message.length < 10) newErrors.message = 'Le message doit contenir au moins 10 caractères.'
-    if (message.length > 5000) newErrors.message = 'Le message ne doit pas dépasser 5000 caractères.'
+    if (!name || name.length < 2) newErrors.name = t('contact.errorNameMin')
+    if (name.length > 100) newErrors.name = t('contact.errorNameMax')
+    if (!email || !isValidEmail(email)) newErrors.email = t('contact.errorEmail')
+    if (!formData.subject) newErrors.subject = t('contact.errorSubject')
+    if (!message || message.length < 10) newErrors.message = t('contact.errorMessageMin')
+    if (message.length > 5000) newErrors.message = t('contact.errorMessageMax')
 
     return newErrors
   }
@@ -169,8 +173,8 @@ export default function ContactPage() {
   return (
     <>
       <BreadcrumbSchema items={[
-        { name: 'Accueil', url: 'https://kazepices.com/' },
-        { name: 'Contact', url: 'https://kazepices.com/contact' },
+        { name: t('common.home'), url: 'https://kazepices.com/' },
+        { name: t('contact.breadcrumb'), url: 'https://kazepices.com/contact' },
       ]} />
       {/* Hero banner */}
       <section
@@ -193,17 +197,15 @@ export default function ContactPage() {
             style={{ borderRadius: '2rem' }}
           >
             <ArrowLeft size={14} />
-            Retour à l'accueil
+            {t('contact.heroHeading1')}
           </Link>
 
           <h1 className="contact-hero-title font-heading font-extrabold text-white text-4xl md:text-6xl tracking-tight leading-[1.1]">
-            Contactez{' '}
-            <span className="font-drama italic text-madagascar-light">Kazépices.</span>
+            {t('contact.heroHeading2')}
           </h1>
 
           <p className="contact-hero-desc font-body text-white/70 text-base md:text-lg mt-6 max-w-xl mx-auto leading-relaxed">
-            Une question, une commande ou un partenariat ? Nous sommes à votre écoute.
-            Remplissez le formulaire ci-dessous et nous vous répondrons sous 24 heures.
+            {t('contact.heroDesc')}
           </p>
         </div>
       </section>
@@ -214,9 +216,9 @@ export default function ContactPage() {
 
           {/* Left — Info (2 cols) */}
           <div className="contact-info-block lg:col-span-2">
-            <span className="font-mono text-xs text-moss tracking-widest uppercase">Nos coordonnées</span>
+            <span className="font-mono text-xs text-moss tracking-widest uppercase">{t('contact.infoLabel')}</span>
             <h2 className="font-heading font-bold text-forest text-2xl md:text-3xl mt-3 tracking-tight">
-              Plusieurs façons de nous joindre.
+              {t('contact.infoHeading')}
             </h2>
 
             <div className="flex flex-col gap-6 mt-10">
@@ -228,13 +230,13 @@ export default function ContactPage() {
                   <Mail size={22} className="text-forest" />
                 </div>
                 <div>
-                  <p className="font-heading font-semibold text-forest text-sm">Email</p>
+                  <p className="font-heading font-semibold text-forest text-sm">{t('contact.infoEmail')}</p>
                   <p className="font-body text-warm-gray text-sm">contact@kazepices.com</p>
                 </div>
               </a>
 
               <a
-                href={whatsappUrl('Bonjour Kazépices, je souhaite en savoir plus sur vos produits.')}
+                href={whatsappUrl(t('contact.whatsappMsg'))}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 group hover-lift"
@@ -243,8 +245,8 @@ export default function ContactPage() {
                   <MessageCircle size={22} className="text-[#25D366]" />
                 </div>
                 <div>
-                  <p className="font-heading font-semibold text-forest text-sm">WhatsApp</p>
-                  <p className="font-body text-warm-gray text-sm">Réponse rapide garantie</p>
+                  <p className="font-heading font-semibold text-forest text-sm">{t('contact.infoWhatsApp')}</p>
+                  <p className="font-body text-warm-gray text-sm">{t('contact.infoWhatsAppDesc')}</p>
                 </div>
               </a>
 
@@ -253,8 +255,8 @@ export default function ContactPage() {
                   <MapPin size={22} className="text-madagascar" />
                 </div>
                 <div>
-                  <p className="font-heading font-semibold text-forest text-sm">Madagascar</p>
-                  <p className="font-body text-warm-gray text-sm">Livraison internationale</p>
+                  <p className="font-heading font-semibold text-forest text-sm">{t('contact.infoLocation')}</p>
+                  <p className="font-body text-warm-gray text-sm">{t('contact.infoLocationDesc')}</p>
                 </div>
               </div>
 
@@ -263,8 +265,8 @@ export default function ContactPage() {
                   <Globe size={22} className="text-moss" />
                 </div>
                 <div>
-                  <p className="font-heading font-semibold text-forest text-sm">Horaires</p>
-                  <p className="font-body text-warm-gray text-sm">Lun – Sam, 8h – 18h (GMT+3)</p>
+                  <p className="font-heading font-semibold text-forest text-sm">{t('contact.infoHours')}</p>
+                  <p className="font-body text-warm-gray text-sm">{t('contact.infoHoursDesc')}</p>
                 </div>
               </div>
             </div>
@@ -272,8 +274,8 @@ export default function ContactPage() {
             {/* Trust signal */}
             <div className="mt-12 p-5 bg-forest/5 border border-forest/10" style={{ borderRadius: '1.5rem' }}>
               <p className="font-body text-forest/80 text-sm leading-relaxed">
-                <span className="font-heading font-semibold text-forest">Commande directe ?</span>{' '}
-                Pour une commande rapide, écrivez-nous sur WhatsApp avec le nom du produit et la quantité souhaitée. C'est le moyen le plus rapide !
+                <span className="font-heading font-semibold text-forest">{t('contact.directOrder')}</span>{' '}
+                {t('contact.directOrderDesc')}
               </p>
             </div>
           </div>
@@ -286,13 +288,13 @@ export default function ContactPage() {
               className="card-kazepices bg-cream p-8 md:p-10 flex flex-col gap-6"
             >
               <div>
-                <h3 className="font-heading font-bold text-forest text-xl">Envoyez-nous un message</h3>
-                <p className="font-body text-warm-gray text-sm mt-1">Tous les champs sont obligatoires.</p>
+                <h3 className="font-heading font-bold text-forest text-xl">{t('contact.formHeading')}</h3>
+                <p className="font-body text-warm-gray text-sm mt-1">{t('contact.formRequired')}</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label htmlFor="contact-name" className="font-heading text-xs font-semibold text-forest mb-1.5 block">Nom complet</label>
+                  <label htmlFor="contact-name" className="font-heading text-xs font-semibold text-forest mb-1.5 block">{t('contact.labelName')}</label>
                   <input
                     id="contact-name"
                     type="text"
@@ -302,7 +304,7 @@ export default function ContactPage() {
                     autoComplete="name"
                     value={formData.name}
                     onChange={handleChange}
-                    placeholder="Votre nom"
+                    placeholder={t('contact.placeholderName')}
                     aria-invalid={!!errors.name}
                     aria-describedby={errors.name ? 'error-name' : undefined}
                     className={inputClasses}
@@ -311,7 +313,7 @@ export default function ContactPage() {
                   {errors.name && <p id="error-name" role="alert" className="text-madagascar text-xs mt-1 font-body">{errors.name}</p>}
                 </div>
                 <div>
-                  <label htmlFor="contact-email" className="font-heading text-xs font-semibold text-forest mb-1.5 block">Email</label>
+                  <label htmlFor="contact-email" className="font-heading text-xs font-semibold text-forest mb-1.5 block">{t('contact.labelEmail')}</label>
                   <input
                     id="contact-email"
                     type="email"
@@ -321,7 +323,7 @@ export default function ContactPage() {
                     autoComplete="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="votre@email.com"
+                    placeholder={t('contact.placeholderEmail')}
                     aria-invalid={!!errors.email}
                     aria-describedby={errors.email ? 'error-email' : undefined}
                     className={inputClasses}
@@ -332,7 +334,7 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <label htmlFor="contact-subject" className="font-heading text-xs font-semibold text-forest mb-1.5 block">Sujet</label>
+                <label htmlFor="contact-subject" className="font-heading text-xs font-semibold text-forest mb-1.5 block">{t('contact.labelSubject')}</label>
                 <select
                   id="contact-subject"
                   name="subject"
@@ -344,17 +346,17 @@ export default function ContactPage() {
                   className={`${inputClasses} ${!formData.subject ? 'text-warm-gray/50' : ''}`}
                   style={inputStyle}
                 >
-                  <option value="" disabled>Choisir un sujet</option>
-                  <option value="Commande">Commande</option>
-                  <option value="Information produit">Information produit</option>
-                  <option value="Partenariat">Partenariat</option>
-                  <option value="Autre">Autre</option>
+                  <option value="" disabled>{t('contact.subjectDefault')}</option>
+                  <option value="Commande">{t('contact.subjectOrder')}</option>
+                  <option value="Information produit">{t('contact.subjectInfo')}</option>
+                  <option value="Partenariat">{t('contact.subjectPartnership')}</option>
+                  <option value="Autre">{t('contact.subjectOther')}</option>
                 </select>
                 {errors.subject && <p id="error-subject" role="alert" className="text-madagascar text-xs mt-1 font-body">{errors.subject}</p>}
               </div>
 
               <div>
-                <label htmlFor="contact-message" className="font-heading text-xs font-semibold text-forest mb-1.5 block">Message</label>
+                <label htmlFor="contact-message" className="font-heading text-xs font-semibold text-forest mb-1.5 block">{t('contact.labelMessage')}</label>
                 <textarea
                   id="contact-message"
                   name="message"
@@ -363,7 +365,7 @@ export default function ContactPage() {
                   maxLength={5000}
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Décrivez votre demande..."
+                  placeholder={t('contact.placeholderMessage')}
                   aria-invalid={!!errors.message}
                   aria-describedby={errors.message ? 'error-message' : undefined}
                   className={`${inputClasses} resize-none`}
@@ -374,7 +376,7 @@ export default function ContactPage() {
 
               {/* Honeypot anti-spam — accessible label for screen readers but visually hidden */}
               <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
-                <label htmlFor="contact-website">Ne pas remplir</label>
+                <label htmlFor="contact-website">{t('contact.honeypot')}</label>
                 <input type="text" id="contact-website" name="_honey" tabIndex={-1} autoComplete="off" />
               </div>
 
@@ -392,12 +394,12 @@ export default function ContactPage() {
                         <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" className="opacity-25" />
                         <path d="M4 12a8 8 0 018-8" stroke="currentColor" strokeWidth="3" strokeLinecap="round" className="opacity-75" />
                       </svg>
-                      Envoi en cours...
+                      {t('contact.submitSending')}
                     </>
                   ) : (
                     <>
                       <Send size={16} />
-                      Envoyer le message
+                      {t('contact.submitSend')}
                     </>
                   )}
                 </span>
@@ -407,7 +409,7 @@ export default function ContactPage() {
               {status === 'success' && (
                 <div role="status" className="flex items-center gap-3 bg-moss/10 text-moss px-5 py-4 font-body text-sm" style={{ borderRadius: '1rem' }}>
                   <CheckCircle size={18} className="flex-shrink-0" />
-                  Message envoyé avec succès ! Nous vous répondrons sous 24h.
+                  {t('contact.successMsg')}
                 </div>
               )}
 
@@ -415,7 +417,7 @@ export default function ContactPage() {
               {status === 'error' && (
                 <div role="status" className="flex items-center gap-3 bg-madagascar/10 text-madagascar px-5 py-4 font-body text-sm" style={{ borderRadius: '1rem' }}>
                   <AlertCircle size={18} className="flex-shrink-0" />
-                  Une erreur est survenue. Réessayez ou contactez-nous via WhatsApp.
+                  {t('contact.errorMsg')}
                 </div>
               )}
 
@@ -423,7 +425,7 @@ export default function ContactPage() {
               {status === 'rate-limited' && (
                 <div role="status" className="flex items-center gap-3 bg-madagascar/10 text-madagascar px-5 py-4 font-body text-sm" style={{ borderRadius: '1rem' }}>
                   <AlertCircle size={18} className="flex-shrink-0" />
-                  Trop de messages envoyés. Veuillez patienter quelques minutes avant de réessayer.
+                  {t('contact.rateLimitMsg')}
                 </div>
               )}
             </form>
