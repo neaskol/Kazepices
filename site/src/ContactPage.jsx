@@ -167,7 +167,7 @@ export default function ContactPage() {
     }
   }
 
-  const inputClasses = 'w-full bg-white border border-moss/20 font-body text-charcoal text-sm px-4 py-3.5 outline-none transition-all duration-300 focus:border-forest focus:ring-2 focus:ring-forest/10 placeholder:text-warm-gray/50 rounded-2xl'
+  const inputClasses = 'w-full bg-white dark:bg-charcoal dark:text-cream border border-moss/20 dark:border-white/10 font-body text-charcoal text-sm px-4 py-3.5 outline-none transition-all duration-300 focus:border-forest focus:ring-2 focus:ring-forest/10 placeholder:text-warm-gray/50 rounded-2xl'
 
   return (
     <>
@@ -215,7 +215,7 @@ export default function ContactPage() {
           {/* Left — Info (2 cols) */}
           <div className="contact-info-block lg:col-span-2">
             <span className="font-mono text-xs text-moss tracking-widest uppercase">{t('contact.infoLabel')}</span>
-            <h2 className="font-heading font-bold text-forest text-2xl md:text-3xl mt-3 tracking-tight">
+            <h2 className="font-heading font-bold text-forest dark:text-cream text-2xl md:text-3xl mt-3 tracking-tight">
               {t('contact.infoHeading')}
             </h2>
 
@@ -228,8 +228,8 @@ export default function ContactPage() {
                   <Mail size={22} className="text-forest" />
                 </div>
                 <div>
-                  <p className="font-heading font-semibold text-forest text-sm">{t('contact.infoEmail')}</p>
-                  <p className="font-body text-warm-gray text-sm">contact@kazepices.com</p>
+                  <p className="font-heading font-semibold text-forest dark:text-cream text-sm">{t('contact.infoEmail')}</p>
+                  <p className="font-body text-warm-gray dark:text-white/60 text-sm">contact@kazepices.com</p>
                 </div>
               </a>
 
@@ -243,8 +243,8 @@ export default function ContactPage() {
                   <MessageCircle size={22} className="text-[#25D366]" />
                 </div>
                 <div>
-                  <p className="font-heading font-semibold text-forest text-sm">{t('contact.infoWhatsApp')}</p>
-                  <p className="font-body text-warm-gray text-sm">{t('contact.infoWhatsAppDesc')}</p>
+                  <p className="font-heading font-semibold text-forest dark:text-cream text-sm">{t('contact.infoWhatsApp')}</p>
+                  <p className="font-body text-warm-gray dark:text-white/60 text-sm">{t('contact.infoWhatsAppDesc')}</p>
                 </div>
               </a>
 
@@ -253,8 +253,8 @@ export default function ContactPage() {
                   <MapPin size={22} className="text-madagascar" />
                 </div>
                 <div>
-                  <p className="font-heading font-semibold text-forest text-sm">{t('contact.infoLocation')}</p>
-                  <p className="font-body text-warm-gray text-sm">{t('contact.infoLocationDesc')}</p>
+                  <p className="font-heading font-semibold text-forest dark:text-cream text-sm">{t('contact.infoLocation')}</p>
+                  <p className="font-body text-warm-gray dark:text-white/60 text-sm">{t('contact.infoLocationDesc')}</p>
                 </div>
               </div>
 
@@ -263,8 +263,8 @@ export default function ContactPage() {
                   <Globe size={22} className="text-moss" />
                 </div>
                 <div>
-                  <p className="font-heading font-semibold text-forest text-sm">{t('contact.infoHours')}</p>
-                  <p className="font-body text-warm-gray text-sm">{t('contact.infoHoursDesc')}</p>
+                  <p className="font-heading font-semibold text-forest dark:text-cream text-sm">{t('contact.infoHours')}</p>
+                  <p className="font-body text-warm-gray dark:text-white/60 text-sm">{t('contact.infoHoursDesc')}</p>
                 </div>
               </div>
             </div>
@@ -283,11 +283,11 @@ export default function ContactPage() {
             <form
               onSubmit={handleSubmit}
               aria-busy={status === 'submitting'}
-              className="card-kazepices bg-cream p-8 md:p-10 flex flex-col gap-6"
+              className="card-kazepices bg-cream dark:bg-[#282828] p-8 md:p-10 flex flex-col gap-6"
             >
               <div>
-                <h3 className="font-heading font-bold text-forest text-xl">{t('contact.formHeading')}</h3>
-                <p className="font-body text-warm-gray text-sm mt-1">{t('contact.formRequired')}</p>
+                <h3 className="font-heading font-bold text-forest dark:text-cream text-xl">{t('contact.formHeading')}</h3>
+                <p className="font-body text-warm-gray dark:text-white/60 text-sm mt-1">{t('contact.formRequired')}</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

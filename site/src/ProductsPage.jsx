@@ -171,12 +171,12 @@ export default function ProductsPage() {
 
           {/* Visual breadcrumb */}
           <nav aria-label="Breadcrumb" className="mb-8">
-            <ol className="flex items-center gap-1.5 font-mono text-xs text-warm-gray">
+            <ol className="flex items-center gap-1.5 font-mono text-xs text-warm-gray dark:text-white/50">
               <li>
                 <Link to="/" className="hover:text-forest transition-colors">{t('footer.home')}</Link>
               </li>
               <li aria-hidden="true"><ChevronRight size={12} /></li>
-              <li aria-current="page" className="text-forest font-medium">{t('nav.products')}</li>
+              <li aria-current="page" className="text-forest dark:text-moss-light font-medium">{t('nav.products')}</li>
             </ol>
           </nav>
 
@@ -189,7 +189,7 @@ export default function ProductsPage() {
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t('productsPage.searchPlaceholder')}
               aria-label={t('productsPage.searchLabel')}
-              className="w-full bg-white border border-moss/20 font-body text-charcoal text-sm pl-10 pr-10 py-3 outline-none transition-all duration-300 focus:border-forest focus:ring-2 focus:ring-forest/10 placeholder:text-warm-gray/50 rounded-2xl"
+              className="w-full bg-white dark:bg-charcoal dark:text-cream border border-moss/20 dark:border-white/10 font-body text-charcoal text-sm pl-10 pr-10 py-3 outline-none transition-all duration-300 focus:border-forest focus:ring-2 focus:ring-forest/10 placeholder:text-warm-gray/50 rounded-2xl"
             />
             {searchQuery && (
               <button
@@ -211,14 +211,14 @@ export default function ProductsPage() {
                 onClick={() => setActiveCategory(cat.key)}
                 aria-pressed={activeCategory === cat.key}
                 className={`font-heading font-semibold text-sm px-5 py-2.5 transition-all duration-300 ${activeCategory === cat.key
-                    ? 'bg-forest text-white'
-                    : 'bg-forest/5 text-forest hover:bg-forest/10'
+                  ? 'bg-forest text-white'
+                  : 'bg-forest/5 dark:bg-white/5 text-forest dark:text-cream hover:bg-forest/10'
                   } rounded-4xl`}
               >
                 {cat.label}
               </button>
             ))}
-            <span className="font-mono text-xs text-warm-gray ml-auto" aria-live="polite">
+            <span className="font-mono text-xs text-warm-gray dark:text-white/50 ml-auto" aria-live="polite">
               {filtered.length} {filtered.length > 1 ? t('productsPage.productPlural') : t('productsPage.productSingular')}
             </span>
           </div>
@@ -227,15 +227,15 @@ export default function ProductsPage() {
           {filtered.length === 0 && (
             <div className="text-center py-16">
               <Search size={40} className="mx-auto text-forest/20 mb-4" />
-              <p className="font-heading font-semibold text-forest text-lg">{t('productsPage.noResults')}</p>
-              <p className="font-body text-warm-gray text-sm mt-2">{t('productsPage.noResultsHint')}</p>
+              <p className="font-heading font-semibold text-forest dark:text-cream text-lg">{t('productsPage.noResults')}</p>
+              <p className="font-body text-warm-gray dark:text-white/60 text-sm mt-2">{t('productsPage.noResultsHint')}</p>
             </div>
           )}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((product) => (
               <div
                 key={productSlug(product, 'fr')}
-                className="product-page-card card-kazepices bg-cream overflow-hidden flex flex-col group"
+                className="product-page-card card-kazepices bg-cream dark:bg-[#282828] overflow-hidden flex flex-col group"
               >
                 {/* Product image — clickable */}
                 <Link to={`${routes.products}/${productSlug(product, lang)}`} className="block">
@@ -269,9 +269,9 @@ export default function ProductsPage() {
 
                 <div className="p-6 flex flex-col flex-1">
                   <Link to={`${routes.products}/${productSlug(product, lang)}`} className="hover:text-madagascar transition-colors">
-                    <h3 className="font-heading font-bold text-forest text-xl group-hover:text-madagascar transition-colors">{pt(product.name, lang)}</h3>
+                    <h3 className="font-heading font-bold text-forest dark:text-cream text-xl group-hover:text-madagascar transition-colors">{pt(product.name, lang)}</h3>
                   </Link>
-                  <p className="font-body text-warm-gray text-sm mt-2 leading-relaxed">
+                  <p className="font-body text-warm-gray dark:text-white/60 text-sm mt-2 leading-relaxed">
                     {pt(product.description, lang)}
                   </p>
 

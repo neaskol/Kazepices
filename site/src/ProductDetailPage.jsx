@@ -79,10 +79,10 @@ export default function ProductDetailPage() {
           <Search size={28} className="text-forest/40" />
         </div>
         <span className="font-mono text-xs text-moss tracking-widest uppercase">{t('productNotFound.label')}</span>
-        <h1 className="font-heading font-extrabold text-forest text-3xl md:text-4xl mt-3 tracking-tight">
+        <h1 className="font-heading font-extrabold text-forest dark:text-cream text-3xl md:text-4xl mt-3 tracking-tight">
           {t('productNotFound.heading')}
         </h1>
-        <p className="font-body text-warm-gray text-base mt-3 max-w-md">
+        <p className="font-body text-warm-gray dark:text-white/60 text-base mt-3 max-w-md">
           {t('productNotFound.message')}
         </p>
         <Link
@@ -95,7 +95,7 @@ export default function ProductDetailPage() {
 
         {suggestions.length > 0 && (
           <div className="mt-16 w-full max-w-4xl">
-            <h2 className="font-heading font-bold text-forest text-lg mb-6">
+            <h2 className="font-heading font-bold text-forest dark:text-cream text-lg mb-6">
               {t('productNotFound.suggestionsHeading')}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -103,7 +103,7 @@ export default function ProductDetailPage() {
                 <Link
                   key={productSlug(p, 'fr')}
                   to={`${routes.products}/${productSlug(p, lang)}`}
-                  className="card-kazepices bg-cream overflow-hidden flex flex-col group text-left"
+                  className="card-kazepices bg-cream dark:bg-[#282828] overflow-hidden flex flex-col group text-left"
                 >
                   <div className={`relative h-40 bg-gradient-to-b ${p.color} to-cream flex items-center justify-center overflow-hidden`}>
                     {p.image ? (
@@ -120,7 +120,7 @@ export default function ProductDetailPage() {
                     )}
                   </div>
                   <div className="p-5">
-                    <h3 className="font-heading font-bold text-forest group-hover:text-madagascar transition-colors">{pt(p.name, lang)}</h3>
+                    <h3 className="font-heading font-bold text-forest dark:text-cream group-hover:text-madagascar transition-colors">{pt(p.name, lang)}</h3>
                     <span className="inline-flex items-center gap-1 font-heading text-xs font-semibold text-moss mt-2 group-hover:text-forest transition-colors">
                       {t('products.viewProduct')} <ArrowRight size={12} />
                     </span>
@@ -253,7 +253,7 @@ export default function ProductDetailPage() {
               {product.benefits.map((benefit, idx) => (
                 <div
                   key={idx}
-                  className="detail-benefit card-kazepices bg-cream p-8"
+                  className="detail-benefit card-kazepices bg-cream dark:bg-[#282828] p-8"
                 >
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-10 h-10 bg-forest/10 flex items-center justify-center rounded-2xl">
@@ -277,7 +277,7 @@ export default function ProductDetailPage() {
                 <span className="w-2 h-2 bg-moss rounded-full pulse-dot" />
                 <span className="w-8 h-px bg-moss/30" />
               </div>
-              <p className="font-drama italic text-forest text-2xl md:text-3xl leading-relaxed max-w-2xl mx-auto">
+              <p className="font-drama italic text-forest dark:text-cream text-2xl md:text-3xl leading-relaxed max-w-2xl mx-auto">
                 {pt(product.closing, lang)}
               </p>
             </div>
@@ -343,7 +343,7 @@ export default function ProductDetailPage() {
           <div className="max-w-6xl mx-auto">
             <div className="mb-10">
               <span className="font-mono text-xs text-moss tracking-widest uppercase">{t('productDetail.discoverLabel')}</span>
-              <h2 className="font-heading font-extrabold text-forest text-2xl md:text-3xl mt-2 tracking-tight">
+              <h2 className="font-heading font-extrabold text-forest dark:text-cream text-2xl md:text-3xl mt-2 tracking-tight">
                 {t('productDetail.otherProducts')}
               </h2>
             </div>
@@ -353,7 +353,7 @@ export default function ProductDetailPage() {
                 <Link
                   key={productSlug(p, 'fr')}
                   to={`${routes.products}/${productSlug(p, lang)}`}
-                  className="card-kazepices bg-cream overflow-hidden flex flex-col group"
+                  className="card-kazepices bg-cream dark:bg-[#282828] overflow-hidden flex flex-col group"
                 >
                   <div className={`relative h-48 bg-gradient-to-b ${p.color} to-cream flex items-center justify-center overflow-hidden`}>
                     {p.image ? (
@@ -375,8 +375,8 @@ export default function ProductDetailPage() {
                     </span>
                   </div>
                   <div className="p-6">
-                    <h3 className="font-heading font-bold text-forest text-lg group-hover:text-madagascar transition-colors">{pt(p.name, lang)}</h3>
-                    <p className="font-body text-warm-gray text-sm mt-2 leading-relaxed line-clamp-2">
+                    <h3 className="font-heading font-bold text-forest dark:text-cream text-lg group-hover:text-madagascar transition-colors">{pt(p.name, lang)}</h3>
+                    <p className="font-body text-warm-gray dark:text-white/60 text-sm mt-2 leading-relaxed line-clamp-2">
                       {pt(p.description, lang)}
                     </p>
                     <span className="inline-flex items-center gap-1 font-heading text-xs font-semibold text-moss mt-3 group-hover:text-forest transition-colors">

@@ -1,36 +1,64 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, ArrowRight } from 'lucide-react'
+import { Menu, X, ArrowRight, Sun, Moon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useLanguageRouter } from '../hooks/useLanguageRouter'
+import { useTheme } from '../context/ThemeContext'
 
 import logoImg from '../assets/logo.webp'
 
-function LanguageToggle({ scrolled, isHome, lang, switchLanguage }) {
+function LanguageToggle({ scrolled, isHome, lang, switchLanguage, isDark }) {
   return (
     <div className="flex items-center gap-1">
       <button
         onClick={() => switchLanguage('fr')}
-        className={`text-xs font-heading font-semibold px-2 py-1 rounded-full transition-colors ${
-          lang === 'fr'
-            ? (scrolled || !isHome ? 'bg-forest text-white' : 'bg-white/20 text-white')
-            : (scrolled || !isHome ? 'text-forest/50 hover:text-forest' : 'text-white/50 hover:text-white')
-        }`}
+        className={`text-xs font-heading font-semibold px-2 py-1 rounded-full transition-colors ${lang === 'fr'
+            ? (scrolled || !isHome
+              ? isDark ? 'bg-white/20 text-white' : 'bg-forest text-white'
+              : 'bg-white/20 text-white')
+            : (scrolled || !isHome
+              ? isDark ? 'text-white/50 hover:text-white' : 'text-forest/50 hover:text-forest'
+              : 'text-white/50 hover:text-white')
+          }`}
       >
         FR
       </button>
       <button
         onClick={() => switchLanguage('en')}
-        className={`text-xs font-heading font-semibold px-2 py-1 rounded-full transition-colors ${
-          lang === 'en'
-            ? (scrolled || !isHome ? 'bg-forest text-white' : 'bg-white/20 text-white')
-            : (scrolled || !isHome ? 'text-forest/50 hover:text-forest' : 'text-white/50 hover:text-white')
-        }`}
+        className={`text-xs font-heading font-semibold px-2 py-1 rounded-full transition-colors ${lang === 'en'
+            ? (scrolled || !isHome
+              ? isDark ? 'bg-white/20 text-white' : 'bg-forest text-white'
+              : 'bg-white/20 text-white')
+            : (scrolled || !isHome
+              ? isDark ? 'text-white/50 hover:text-white' : 'text-forest/50 hover:text-forest'
+              : 'text-white/50 hover:text-white')
+          }`}
       >
         EN
       </button>
     </div>
+  )
+}
+
+function ThemeToggle({ scrolled, isHome, isDark, toggleTheme }) {
+  const isLight = scrolled || !isHome
+  return (
+    <button
+      onClick={toggleTheme}
+      aria-label={isDark ? 'Activer le mode clair' : 'Activer le mode sombre'}
+      className={`p-1.5 rounded-full transition-all duration-300 hover:scale-110 ${isLight
+          ? isDark
+            ? 'text-white/70 hover:text-white hover:bg-white/10'
+            : 'text-forest/70 hover:text-forest hover:bg-forest/10'
+          : 'text-white/70 hover:text-white hover:bg-white/10'
+        }`}
+    >
+      {isDark
+        ? <Sun size={16} aria-hidden="true" />
+        : <Moon size={16} aria-hidden="true" />
+      }
+    </button>
   )
 }
 
@@ -44,6 +72,7 @@ export default function Navbar() {
   const isHome = location.pathname === '/'
   const { t } = useTranslation()
   const { lang, routes, switchLanguage } = useLanguageRouter()
+  const { isDark, toggleTheme } = useTheme()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -110,15 +139,21 @@ export default function Navbar() {
     return () => menu.removeEventListener('keydown', trapFocus)
   }, [menuOpen])
 
+  const linkColor = scrolled || !isHome
+    ? isDark ? 'text-white' : 'text-forest'
+    : 'text-white'
+
+  const navBg = scrolled || !isHome
+    ? isDark
+      ? 'bg-charcoal/90 backdrop-blur-xl border border-white/10 shadow-lg'
+      : 'bg-cream/85 backdrop-blur-xl border border-moss/20 shadow-lg'
+    : 'bg-charcoal/40 backdrop-blur-md border border-white/15'
+
   return (
     <nav
       ref={navRef}
       aria-label={t('nav.mainMenu')}
-      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-out rounded-6xl ${
-        scrolled || !isHome
-          ? 'bg-cream/85 backdrop-blur-xl border border-moss/20 shadow-lg'
-          : 'bg-charcoal/40 backdrop-blur-md border border-white/15'
-      }`}
+      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-out rounded-6xl ${navBg}`}
       style={{ padding: '0.6rem 1.2rem', maxWidth: 'calc(100vw - 2rem)' }}
     >
       <div className="flex items-center gap-3 md:gap-6">
@@ -134,25 +169,22 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-6">
           <Link
             to={routes.about}
-            className={`text-sm font-medium font-heading hover-lift transition-colors ${
-              scrolled || !isHome ? 'text-forest' : 'text-white'
-            }`}
+            className={`text-sm font-medium font-heading hover-lift transition-colors ${linkColor}`}
           >
             {t('nav.about')}
           </Link>
           <Link
             to={routes.contact}
-            className={`text-sm font-medium font-heading hover-lift transition-colors ${
-              scrolled || !isHome ? 'text-forest' : 'text-white'
-            }`}
+            className={`text-sm font-medium font-heading hover-lift transition-colors ${linkColor}`}
           >
             {t('nav.contact')}
           </Link>
         </div>
 
-        {/* Desktop language toggle */}
-        <div className="hidden md:flex">
-          <LanguageToggle scrolled={scrolled} isHome={isHome} lang={lang} switchLanguage={switchLanguage} />
+        {/* Desktop language + theme toggles */}
+        <div className="hidden md:flex items-center gap-2">
+          <LanguageToggle scrolled={scrolled} isHome={isHome} lang={lang} switchLanguage={switchLanguage} isDark={isDark} />
+          <ThemeToggle scrolled={scrolled} isHome={isHome} isDark={isDark} toggleTheme={toggleTheme} />
         </div>
 
         <Link
@@ -168,7 +200,7 @@ export default function Navbar() {
         {/* Mobile menu toggle */}
         <button
           ref={toggleRef}
-          className={`md:hidden ${scrolled || !isHome ? 'text-forest' : 'text-white'}`}
+          className={`md:hidden ${linkColor}`}
           onClick={() => setMenuOpen(!menuOpen)}
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
@@ -190,9 +222,7 @@ export default function Navbar() {
             to={routes.about}
             role="menuitem"
             onClick={() => setMenuOpen(false)}
-            className={`text-sm font-medium font-heading ${
-              scrolled || !isHome ? 'text-forest' : 'text-white'
-            }`}
+            className={`text-sm font-medium font-heading ${linkColor}`}
           >
             {t('nav.about')}
           </Link>
@@ -200,14 +230,15 @@ export default function Navbar() {
             to={routes.contact}
             role="menuitem"
             onClick={() => setMenuOpen(false)}
-            className={`text-sm font-medium font-heading ${
-              scrolled || !isHome ? 'text-forest' : 'text-white'
-            }`}
+            className={`text-sm font-medium font-heading ${linkColor}`}
           >
             {t('nav.contact')}
           </Link>
-          {/* Mobile language toggle */}
-          <LanguageToggle scrolled={scrolled} isHome={isHome} lang={lang} switchLanguage={switchLanguage} />
+          {/* Mobile language + theme toggles */}
+          <div className="flex items-center gap-3">
+            <LanguageToggle scrolled={scrolled} isHome={isHome} lang={lang} switchLanguage={switchLanguage} isDark={isDark} />
+            <ThemeToggle scrolled={scrolled} isHome={isHome} isDark={isDark} toggleTheme={toggleTheme} />
+          </div>
           <Link
             to={routes.products}
             role="menuitem"

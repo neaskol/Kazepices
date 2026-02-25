@@ -8,6 +8,7 @@ import Footer from './components/Footer'
 import WhatsAppFloat from './components/WhatsAppFloat'
 import { OrganizationSchema } from './components/StructuredData'
 import AppRouter from './AppRouter'
+import { ThemeProvider } from './context/ThemeContext'
 
 function AppContent() {
   const { t } = useTranslation()
@@ -33,9 +34,11 @@ function AppContent() {
 export default function App() {
   return (
     <ErrorBoundary>
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
+      <ThemeProvider>
+        <BrowserRouter>
+          <AppContent />
+        </BrowserRouter>
+      </ThemeProvider>
     </ErrorBoundary>
   )
 }

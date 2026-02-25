@@ -15,9 +15,9 @@ export default function NotFoundPage() {
 
   return (
     <div className="min-h-dvh flex flex-col items-center justify-center px-6 text-center py-32">
-      <span className="font-mono text-xs text-moss tracking-widest uppercase">{t('notFound.label')}</span>
-      <h1 className="font-heading font-extrabold text-forest text-6xl md:text-8xl mt-4">{t('notFound.heading')}</h1>
-      <p className="font-body text-warm-gray text-lg mt-4">{t('notFound.message')}</p>
+      <span className="font-mono text-xs text-moss dark:text-moss-light tracking-widest uppercase">{t('notFound.label')}</span>
+      <h1 className="font-heading font-extrabold text-forest dark:text-cream text-6xl md:text-8xl mt-4">{t('notFound.heading')}</h1>
+      <p className="font-body text-warm-gray dark:text-white/60 text-lg mt-4">{t('notFound.message')}</p>
 
       <Link
         to="/"
@@ -28,13 +28,13 @@ export default function NotFoundPage() {
       </Link>
 
       <div className="mt-14 w-full max-w-lg">
-        <p className="font-body text-warm-gray text-sm mb-6">{t('notFound.suggestion')}</p>
+        <p className="font-body text-warm-gray dark:text-white/60 text-sm mb-6">{t('notFound.suggestion')}</p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           {suggestions.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="inline-flex items-center gap-2 bg-forest/5 text-forest font-heading font-semibold text-sm px-5 py-3 rounded-4xl hover:bg-forest/10 transition-colors"
+              className="inline-flex items-center gap-2 bg-forest/5 dark:bg-white/5 text-forest dark:text-cream font-heading font-semibold text-sm px-5 py-3 rounded-4xl hover:bg-forest/10 transition-colors"
             >
               <item.icon size={16} />
               {item.label}

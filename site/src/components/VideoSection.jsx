@@ -113,12 +113,12 @@ export default function VideoSection() {
     <section id="video" ref={sectionRef} className="py-24 md:py-32 px-6 md:px-16 lg:px-24">
       <div className="max-w-5xl mx-auto video-content">
         <div className="text-center mb-12">
-          <span className="font-mono text-xs text-moss tracking-widest uppercase">{t('video.sectionLabel')}</span>
-          <h2 className="font-heading font-extrabold text-forest text-3xl md:text-5xl mt-3 tracking-tight">
+          <span className="font-mono text-xs text-moss dark:text-moss-light tracking-widest uppercase">{t('video.sectionLabel')}</span>
+          <h2 className="font-heading font-extrabold text-forest dark:text-cream text-3xl md:text-5xl mt-3 tracking-tight">
             {t('video.heading1')}{' '}
             <span className="font-drama italic text-madagascar">{t('video.heading2')}</span>
           </h2>
-          <p className="font-body text-warm-gray text-base mt-4 max-w-lg mx-auto leading-relaxed">
+          <p className="font-body text-warm-gray dark:text-white/60 text-base mt-4 max-w-lg mx-auto leading-relaxed">
             {t('video.description')}
           </p>
         </div>

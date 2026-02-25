@@ -27,15 +27,15 @@ function ShufflerCard() {
   }, [])
 
   return (
-    <div className="card-kazepices bg-cream p-8 flex flex-col h-full">
+    <div className="card-kazepices bg-cream dark:bg-[#282828] p-8 flex flex-col h-full">
       <div className="flex items-center gap-3 mb-2">
         <div className="w-10 h-10 rounded-full bg-moss/10 flex items-center justify-center">
           <Globe size={20} className="text-moss" />
         </div>
-        <span className="font-mono text-xs text-warm-gray">01</span>
+        <span className="font-mono text-xs text-warm-gray dark:text-white/50">01</span>
       </div>
-      <h3 className="font-heading font-bold text-forest text-xl mt-3">{t('engagements.card1Title')}</h3>
-      <p className="font-body text-warm-gray text-sm mt-2 leading-relaxed">
+      <h3 className="font-heading font-bold text-forest dark:text-cream text-xl mt-3">{t('engagements.card1Title')}</h3>
+      <p className="font-body text-warm-gray dark:text-white/60 text-sm mt-2 leading-relaxed">
         {t('engagements.card1Desc')}
       </p>
       <div className="relative mt-6 flex-1 min-h-[180px]">
@@ -93,15 +93,15 @@ function TypewriterCard() {
   }, [charIndex, currentMsg, TYPEWRITER_MESSAGES])
 
   return (
-    <div className="card-kazepices bg-cream p-8 flex flex-col h-full">
+    <div className="card-kazepices bg-cream dark:bg-[#282828] p-8 flex flex-col h-full">
       <div className="flex items-center gap-3 mb-2">
         <div className="w-10 h-10 rounded-full bg-moss/10 flex items-center justify-center">
           <Leaf size={20} className="text-moss" />
         </div>
-        <span className="font-mono text-xs text-warm-gray">02</span>
+        <span className="font-mono text-xs text-warm-gray dark:text-white/50">02</span>
       </div>
-      <h3 className="font-heading font-bold text-forest text-xl mt-3">{t('engagements.card2Title')}</h3>
-      <p className="font-body text-warm-gray text-sm mt-2 leading-relaxed">
+      <h3 className="font-heading font-bold text-forest dark:text-cream text-xl mt-3">{t('engagements.card2Title')}</h3>
+      <p className="font-body text-warm-gray dark:text-white/60 text-sm mt-2 leading-relaxed">
         {t('engagements.card2Desc')}
       </p>
       <div className="mt-6 flex-1">
@@ -109,7 +109,7 @@ function TypewriterCard() {
           <span className="w-2 h-2 bg-moss rounded-full pulse-dot" aria-hidden="true" />
           <span className="font-mono text-xs text-moss">{t('engagements.card2Live')}</span>
         </div>
-        <div className="bg-forest/5 p-4 font-mono text-xs text-forest leading-relaxed rounded-2xl" style={{ minHeight: '80px' }}>
+        <div className="bg-forest/5 dark:bg-white/5 p-4 font-mono text-xs text-forest dark:text-moss-light leading-relaxed rounded-2xl" style={{ minHeight: '80px' }}>
           {text}
           <span className="blink-cursor text-madagascar">{'\u258A'}</span>
         </div>
@@ -161,26 +161,26 @@ function SchedulerCard() {
   }, [])
 
   return (
-    <div className="card-kazepices bg-cream p-8 flex flex-col h-full">
+    <div className="card-kazepices bg-cream dark:bg-[#282828] p-8 flex flex-col h-full">
       <div className="flex items-center gap-3 mb-2">
         <div className="w-10 h-10 rounded-full bg-moss/10 flex items-center justify-center">
           <Heart size={20} className="text-moss" />
         </div>
-        <span className="font-mono text-xs text-warm-gray">03</span>
+        <span className="font-mono text-xs text-warm-gray dark:text-white/50">03</span>
       </div>
-      <h3 className="font-heading font-bold text-forest text-xl mt-3">{t('engagements.card3Title')}</h3>
-      <p className="font-body text-warm-gray text-sm mt-2 leading-relaxed">
+      <h3 className="font-heading font-bold text-forest dark:text-cream text-xl mt-3">{t('engagements.card3Title')}</h3>
+      <p className="font-body text-warm-gray dark:text-white/60 text-sm mt-2 leading-relaxed">
         {t('engagements.card3Desc')}
       </p>
       <div className="mt-6 flex-1 relative">
-        <div className="bg-forest/5 p-4 rounded-2xl">
+        <div className="bg-forest/5 dark:bg-white/5 p-4 rounded-2xl">
           <div className="flex gap-1 mb-3">
             {days.map((day, i) => (
               <div
                 key={i}
                 className={`w-9 h-9 flex items-center justify-center text-xs font-heading font-semibold transition-all duration-300 rounded-xl ${activeDay === i
                   ? 'bg-madagascar text-white'
-                  : 'bg-cream text-forest'
+                  : 'bg-cream dark:bg-white/10 text-forest dark:text-cream'
                   }`}
                 style={{
                   transform: activeDay === i ? 'scale(0.95)' : 'scale(1)',
@@ -249,8 +249,8 @@ export default function Engagements() {
     <section id="engagements" ref={sectionRef} className="py-24 md:py-32 px-6 md:px-16 lg:px-24">
       <div className="max-w-6xl mx-auto">
         <div className="engagement-title mb-16">
-          <span className="font-mono text-xs text-moss tracking-widest uppercase">{t('engagements.sectionLabel')}</span>
-          <h2 className="font-heading font-extrabold text-forest text-3xl md:text-5xl mt-3 tracking-tight">
+          <span className="font-mono text-xs text-moss dark:text-moss-light tracking-widest uppercase">{t('engagements.sectionLabel')}</span>
+          <h2 className="font-heading font-extrabold text-forest dark:text-cream text-3xl md:text-5xl mt-3 tracking-tight">
             {t('engagements.heading1')}<br />
             <span className="font-drama italic text-madagascar">{t('engagements.heading2')}</span>
           </h2>

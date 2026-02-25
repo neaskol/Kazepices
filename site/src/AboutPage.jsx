@@ -103,17 +103,17 @@ function OriginStory() {
         <div>
           <div className="origin-text">
             <span className="font-mono text-xs text-moss tracking-widest uppercase">{t('about.originLabel')}</span>
-            <h2 className="font-heading font-extrabold text-forest text-3xl md:text-4xl mt-3 tracking-tight leading-tight">
+            <h2 className="font-heading font-extrabold text-forest dark:text-cream text-3xl md:text-4xl mt-3 tracking-tight leading-tight">
               {t('about.originHeading1')}{' '}
               <span className="font-drama italic text-madagascar">{t('about.originHeading2')}</span>
             </h2>
           </div>
 
-          <p className="origin-text font-body text-warm-gray text-base mt-6 leading-relaxed">
+          <p className="origin-text font-body text-warm-gray dark:text-white/60 text-base mt-6 leading-relaxed">
             {t('about.originP1')}
           </p>
 
-          <p className="origin-text font-body text-warm-gray text-base mt-4 leading-relaxed">
+          <p className="origin-text font-body text-warm-gray dark:text-white/60 text-base mt-4 leading-relaxed">
             {t('about.originP2Start')}<span className="text-forest font-semibold">{t('about.originP2Bold')}</span>{t('about.originP2End')}
           </p>
 
@@ -144,7 +144,7 @@ function OriginStory() {
           </div>
           {/* Floating badge */}
           <div
-            className="absolute -bottom-6 -left-4 md:-left-8 bg-cream border border-moss/15 px-6 py-4 shadow-lg rounded-3xl"
+            className="absolute -bottom-6 -left-4 md:-left-8 bg-cream dark:bg-charcoal border border-moss/15 px-6 py-4 shadow-lg rounded-3xl"
           >
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-madagascar/10 flex items-center justify-center">
@@ -308,11 +308,11 @@ function SavoirFaire() {
       <div className="max-w-6xl mx-auto">
         <div className="savoir-title text-center mb-16">
           <span className="font-mono text-xs text-moss tracking-widest uppercase">{t('about.savoirLabel')}</span>
-          <h2 className="font-heading font-extrabold text-forest text-3xl md:text-5xl mt-3 tracking-tight">
+          <h2 className="font-heading font-extrabold text-forest dark:text-cream text-3xl md:text-5xl mt-3 tracking-tight">
             {t('about.savoirHeading1')}{' '}
             <span className="font-drama italic text-madagascar">{t('about.savoirHeading2')}</span>
           </h2>
-          <p className="font-body text-warm-gray text-base mt-4 max-w-xl mx-auto leading-relaxed">
+          <p className="font-body text-warm-gray dark:text-white/60 text-base mt-4 max-w-xl mx-auto leading-relaxed">
             {t('about.savoirDesc')}
           </p>
         </div>
@@ -323,7 +323,7 @@ function SavoirFaire() {
             return (
               <div
                 key={step.num}
-                className="savoir-step card-kazepices bg-cream overflow-hidden flex flex-col group"
+                className="savoir-step card-kazepices bg-cream dark:bg-[#282828] overflow-hidden flex flex-col group"
               >
                 {/* Image */}
                 <div className="relative h-52 overflow-hidden">
@@ -353,9 +353,9 @@ function SavoirFaire() {
                     <div className="w-10 h-10 rounded-full bg-moss/10 flex items-center justify-center">
                       <Icon size={20} className="text-moss" />
                     </div>
-                    <h3 className="font-heading font-bold text-forest text-lg">{step.title}</h3>
+                    <h3 className="font-heading font-bold text-forest dark:text-cream text-lg">{step.title}</h3>
                   </div>
-                  <p className="font-body text-warm-gray text-sm leading-relaxed">
+                  <p className="font-body text-warm-gray dark:text-white/60 text-sm leading-relaxed">
                     {step.description}
                   </p>
                 </div>
@@ -522,12 +522,12 @@ function BridgeSection() {
       <div className="max-w-5xl mx-auto text-center">
         <p className="bridge-line font-mono text-xs text-moss tracking-widest uppercase">{t('about.bridgeLabel')}</p>
 
-        <h2 className="bridge-line font-drama italic text-forest text-4xl md:text-6xl lg:text-7xl mt-6 leading-[1.1]">
+        <h2 className="bridge-line font-drama italic text-forest dark:text-cream text-4xl md:text-6xl lg:text-7xl mt-6 leading-[1.1]">
           {t('about.bridgeHeading1')}{' '}
           <span className="text-madagascar">{t('about.bridgeHeading2')}</span>
         </h2>
 
-        <p className="bridge-line font-body text-warm-gray text-base md:text-lg mt-8 max-w-2xl mx-auto leading-relaxed">
+        <p className="bridge-line font-body text-warm-gray dark:text-white/60 text-base md:text-lg mt-8 max-w-2xl mx-auto leading-relaxed">
           {t('about.bridgeDesc')}
         </p>
 

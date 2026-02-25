@@ -47,12 +47,12 @@ export default function Products() {
     <section id="produits" ref={sectionRef} className="py-24 md:py-32 px-6 md:px-16 lg:px-24">
       <div className="max-w-6xl mx-auto">
         <div className="product-title mb-16">
-          <span className="font-mono text-xs text-moss tracking-widest uppercase">{t('products.sectionLabel')}</span>
-          <h2 className="font-heading font-extrabold text-forest text-3xl md:text-5xl mt-3 tracking-tight">
+          <span className="font-mono text-xs text-moss dark:text-moss-light tracking-widest uppercase">{t('products.sectionLabel')}</span>
+          <h2 className="font-heading font-extrabold text-forest dark:text-cream text-3xl md:text-5xl mt-3 tracking-tight">
             {t('products.heading1')}{' '}
             <span className="font-drama italic text-madagascar">{t('products.heading2')}</span>
           </h2>
-          <p className="font-body text-warm-gray text-base mt-4 max-w-xl">
+          <p className="font-body text-warm-gray dark:text-white/60 text-base mt-4 max-w-xl">
             {t('products.description')}
           </p>
         </div>
@@ -61,7 +61,7 @@ export default function Products() {
           {products.map((product) => (
             <div
               key={productSlug(product, 'fr')}
-              className="product-card card-kazepices bg-cream overflow-hidden flex flex-col group"
+              className="product-card card-kazepices bg-cream dark:bg-[#282828] overflow-hidden flex flex-col group"
             >
               <Link to={`${routes.products}/${productSlug(product, lang)}`} className="block">
                 <div className={`relative h-48 bg-gradient-to-b ${product.color} to-cream flex items-center justify-center overflow-hidden skeleton-shimmer`}>
@@ -81,13 +81,13 @@ export default function Products() {
               </Link>
               <div className="p-6 flex flex-col flex-1">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="font-mono text-xs text-moss">{pt(product.type, lang)}</span>
-                  <span className="font-mono text-xs text-warm-gray">{pt(product.formats, lang)}</span>
+                  <span className="font-mono text-xs text-moss dark:text-moss-light">{pt(product.type, lang)}</span>
+                  <span className="font-mono text-xs text-warm-gray dark:text-white/50">{pt(product.formats, lang)}</span>
                 </div>
                 <Link to={`${routes.products}/${productSlug(product, lang)}`}>
-                  <h3 className="font-heading font-bold text-forest text-lg group-hover:text-madagascar transition-colors">{pt(product.name, lang)}</h3>
+                  <h3 className="font-heading font-bold text-forest dark:text-cream text-lg group-hover:text-madagascar transition-colors">{pt(product.name, lang)}</h3>
                 </Link>
-                <p className="font-body text-warm-gray text-sm mt-2 leading-relaxed flex-1">
+                <p className="font-body text-warm-gray dark:text-white/60 text-sm mt-2 leading-relaxed flex-1">
                   {pt(product.description, lang)}
                 </p>
                 <Link
