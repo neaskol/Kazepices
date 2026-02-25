@@ -70,11 +70,11 @@ export default function ContactCTA() {
 
         <div className="flex flex-wrap items-center justify-center gap-8 mt-12 text-sm text-warm-gray dark:text-white/60 font-body">
           <div className="flex items-center gap-2">
-            <MapPin size={16} className="text-moss" aria-hidden="true" />
+            <MapPin size={16} className="text-moss dark:text-moss-light" aria-hidden="true" />
             {t('common.madagascar')}
           </div>
           <div className="flex items-center gap-2">
-            <Globe size={16} className="text-moss" aria-hidden="true" />
+            <Globe size={16} className="text-moss dark:text-moss-light" aria-hidden="true" />
             {t('common.internationalShipping')}
           </div>
         </div>

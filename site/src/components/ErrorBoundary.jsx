@@ -23,7 +23,7 @@ export default class ErrorBoundary extends Component {
       const t = i18next.t.bind(i18next)
       return (
         <div className="min-h-dvh flex flex-col items-center justify-center px-6 text-center bg-cream">
-          <span className="font-mono text-xs text-moss tracking-widest uppercase">{t('errorBoundary.label')}</span>
+          <span className="font-mono text-xs text-moss dark:text-moss-light tracking-widest uppercase">{t('errorBoundary.label')}</span>
           <h1 className="font-heading font-extrabold text-forest text-3xl md:text-4xl mt-4 tracking-tight">
             {t('errorBoundary.heading')}
           </h1>

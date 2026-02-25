@@ -214,7 +214,7 @@ export default function ContactPage() {
 
           {/* Left — Info (2 cols) */}
           <div className="contact-info-block lg:col-span-2">
-            <span className="font-mono text-xs text-moss tracking-widest uppercase">{t('contact.infoLabel')}</span>
+            <span className="font-mono text-xs text-moss dark:text-moss-light tracking-widest uppercase">{t('contact.infoLabel')}</span>
             <h2 className="font-heading font-bold text-forest dark:text-cream text-2xl md:text-3xl mt-3 tracking-tight">
               {t('contact.infoHeading')}
             </h2>
@@ -260,7 +260,7 @@ export default function ContactPage() {
 
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 rounded-full bg-moss/10 flex items-center justify-center flex-shrink-0">
-                  <Globe size={22} className="text-moss" />
+                  <Globe size={22} className="text-moss dark:text-moss-light" />
                 </div>
                 <div>
                   <p className="font-heading font-semibold text-forest dark:text-cream text-sm">{t('contact.infoHours')}</p>
@@ -409,7 +409,7 @@ export default function ContactPage() {
 
               {/* Success message */}
               {status === 'success' && (
-                <div role="status" className="flex items-center gap-3 bg-moss/10 text-moss px-5 py-4 font-body text-sm rounded-2xl">
+                <div role="status" className="flex items-center gap-3 bg-moss/10 dark:bg-moss/20 text-moss dark:text-moss-light px-5 py-4 font-body text-sm rounded-2xl">
                   <CheckCircle size={18} className="flex-shrink-0" />
                   {t('contact.successMsg')}
                 </div>

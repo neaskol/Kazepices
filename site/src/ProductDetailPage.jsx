@@ -78,7 +78,7 @@ export default function ProductDetailPage() {
         <div className="w-16 h-16 bg-forest/10 rounded-full flex items-center justify-center mb-6">
           <Search size={28} className="text-forest/40" />
         </div>
-        <span className="font-mono text-xs text-moss tracking-widest uppercase">{t('productNotFound.label')}</span>
+        <span className="font-mono text-xs text-moss dark:text-moss-light tracking-widest uppercase">{t('productNotFound.label')}</span>
         <h1 className="font-heading font-extrabold text-forest dark:text-cream text-3xl md:text-4xl mt-3 tracking-tight">
           {t('productNotFound.heading')}
         </h1>
@@ -121,7 +121,7 @@ export default function ProductDetailPage() {
                   </div>
                   <div className="p-5">
                     <h3 className="font-heading font-bold text-forest dark:text-cream group-hover:text-madagascar transition-colors">{pt(p.name, lang)}</h3>
-                    <span className="inline-flex items-center gap-1 font-heading text-xs font-semibold text-moss mt-2 group-hover:text-forest transition-colors">
+                    <span className="inline-flex items-center gap-1 font-heading text-xs font-semibold text-moss dark:text-moss-light mt-2 group-hover:text-forest dark:group-hover:text-cream transition-colors">
                       {t('products.viewProduct')} <ArrowRight size={12} />
                     </span>
                   </div>
@@ -287,15 +287,15 @@ export default function ProductDetailPage() {
           <div className="mt-12 flex flex-wrap items-center justify-center gap-8">
             <div className="flex items-center gap-3">
               <span className="w-2 h-2 bg-moss rounded-full pulse-dot" />
-              <span className="font-mono text-xs text-moss">{t('common.provenance')}</span>
+              <span className="font-mono text-xs text-moss dark:text-moss-light">{t('common.provenance')}</span>
             </div>
             <div className="flex items-center gap-3">
               <span className="w-2 h-2 bg-moss rounded-full pulse-dot" />
-              <span className="font-mono text-xs text-moss">{t('common.natural')}</span>
+              <span className="font-mono text-xs text-moss dark:text-moss-light">{t('common.natural')}</span>
             </div>
             <div className="flex items-center gap-3">
               <span className="w-2 h-2 bg-moss rounded-full pulse-dot" />
-              <span className="font-mono text-xs text-moss">{t('common.noChemicals')}</span>
+              <span className="font-mono text-xs text-moss dark:text-moss-light">{t('common.noChemicals')}</span>
             </div>
           </div>
         </div>
@@ -342,7 +342,7 @@ export default function ProductDetailPage() {
         <section className="pb-20 md:pb-28 px-6 md:px-16 lg:px-24">
           <div className="max-w-6xl mx-auto">
             <div className="mb-10">
-              <span className="font-mono text-xs text-moss tracking-widest uppercase">{t('productDetail.discoverLabel')}</span>
+              <span className="font-mono text-xs text-moss dark:text-moss-light tracking-widest uppercase">{t('productDetail.discoverLabel')}</span>
               <h2 className="font-heading font-extrabold text-forest dark:text-cream text-2xl md:text-3xl mt-2 tracking-tight">
                 {t('productDetail.otherProducts')}
               </h2>
@@ -379,7 +379,7 @@ export default function ProductDetailPage() {
                     <p className="font-body text-warm-gray dark:text-white/60 text-sm mt-2 leading-relaxed line-clamp-2">
                       {pt(p.description, lang)}
                     </p>
-                    <span className="inline-flex items-center gap-1 font-heading text-xs font-semibold text-moss mt-3 group-hover:text-forest transition-colors">
+                    <span className="inline-flex items-center gap-1 font-heading text-xs font-semibold text-moss dark:text-moss-light mt-3 group-hover:text-forest dark:group-hover:text-cream transition-colors">
                       {t('products.viewProduct')} <ArrowRight size={12} />
                     </span>
                   </div>

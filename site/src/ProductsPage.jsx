@@ -204,7 +204,7 @@ export default function ProductsPage() {
 
           {/* Filters */}
           <div className="flex flex-wrap items-center gap-3 mb-12" role="group" aria-label={t('productsPage.filterLabel')}>
-            <Filter size={16} className="text-moss" aria-hidden="true" />
+            <Filter size={16} className="text-moss dark:text-moss-light" aria-hidden="true" />
             {categories.map((cat) => (
               <button
                 key={cat.key}
@@ -254,7 +254,7 @@ export default function ProductsPage() {
                     )}
                     {/* Badge type */}
                     <span
-                      className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-forest font-mono text-xs font-medium px-3 py-1 rounded-2xl"
+                      className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-forest dark:text-forest font-mono text-xs font-medium px-3 py-1 rounded-2xl"
                     >
                       {pt(product.type, lang)}
                     </span>
@@ -277,7 +277,7 @@ export default function ProductsPage() {
 
                   <Link
                     to={`${routes.products}/${productSlug(product, lang)}`}
-                    className="mt-3 inline-flex items-center gap-1 font-heading text-xs font-semibold text-moss hover:text-forest transition-colors"
+                    className="mt-3 inline-flex items-center gap-1 font-heading text-xs font-semibold text-moss dark:text-moss-light hover:text-forest dark:hover:text-cream transition-colors"
                   >
                     {t('products.viewProduct')} <ArrowRight size={12} />
                   </Link>

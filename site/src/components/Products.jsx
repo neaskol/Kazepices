@@ -92,7 +92,7 @@ export default function Products() {
                 </p>
                 <Link
                   to={`${routes.products}/${productSlug(product, lang)}`}
-                  className="mt-3 inline-flex items-center gap-1 font-heading text-xs font-semibold text-moss hover:text-forest transition-colors"
+                  className="mt-3 inline-flex items-center gap-1 font-heading text-xs font-semibold text-moss dark:text-moss-light hover:text-forest dark:hover:text-cream transition-colors"
                 >
                   {t('products.viewProduct')} <ArrowRight size={12} />
                 </Link>

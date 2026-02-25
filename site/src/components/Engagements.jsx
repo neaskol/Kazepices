@@ -30,7 +30,7 @@ function ShufflerCard() {
     <div className="card-kazepices bg-cream dark:bg-[#282828] p-8 flex flex-col h-full">
       <div className="flex items-center gap-3 mb-2">
         <div className="w-10 h-10 rounded-full bg-moss/10 flex items-center justify-center">
-          <Globe size={20} className="text-moss" />
+          <Globe size={20} className="text-moss dark:text-moss-light" />
         </div>
         <span className="font-mono text-xs text-warm-gray dark:text-white/50">01</span>
       </div>
@@ -96,7 +96,7 @@ function TypewriterCard() {
     <div className="card-kazepices bg-cream dark:bg-[#282828] p-8 flex flex-col h-full">
       <div className="flex items-center gap-3 mb-2">
         <div className="w-10 h-10 rounded-full bg-moss/10 flex items-center justify-center">
-          <Leaf size={20} className="text-moss" />
+          <Leaf size={20} className="text-moss dark:text-moss-light" />
         </div>
         <span className="font-mono text-xs text-warm-gray dark:text-white/50">02</span>
       </div>
@@ -107,7 +107,7 @@ function TypewriterCard() {
       <div className="mt-6 flex-1">
         <div className="flex items-center gap-2 mb-3">
           <span className="w-2 h-2 bg-moss rounded-full pulse-dot" aria-hidden="true" />
-          <span className="font-mono text-xs text-moss">{t('engagements.card2Live')}</span>
+          <span className="font-mono text-xs text-moss dark:text-moss-light">{t('engagements.card2Live')}</span>
         </div>
         <div className="bg-forest/5 dark:bg-white/5 p-4 font-mono text-xs text-forest dark:text-moss-light leading-relaxed rounded-2xl" style={{ minHeight: '80px' }}>
           {text}
@@ -164,7 +164,7 @@ function SchedulerCard() {
     <div className="card-kazepices bg-cream dark:bg-[#282828] p-8 flex flex-col h-full">
       <div className="flex items-center gap-3 mb-2">
         <div className="w-10 h-10 rounded-full bg-moss/10 flex items-center justify-center">
-          <Heart size={20} className="text-moss" />
+          <Heart size={20} className="text-moss dark:text-moss-light" />
         </div>
         <span className="font-mono text-xs text-warm-gray dark:text-white/50">03</span>
       </div>
