@@ -2,6 +2,8 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { useLanguageRouter } from './hooks/useLanguageRouter'
 import usePageMeta from './hooks/usePageMeta'
 import { BreadcrumbSchema } from './components/StructuredData'
 import { ArrowLeft, ArrowRight, Globe, Leaf, Heart, Package, Users, Sprout, HandHeart, Award, MapPin, MessageCircle, Quote } from 'lucide-react'
@@ -13,6 +15,7 @@ gsap.registerPlugin(ScrollTrigger)
 /* ─── HERO ─── */
 function AboutHero() {
   const heroRef = useRef(null)
+  const { t } = useTranslation()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -45,18 +48,16 @@ function AboutHero() {
           style={{ borderRadius: '2rem' }}
         >
           <ArrowLeft size={14} />
-          Retour à l'accueil
+          {t('about.heroBackLink', 'Retour à l\'accueil')}
         </Link>
 
         <h1 className="about-hero-title font-heading font-extrabold text-white text-4xl md:text-6xl tracking-tight leading-[1.1]">
-          Notre histoire &{' '}
-          <span className="font-drama italic text-madagascar-light">nos engagements.</span>
+          {t('about.heroHeading1')}{' '}
+          <span className="font-drama italic text-madagascar-light">{t('about.heroHeading2')}</span>
         </h1>
 
         <p className="about-hero-desc font-body text-white/70 text-base md:text-lg mt-6 max-w-2xl mx-auto leading-relaxed">
-          Née au coeur de Madagascar, Kazépices est bien plus qu'une marque d'épices.
-          C'est une mission : offrir des produits naturels d'exception, tout en respectant
-          l'homme et l'environnement.
+          {t('about.heroDesc')}
         </p>
       </div>
     </section>
@@ -66,6 +67,7 @@ function AboutHero() {
 /* ─── ORIGIN STORY ─── */
 function OriginStory() {
   const sectionRef = useRef(null)
+  const { t } = useTranslation()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -101,29 +103,25 @@ function OriginStory() {
         {/* Left: Text */}
         <div>
           <div className="origin-text">
-            <span className="font-mono text-xs text-moss tracking-widest uppercase">Notre origine</span>
+            <span className="font-mono text-xs text-moss tracking-widest uppercase">{t('about.originLabel')}</span>
             <h2 className="font-heading font-extrabold text-forest text-3xl md:text-4xl mt-3 tracking-tight leading-tight">
-              Une île, une vision,{' '}
-              <span className="font-drama italic text-madagascar">une passion.</span>
+              {t('about.originHeading1')}{' '}
+              <span className="font-drama italic text-madagascar">{t('about.originHeading2')}</span>
             </h2>
           </div>
 
           <p className="origin-text font-body text-warm-gray text-base mt-6 leading-relaxed">
-            Et si le secret d'une meilleure santé se trouvait au coeur de l'une des îles les plus riches de la planète ?
-            C'est de cette conviction qu'est née Kazépices Madagascar — une marque qui a fait de cette idée une véritable mission.
+            {t('about.originP1')}
           </p>
 
           <p className="origin-text font-body text-warm-gray text-base mt-4 leading-relaxed">
-            Au coeur de Kazépices, il y a cette mission claire et nette : <span className="text-forest font-semibold">offrir des produits naturels
-              de haute qualité</span>, tout en respectant l'homme et l'environnement. La marque nous prouve qu'on peut parfaitement
-            avoir les deux : des produits exceptionnels cultivés dans le plus grand respect de ceux qui les font pousser
-            et de la terre qui les nourrit.
+            {t('about.originP2Start')}<span className="text-forest font-semibold">{t('about.originP2Bold')}</span>{t('about.originP2End')}
           </p>
 
           <div className="origin-text flex items-center gap-4 mt-8">
             <div className="w-px h-12 bg-madagascar/30" />
             <p className="font-drama italic text-madagascar text-lg md:text-xl leading-relaxed">
-              « À Madagascar, une île riche en ressources naturelles, est née une marque engagée. »
+              {t('about.originQuote')}
             </p>
           </div>
         </div>
@@ -138,7 +136,7 @@ function OriginStory() {
                 https://images.unsplash.com/photo-1564198729838-cb82ee0c733c?w=800&q=85 800w,
                 https://images.unsplash.com/photo-1564198729838-cb82ee0c733c?w=1200&q=85 1200w"
               sizes="(max-width: 768px) 100vw, 50vw"
-              alt="Avenue des Baobabs, Madagascar"
+              alt={t('about.originImageAlt')}
               loading="lazy"
               crossOrigin="anonymous"
               referrerPolicy="no-referrer"
@@ -155,8 +153,8 @@ function OriginStory() {
                 <MapPin size={18} className="text-madagascar" />
               </div>
               <div>
-                <p className="font-heading font-bold text-forest text-sm">Madagascar</p>
-                <p className="font-mono text-xs text-warm-gray">Biodiversité unique au monde</p>
+                <p className="font-heading font-bold text-forest text-sm">{t('about.originBadgeTitle')}</p>
+                <p className="font-mono text-xs text-warm-gray">{t('about.originBadgeDesc')}</p>
               </div>
             </div>
           </div>
@@ -169,6 +167,7 @@ function OriginStory() {
 /* ─── FOUNDER ─── */
 function Founder() {
   const sectionRef = useRef(null)
+  const { t } = useTranslation()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -209,7 +208,7 @@ function Founder() {
               >
                 <img
                   src={ikbalImg}
-                  alt="Ikbal Charifou — Fondateur de Kazépices Madagascar"
+                  alt={t('about.founderImageAlt')}
                   loading="lazy"
                   className="w-full object-cover"
                 />
@@ -225,30 +224,26 @@ function Founder() {
           {/* Right: text */}
           <div className="lg:col-span-3">
             <div className="founder-content">
-              <span className="font-mono text-xs text-moss-light tracking-widest uppercase">Le fondateur</span>
+              <span className="font-mono text-xs text-moss-light tracking-widest uppercase">{t('about.founderLabel')}</span>
               <h2 className="font-heading font-extrabold text-white text-3xl md:text-4xl mt-3 tracking-tight leading-tight">
-                La passion d'
-                <span className="font-drama italic text-madagascar-light">Ikbal Charifou.</span>
+                {t('about.founderHeading1')}
+                <span className="font-drama italic text-madagascar-light">{t('about.founderHeading2')}</span>
               </h2>
             </div>
 
             <p className="founder-content font-body text-white/70 text-base mt-6 leading-relaxed">
-              Derrière chaque belle initiative, il y a toujours une histoire humaine, une passion.
-              Ikbal Charifou n'est pas qu'un entrepreneur — c'est avant tout un passionné. Intimement
-              convaincu que la nature recèle des trésors pour notre bien-être, son engagement est de
-              nous rendre ces trésors accessibles de la manière la plus pure et la plus juste possible.
+              {t('about.founderDesc')}
             </p>
 
             <div className="founder-content mt-8 flex items-start gap-4 bg-white/5 backdrop-blur-sm border border-white/10 p-6" style={{ borderRadius: '1.5rem' }}>
               <Quote size={24} className="text-madagascar-light flex-shrink-0 mt-1" />
               <p className="font-drama italic text-white/80 text-lg leading-relaxed">
-                La nature nous offre ses trésors. Notre mission est de les rendre accessibles
-                de la manière la plus pure et la plus juste possible.
+                {t('about.founderQuote')}
               </p>
             </div>
 
             <p className="founder-content font-mono text-xs text-white/60 mt-6">
-              — Ikbal Charifou, Fondateur de Kazépices Madagascar
+              {t('about.founderAttribution')}
             </p>
           </div>
         </div>
@@ -260,27 +255,28 @@ function Founder() {
 /* ─── PROCESS / SAVOIR-FAIRE ─── */
 function SavoirFaire() {
   const sectionRef = useRef(null)
+  const { t } = useTranslation()
 
   const steps = [
     {
       num: '01',
       icon: Sprout,
-      title: 'Culture Locale',
-      description: 'Tout est cultivé par des agriculteurs locaux, soutenant directement les communautés sur place. Nos partenaires perpétuent un savoir-faire transmis de génération en génération.',
+      title: t('about.savoirStep1'),
+      description: t('about.savoirStep1Desc'),
       image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600&q=85',
     },
     {
       num: '02',
       icon: HandHeart,
-      title: 'Récolte Artisanale',
-      description: 'La récolte est faite de manière artisanale, ce qui préserve la qualité et les traditions. Chaque épice est cueillie au moment optimal de maturité, à la main.',
+      title: t('about.savoirStep2'),
+      description: t('about.savoirStep2Desc'),
       image: 'https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=600&q=85',
     },
     {
       num: '03',
       icon: Leaf,
-      title: 'Éco-responsable',
-      description: 'Produit dans le respect de l\'environnement, chaque étape est pensée pour minimiser l\'impact écologique. Zéro produits chimiques, séchage naturel au soleil.',
+      title: t('about.savoirStep3'),
+      description: t('about.savoirStep3Desc'),
       image: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600&q=85',
     },
   ]
@@ -316,13 +312,13 @@ function SavoirFaire() {
     <section ref={sectionRef} className="py-24 md:py-32 px-6 md:px-16 lg:px-24">
       <div className="max-w-6xl mx-auto">
         <div className="savoir-title text-center mb-16">
-          <span className="font-mono text-xs text-moss tracking-widest uppercase">Notre savoir-faire</span>
+          <span className="font-mono text-xs text-moss tracking-widest uppercase">{t('about.savoirLabel')}</span>
           <h2 className="font-heading font-extrabold text-forest text-3xl md:text-5xl mt-3 tracking-tight">
-            La terre et{' '}
-            <span className="font-drama italic text-madagascar">les mains.</span>
+            {t('about.savoirHeading1')}{' '}
+            <span className="font-drama italic text-madagascar">{t('about.savoirHeading2')}</span>
           </h2>
           <p className="font-body text-warm-gray text-base mt-4 max-w-xl mx-auto leading-relaxed">
-            Un cercle vertueux où tout le monde est gagnant — de la terre de Madagascar à votre table.
+            {t('about.savoirDesc')}
           </p>
         </div>
 
@@ -380,45 +376,46 @@ function SavoirFaire() {
 /* ─── ENGAGEMENTS / 4 PILLARS ─── */
 function Engagements() {
   const sectionRef = useRef(null)
+  const { t } = useTranslation()
 
   const pillars = [
     {
       icon: Users,
-      emoji: '🤝',
-      title: 'Impact Local',
-      description: 'Création d\'emplois et travail direct avec les agriculteurs malgaches. Nous soutenons les communautés locales et participons au développement économique de Madagascar.',
-      stat: '100+',
-      statLabel: 'Agriculteurs partenaires',
+      emoji: '\u{1F91D}',
+      title: t('about.pillar1Title'),
+      description: t('about.pillar1Desc'),
+      stat: t('about.pillar1Stat'),
+      statLabel: t('about.pillar1StatLabel'),
       color: 'bg-forest/10',
       iconColor: 'text-forest',
     },
     {
       icon: Globe,
-      emoji: '🌍',
-      title: 'Environnement',
-      description: 'Protection de la biodiversité et valorisation durable des ressources naturelles. Zéro produits chimiques, emballages recyclables et reforestation active.',
-      stat: '0',
-      statLabel: 'Produits chimiques',
+      emoji: '\u{1F30D}',
+      title: t('about.pillar2Title'),
+      description: t('about.pillar2Desc'),
+      stat: t('about.pillar2Stat'),
+      statLabel: t('about.pillar2StatLabel'),
       color: 'bg-moss/10',
       iconColor: 'text-moss',
     },
     {
       icon: Heart,
-      emoji: '❤️',
-      title: 'Santé',
-      description: 'Promotion des vertus naturelles des plantes malgaches. Chaque produit est sélectionné pour ses bienfaits sur la santé et le bien-être au quotidien.',
-      stat: '100%',
-      statLabel: 'Naturel & pur',
+      emoji: '\u{2764}\u{FE0F}',
+      title: t('about.pillar3Title'),
+      description: t('about.pillar3Desc'),
+      stat: t('about.pillar3Stat'),
+      statLabel: t('about.pillar3StatLabel'),
       color: 'bg-madagascar/10',
       iconColor: 'text-madagascar',
     },
     {
       icon: Award,
-      emoji: '📦',
-      title: 'Qualité',
-      description: 'Savoir-faire artisanal et emballage esthétique et professionnel. Reconnu à Paris pour l\'excellence de nos produits et notre attention aux détails.',
-      stat: 'Paris',
-      statLabel: 'Reconnu à l\'international',
+      emoji: '\u{1F4E6}',
+      title: t('about.pillar4Title'),
+      description: t('about.pillar4Desc'),
+      stat: t('about.pillar4Stat'),
+      statLabel: t('about.pillar4StatLabel'),
       color: 'bg-forest/10',
       iconColor: 'text-forest',
     },
@@ -455,14 +452,13 @@ function Engagements() {
     <section ref={sectionRef} className="py-24 md:py-32 px-6 md:px-16 lg:px-24 bg-charcoal section-round mx-4 md:mx-8">
       <div className="max-w-6xl mx-auto">
         <div className="engagements-title text-center mb-16">
-          <span className="font-mono text-xs text-moss-light tracking-widest uppercase">Nos 4 piliers</span>
+          <span className="font-mono text-xs text-moss-light tracking-widest uppercase">{t('about.pillarsLabel')}</span>
           <h2 className="font-heading font-extrabold text-white text-3xl md:text-5xl mt-3 tracking-tight">
-            Des engagements{' '}
-            <span className="font-drama italic text-madagascar-light">concrets.</span>
+            {t('about.pillarsHeading1')}{' '}
+            <span className="font-drama italic text-madagascar-light">{t('about.pillarsHeading2')}</span>
           </h2>
           <p className="font-body text-white/70 text-base mt-4 max-w-xl mx-auto leading-relaxed">
-            Ces quatre piliers ne sont pas juste des mots — c'est un engagement total et cohérent
-            qui guide chacune de nos actions.
+            {t('about.pillarsDesc')}
           </p>
         </div>
 
@@ -508,6 +504,7 @@ function Engagements() {
 /* ─── BRIDGE TO THE WORLD ─── */
 function BridgeSection() {
   const sectionRef = useRef(null)
+  const { t } = useTranslation()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -529,28 +526,26 @@ function BridgeSection() {
   return (
     <section ref={sectionRef} className="py-28 md:py-36 px-6 md:px-16 lg:px-24">
       <div className="max-w-5xl mx-auto text-center">
-        <p className="bridge-line font-mono text-xs text-moss tracking-widest uppercase">Un pont vers le monde</p>
+        <p className="bridge-line font-mono text-xs text-moss tracking-widest uppercase">{t('about.bridgeLabel')}</p>
 
         <h2 className="bridge-line font-drama italic text-forest text-4xl md:text-6xl lg:text-7xl mt-6 leading-[1.1]">
-          « C'est plus qu'une marque.{' '}
-          <span className="text-madagascar">C'est un pont entre Madagascar et le monde. »</span>
+          {t('about.bridgeHeading1')}{' '}
+          <span className="text-madagascar">{t('about.bridgeHeading2')}</span>
         </h2>
 
         <p className="bridge-line font-body text-warm-gray text-base md:text-lg mt-8 max-w-2xl mx-auto leading-relaxed">
-          Kazépices connecte les richesses d'une terre, le travail de ses habitants et les consommateurs
-          du monde entier en quête de sens et de bien-être. De Madagascar à Paris, notre histoire continue
-          de s'écrire — une invitation à se reconnecter à l'essentiel et à faire confiance à la nature.
+          {t('about.bridgeDesc')}
         </p>
 
         {/* Visual bridge — decorative element */}
         <div className="bridge-line flex items-center justify-center gap-6 mt-12">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 bg-moss rounded-full pulse-dot" />
-            <span className="font-mono text-xs text-moss">Madagascar</span>
+            <span className="font-mono text-xs text-moss">{t('about.bridgeFrom')}</span>
           </div>
           <div className="w-32 md:w-48 h-px bg-gradient-to-r from-moss via-madagascar to-forest" />
           <div className="flex items-center gap-2">
-            <span className="font-mono text-xs text-forest">Le monde</span>
+            <span className="font-mono text-xs text-forest">{t('about.bridgeTo')}</span>
             <div className="w-3 h-3 bg-forest rounded-full pulse-dot" />
           </div>
         </div>
@@ -562,6 +557,8 @@ function BridgeSection() {
 /* ─── CTA BOTTOM ─── */
 function AboutCTA() {
   const sectionRef = useRef(null)
+  const { t } = useTranslation()
+  const { routes } = useLanguageRouter()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -582,33 +579,33 @@ function AboutCTA() {
   return (
     <section ref={sectionRef} className="pb-20 md:pb-28 px-6 md:px-16 lg:px-24">
       <div className="about-cta-content max-w-4xl mx-auto bg-forest section-round p-10 md:p-16 text-center">
-        <span className="font-mono text-xs text-moss-light tracking-widest uppercase">Découvrir</span>
+        <span className="font-mono text-xs text-moss-light tracking-widest uppercase">{t('about.ctaLabel')}</span>
         <h2 className="font-heading font-extrabold text-white text-2xl md:text-4xl mt-3 tracking-tight">
-          Prêt à goûter à l'
-          <span className="font-drama italic text-madagascar-light">excellence malgache ?</span>
+          {t('about.ctaHeading1')}
+          <span className="font-drama italic text-madagascar-light">{t('about.ctaHeading2')}</span>
         </h2>
         <p className="font-body text-white/70 text-sm md:text-base mt-4 max-w-lg mx-auto leading-relaxed">
-          Découvrez nos produits 100% naturels ou contactez-nous pour en savoir plus sur notre démarche.
+          {t('about.ctaDesc')}
         </p>
         <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
           <Link
-            to="/produits"
+            to={routes.products}
             className="btn-magnetic inline-flex items-center gap-2 bg-madagascar text-white font-heading font-semibold px-7 py-3.5 text-sm"
             style={{ borderRadius: '2rem' }}
           >
             <span className="btn-bg bg-madagascar-light" style={{ borderRadius: '2rem' }} />
             <span className="relative z-10 flex items-center gap-2">
-              Nos produits <ArrowRight size={16} />
+              {t('about.ctaProducts')} <ArrowRight size={16} />
             </span>
           </Link>
           <Link
-            to="/contact"
+            to={routes.contact}
             className="btn-magnetic inline-flex items-center gap-2 border border-white/30 text-white font-heading font-medium px-6 py-3.5 text-sm bg-white/5 backdrop-blur-sm"
             style={{ borderRadius: '2rem' }}
           >
             <span className="relative z-10 flex items-center gap-2">
               <MessageCircle size={16} />
-              Nous contacter
+              {t('about.ctaContact')}
             </span>
           </Link>
         </div>
@@ -619,10 +616,13 @@ function AboutCTA() {
 
 /* ─── MAIN PAGE ─── */
 export default function AboutPage() {
+  const { t } = useTranslation()
+  const { routes } = useLanguageRouter()
+
   usePageMeta({
-    title: 'Notre Histoire & Engagements — Kazépices Madagascar',
-    description: 'Fondée par Ikbal Charifou, Kazépices valorise les richesses naturelles de Madagascar. Découvrez notre mission, nos engagements et notre savoir-faire.',
-    canonicalPath: '/a-propos',
+    title: t('about.title'),
+    description: t('about.metaDesc'),
+    canonicalPath: routes.about,
   })
 
   return (
