@@ -204,14 +204,14 @@ function Founder() {
           <div className="founder-content lg:col-span-2 flex justify-center">
             <div className="relative">
               <div
-                className="w-56 h-56 md:w-64 md:h-64 bg-white/10 backdrop-blur-sm border-2 border-white/20 flex items-center justify-center overflow-hidden"
+                className="w-72 h-72 md:w-80 md:h-80 bg-white/10 backdrop-blur-sm border-2 border-white/20 flex items-center justify-center overflow-hidden"
                 style={{ borderRadius: '2.5rem' }}
               >
                 <img
                   src={ikbalImg}
                   alt="Ikbal Charifou — Fondateur de Kazépices Madagascar"
                   loading="lazy"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-top"
                 />
               </div>
               {/* Decorative ring */}
