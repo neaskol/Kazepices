@@ -1,3 +1,5 @@
+import i18n from '../i18n'
+
 function JsonLd({ data }) {
   return (
     <script
@@ -8,6 +10,7 @@ function JsonLd({ data }) {
 }
 
 export function OrganizationSchema() {
+  const lang = i18n.language?.startsWith('fr') ? 'fr' : 'en'
   const data = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -40,7 +43,7 @@ export function OrganizationSchema() {
           '@type': 'ContactPoint',
           email: 'contact@kazepices.com',
           contactType: 'customer service',
-          availableLanguage: ['French'],
+          availableLanguage: ['French', 'English'],
         },
         sameAs: [],
       },
@@ -52,7 +55,7 @@ export function OrganizationSchema() {
         publisher: {
           '@id': 'https://kazepices.com/#organization',
         },
-        inLanguage: 'fr-FR',
+        inLanguage: lang === 'fr' ? 'fr-FR' : 'en-US',
       },
     ],
   }

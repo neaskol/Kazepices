@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import i18n from '../i18n'
 
 const BASE_URL = 'https://kazepices.com'
 const DEFAULT_OG_IMAGE = `${BASE_URL}/og-image.jpg`
@@ -35,6 +36,7 @@ export default function usePageMeta({
     document.title = title
 
     const canonicalUrl = `${BASE_URL}${canonicalPath}`
+    const lang = i18n.language?.startsWith('fr') ? 'fr' : 'en'
 
     // Meta description
     setMeta('name', 'description', description)
@@ -45,7 +47,7 @@ export default function usePageMeta({
     setMeta('property', 'og:image', ogImage)
     setMeta('property', 'og:url', canonicalUrl)
     setMeta('property', 'og:type', ogType)
-    setMeta('property', 'og:locale', 'fr_FR')
+    setMeta('property', 'og:locale', lang === 'fr' ? 'fr_FR' : 'en_US')
     setMeta('property', 'og:site_name', SITE_NAME)
 
     // Twitter Card
