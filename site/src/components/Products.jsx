@@ -6,8 +6,7 @@ import { Package, MessageCircle, ArrowRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useLanguageRouter } from '../hooks/useLanguageRouter'
 
-import products from '../data/products'
-import { pt } from '../data/products'
+import products, { pt, productSlug } from '../data/products'
 import { whatsappUrl } from '../data/config'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -61,10 +60,10 @@ export default function Products() {
         <div className="product-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => (
             <div
-              key={product.slug}
+              key={productSlug(product, 'fr')}
               className="product-card card-kazepices bg-cream overflow-hidden flex flex-col group"
             >
-              <Link to={`${routes.products}/${product.slug}`} className="block">
+              <Link to={`${routes.products}/${productSlug(product, lang)}`} className="block">
                 <div className={`relative h-48 bg-gradient-to-b ${product.color} to-cream flex items-center justify-center overflow-hidden`}>
                   {product.image ? (
                     <img
@@ -83,14 +82,14 @@ export default function Products() {
                   <span className="font-mono text-xs text-moss">{pt(product.type, lang)}</span>
                   <span className="font-mono text-xs text-warm-gray">{pt(product.formats, lang)}</span>
                 </div>
-                <Link to={`${routes.products}/${product.slug}`}>
+                <Link to={`${routes.products}/${productSlug(product, lang)}`}>
                   <h3 className="font-heading font-bold text-forest text-lg group-hover:text-madagascar transition-colors">{pt(product.name, lang)}</h3>
                 </Link>
                 <p className="font-body text-warm-gray text-sm mt-2 leading-relaxed flex-1">
                   {pt(product.description, lang)}
                 </p>
                 <Link
-                  to={`${routes.products}/${product.slug}`}
+                  to={`${routes.products}/${productSlug(product, lang)}`}
                   className="mt-3 inline-flex items-center gap-1 font-heading text-xs font-semibold text-moss hover:text-forest transition-colors"
                 >
                   {t('products.viewProduct')} <ArrowRight size={12} />

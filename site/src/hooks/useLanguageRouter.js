@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useCallback } from 'react'
+import { findProductBySlug, productSlug } from '../data/products'
 
 const ROUTE_MAP = {
   fr: {
@@ -37,6 +38,14 @@ export function useLanguageRouter() {
       }
       if (currentPath.startsWith(fromPath + '/')) {
         const slug = currentPath.slice(fromPath.length + 1)
+        // Translate product slug to target language
+        if (key === 'products') {
+          const product = findProductBySlug(slug)
+          if (product) {
+            newPath = toRoutes[key] + '/' + productSlug(product, newLang)
+            break
+          }
+        }
         newPath = toRoutes[key] + '/' + slug
         break
       }

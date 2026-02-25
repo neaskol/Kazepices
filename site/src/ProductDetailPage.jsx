@@ -8,7 +8,7 @@ import { useLanguageRouter } from './hooks/useLanguageRouter'
 import { BreadcrumbSchema } from './components/StructuredData'
 import { ArrowLeft, MessageCircle, Mail, ArrowRight, Leaf, Package } from 'lucide-react'
 
-import products, { pt } from './data/products'
+import products, { pt, productSlug, findProductBySlug } from './data/products'
 import { whatsappUrl } from './data/config'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -17,7 +17,7 @@ export default function ProductDetailPage() {
   const { t } = useTranslation()
   const { lang, routes } = useLanguageRouter()
   const { slug } = useParams()
-  const product = products.find((p) => p.slug === slug)
+  const product = findProductBySlug(slug)
   const heroRef = useRef(null)
   const contentRef = useRef(null)
 
@@ -26,7 +26,7 @@ export default function ProductDetailPage() {
       ? t('productDetail.titleFound', { name: pt(product.name, lang) })
       : t('productDetail.titleNotFound'),
     description: product ? pt(product.description, lang) : '',
-    canonicalPath: product ? `${routes.products}/${product.slug}` : routes.products,
+    canonicalPath: product ? `${routes.products}/${productSlug(product, lang)}` : routes.products,
   })
 
   useEffect(() => {
@@ -76,7 +76,7 @@ export default function ProductDetailPage() {
 
   // Find related products (same category, exclude current)
   const related = products
-    .filter((p) => p.slug !== product.slug)
+    .filter((p) => productSlug(p, 'fr') !== productSlug(product, 'fr'))
     .slice(0, 3)
 
   return (
@@ -84,7 +84,7 @@ export default function ProductDetailPage() {
       <BreadcrumbSchema items={[
         { name: t('footer.home'), url: 'https://kazepices.com/' },
         { name: t('nav.products'), url: `https://kazepices.com${routes.products}` },
-        { name: pt(product.name, lang), url: `https://kazepices.com${routes.products}/${product.slug}` },
+        { name: pt(product.name, lang), url: `https://kazepices.com${routes.products}/${productSlug(product, lang)}` },
       ]} />
 
       {/* Hero section with product image */}
@@ -279,8 +279,8 @@ export default function ProductDetailPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {related.map((p) => (
                 <Link
-                  key={p.slug}
-                  to={`${routes.products}/${p.slug}`}
+                  key={productSlug(p, 'fr')}
+                  to={`${routes.products}/${productSlug(p, lang)}`}
                   className="card-kazepices bg-cream overflow-hidden flex flex-col group"
                 >
                   <div className={`relative h-48 bg-gradient-to-b ${p.color} to-cream flex items-center justify-center overflow-hidden`}>

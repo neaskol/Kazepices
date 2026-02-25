@@ -9,7 +9,7 @@ const products = [
   /* ───────────────── Moringa ───────────────── */
   {
     name: { fr: 'Moringa', en: 'Moringa' },
-    slug: 'moringa',
+    slug: { fr: 'moringa', en: 'moringa' },
     type: { fr: 'Poudre', en: 'Powder' },
     formats: { fr: '100g, 200g', en: '100g, 200g' },
     description: {
@@ -70,7 +70,7 @@ const products = [
   /* ───────────────── Poivre Noir ───────────────── */
   {
     name: { fr: 'Poivre Noir', en: 'Black Pepper' },
-    slug: 'poivre-noir',
+    slug: { fr: 'poivre-noir', en: 'black-pepper' },
     type: { fr: 'Poudre', en: 'Powder' },
     formats: { fr: '100g, 200g', en: '100g, 200g' },
     description: {
@@ -131,7 +131,7 @@ const products = [
   /* ───────────────── Gingembre ───────────────── */
   {
     name: { fr: 'Gingembre', en: 'Ginger' },
-    slug: 'gingembre',
+    slug: { fr: 'gingembre', en: 'ginger' },
     type: { fr: 'Poudre', en: 'Powder' },
     formats: { fr: '100g, 200g', en: '100g, 200g' },
     description: {
@@ -192,7 +192,7 @@ const products = [
   /* ───────────────── Cannelle ───────────────── */
   {
     name: { fr: 'Cannelle', en: 'Cinnamon' },
-    slug: 'cannelle',
+    slug: { fr: 'cannelle', en: 'cinnamon' },
     type: { fr: 'Poudre', en: 'Powder' },
     formats: { fr: '100g, 200g', en: '100g, 200g' },
     description: {
@@ -253,7 +253,7 @@ const products = [
   /* ───────────────── Cacao ───────────────── */
   {
     name: { fr: 'Cacao', en: 'Cocoa' },
-    slug: 'cacao',
+    slug: { fr: 'cacao', en: 'cocoa' },
     type: { fr: 'Poudre', en: 'Powder' },
     formats: { fr: '100g, 200g', en: '100g, 200g' },
     description: {
@@ -314,7 +314,7 @@ const products = [
   /* ───────────────── Noix de Cajou ───────────────── */
   {
     name: { fr: 'Noix de Cajou', en: 'Cashew Nuts' },
-    slug: 'noix-de-cajou',
+    slug: { fr: 'noix-de-cajou', en: 'cashew-nuts' },
     type: { fr: 'Fruit sec', en: 'Dried fruit' },
     formats: { fr: '100g, 250g', en: '100g, 250g' },
     description: {
@@ -383,4 +383,24 @@ export function pt(field, lang) {
   if (!field) return ''
   if (typeof field === 'string') return field
   return field[lang] || field.en || field.fr || ''
+}
+
+/**
+ * Get the slug for a product in the given language.
+ * Usage: productSlug(product, 'en') → "black-pepper"
+ */
+export function productSlug(product, lang) {
+  if (typeof product.slug === 'string') return product.slug
+  return product.slug[lang] || product.slug.fr
+}
+
+/**
+ * Find a product by its slug (matches either language).
+ * Usage: findProductBySlug('black-pepper') → product object
+ */
+export function findProductBySlug(slug) {
+  return products.find((p) => {
+    if (typeof p.slug === 'string') return p.slug === slug
+    return p.slug.fr === slug || p.slug.en === slug
+  })
 }

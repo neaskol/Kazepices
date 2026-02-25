@@ -8,7 +8,7 @@ import { useLanguageRouter } from './hooks/useLanguageRouter'
 import { ProductListSchema, BreadcrumbSchema } from './components/StructuredData'
 import { ArrowLeft, MessageCircle, Package, Filter, ArrowRight } from 'lucide-react'
 
-import products, { pt } from './data/products'
+import products, { pt, productSlug } from './data/products'
 import { whatsappUrl } from './data/config'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -170,11 +170,11 @@ export default function ProductsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((product) => (
               <div
-                key={product.slug}
+                key={productSlug(product, 'fr')}
                 className="product-page-card card-kazepices bg-cream overflow-hidden flex flex-col group"
               >
                 {/* Product image — clickable */}
-                <Link to={`${routes.products}/${product.slug}`} className="block">
+                <Link to={`${routes.products}/${productSlug(product, lang)}`} className="block">
                   <div className={`relative h-56 bg-gradient-to-b ${product.color} to-cream flex items-center justify-center overflow-hidden`}>
                     {product.image ? (
                       <img
@@ -204,7 +204,7 @@ export default function ProductsPage() {
                 </Link>
 
                 <div className="p-6 flex flex-col flex-1">
-                  <Link to={`${routes.products}/${product.slug}`} className="hover:text-madagascar transition-colors">
+                  <Link to={`${routes.products}/${productSlug(product, lang)}`} className="hover:text-madagascar transition-colors">
                     <h3 className="font-heading font-bold text-forest text-xl group-hover:text-madagascar transition-colors">{pt(product.name, lang)}</h3>
                   </Link>
                   <p className="font-body text-warm-gray text-sm mt-2 leading-relaxed">
@@ -212,7 +212,7 @@ export default function ProductsPage() {
                   </p>
 
                   <Link
-                    to={`${routes.products}/${product.slug}`}
+                    to={`${routes.products}/${productSlug(product, lang)}`}
                     className="mt-3 inline-flex items-center gap-1 font-heading text-xs font-semibold text-moss hover:text-forest transition-colors"
                   >
                     {t('products.viewProduct')} <ArrowRight size={12} />
