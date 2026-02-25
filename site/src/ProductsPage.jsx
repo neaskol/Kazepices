@@ -14,14 +14,13 @@ gsap.registerPlugin(ScrollTrigger)
 const categories = [
   { key: 'all', label: 'Tous' },
   { key: 'poudre', label: 'Poudres' },
-  { key: 'huile', label: 'Huiles' },
+  { key: 'fruit-sec', label: 'Fruits secs' },
 ]
 
 export default function ProductsPage() {
   const heroRef = useRef(null)
   const catalogRef = useRef(null)
   const [activeCategory, setActiveCategory] = useState('all')
-  const [expandedProduct, setExpandedProduct] = useState(null)
 
   const filtered = activeCategory === 'all'
     ? products
@@ -113,7 +112,7 @@ export default function ProductsPage() {
           {/* Stats */}
           <div className="products-hero-stats flex flex-wrap items-center justify-center gap-8 mt-10">
             <div className="text-center">
-              <p className="font-heading font-extrabold text-white text-2xl md:text-3xl">6</p>
+              <p className="font-heading font-extrabold text-white text-2xl md:text-3xl">{products.length}</p>
               <p className="font-mono text-xs text-white/60 mt-1">Produits</p>
             </div>
             <div className="w-px h-10 bg-white/15" />
@@ -140,7 +139,7 @@ export default function ProductsPage() {
             {categories.map((cat) => (
               <button
                 key={cat.key}
-                onClick={() => { setActiveCategory(cat.key); setExpandedProduct(null) }}
+                onClick={() => setActiveCategory(cat.key)}
                 aria-pressed={activeCategory === cat.key}
                 className={`font-heading font-semibold text-sm px-5 py-2.5 transition-all duration-300 ${activeCategory === cat.key
                     ? 'bg-forest text-white'
@@ -161,72 +160,52 @@ export default function ProductsPage() {
             {filtered.map((product) => (
               <div
                 key={product.name}
-                className="product-page-card card-kazepices bg-cream overflow-hidden flex flex-col"
+                className="product-page-card card-kazepices bg-cream overflow-hidden flex flex-col group"
               >
-                {/* Product image */}
-                <div className={`relative h-56 bg-gradient-to-b ${product.color} to-cream flex items-center justify-center overflow-hidden`}>
-                  {product.image ? (
-                    <img
-                      src={product.image}
-                      srcSet={`
-                        ${product.image.replace('w=600', 'w=400').replace('q=85', 'q=80')} 400w,
-                        ${product.image} 600w,
-                        ${product.image.replace('w=600', 'w=800')} 800w`}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      alt={product.alt || product.name}
-                      loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                    />
-                  ) : (
-                    <Package size={48} className="text-forest/20" />
-                  )}
-                  {/* Badge type */}
-                  <span
-                    className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-forest font-mono text-xs font-medium px-3 py-1"
-                    style={{ borderRadius: '1rem' }}
-                  >
-                    {product.type}
-                  </span>
-                  {/* Badge formats */}
-                  <span
-                    className="absolute top-4 right-4 bg-charcoal/70 backdrop-blur-sm text-white font-mono text-xs px-3 py-1"
-                    style={{ borderRadius: '1rem' }}
-                  >
-                    {product.formats}
-                  </span>
-                </div>
+                {/* Product image — clickable */}
+                <Link to={`/produits/${product.slug}`} className="block">
+                  <div className={`relative h-56 bg-gradient-to-b ${product.color} to-cream flex items-center justify-center overflow-hidden`}>
+                    {product.image ? (
+                      <img
+                        src={product.image}
+                        alt={product.alt || product.name}
+                        loading="lazy"
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <Package size={48} className="text-forest/20" />
+                    )}
+                    {/* Badge type */}
+                    <span
+                      className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-forest font-mono text-xs font-medium px-3 py-1"
+                      style={{ borderRadius: '1rem' }}
+                    >
+                      {product.type}
+                    </span>
+                    {/* Badge formats */}
+                    <span
+                      className="absolute top-4 right-4 bg-charcoal/70 backdrop-blur-sm text-white font-mono text-xs px-3 py-1"
+                      style={{ borderRadius: '1rem' }}
+                    >
+                      {product.formats}
+                    </span>
+                  </div>
+                </Link>
 
                 <div className="p-6 flex flex-col flex-1">
-                  <h3 className="font-heading font-bold text-forest text-xl">{product.name}</h3>
+                  <Link to={`/produits/${product.slug}`} className="hover:text-madagascar transition-colors">
+                    <h3 className="font-heading font-bold text-forest text-xl group-hover:text-madagascar transition-colors">{product.name}</h3>
+                  </Link>
                   <p className="font-body text-warm-gray text-sm mt-2 leading-relaxed">
                     {product.description}
                   </p>
 
-                  {/* Expandable details */}
-                  {expandedProduct === product.name && (
-                    <div id={`details-${product.name.replace(/\s+/g, '-').toLowerCase()}`} className="mt-3 pt-3 border-t border-moss/10">
-                      <p className="font-body text-forest/70 text-sm leading-relaxed">
-                        {product.details}
-                      </p>
-                      <div className="flex items-center gap-2 mt-3">
-                        <span className="w-2 h-2 bg-moss rounded-full pulse-dot" />
-                        <span className="font-mono text-xs text-moss">Provenance : Madagascar</span>
-                      </div>
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className="w-2 h-2 bg-moss rounded-full pulse-dot" />
-                        <span className="font-mono text-xs text-moss">Démarche responsable</span>
-                      </div>
-                    </div>
-                  )}
-
-                  <button
-                    onClick={() => setExpandedProduct(expandedProduct === product.name ? null : product.name)}
-                    aria-expanded={expandedProduct === product.name}
-                    aria-controls={`details-${product.name.replace(/\s+/g, '-').toLowerCase()}`}
-                    className="mt-3 font-heading text-xs font-semibold text-moss hover:text-forest transition-colors text-left"
+                  <Link
+                    to={`/produits/${product.slug}`}
+                    className="mt-3 inline-flex items-center gap-1 font-heading text-xs font-semibold text-moss hover:text-forest transition-colors"
                   >
-                    {expandedProduct === product.name ? '— Moins de détails' : '+ En savoir plus'}
-                  </button>
+                    Voir le produit <ArrowRight size={12} />
+                  </Link>
 
                   <div className="mt-auto pt-4">
                     <a

@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Package, MessageCircle } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { Package, MessageCircle, ArrowRight } from 'lucide-react'
 
 import products from '../data/products'
 import { whatsappUrl } from '../data/config'
@@ -56,35 +57,40 @@ export default function Products() {
           {products.map((product) => (
             <div
               key={product.name}
-              className="product-card card-kazepices bg-cream overflow-hidden flex flex-col"
+              className="product-card card-kazepices bg-cream overflow-hidden flex flex-col group"
             >
-              {/* Product image or gradient */}
-              <div className={`relative h-48 bg-gradient-to-b ${product.color} to-cream flex items-center justify-center overflow-hidden`}>
-                {product.image ? (
-                  <img
-                    src={product.image}
-                    srcSet={`
-                      ${product.image.replace('w=600', 'w=400').replace('q=85', 'q=80')} 400w,
-                      ${product.image} 600w,
-                      ${product.image.replace('w=600', 'w=800')} 800w`}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    alt={product.alt || product.name}
-                    loading="lazy"
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <Package size={48} className="text-forest/20" aria-hidden="true" />
-                )}
-              </div>
+              {/* Product image — clickable */}
+              <Link to={`/produits/${product.slug}`} className="block">
+                <div className={`relative h-48 bg-gradient-to-b ${product.color} to-cream flex items-center justify-center overflow-hidden`}>
+                  {product.image ? (
+                    <img
+                      src={product.image}
+                      alt={product.alt || product.name}
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  ) : (
+                    <Package size={48} className="text-forest/20" aria-hidden="true" />
+                  )}
+                </div>
+              </Link>
               <div className="p-6 flex flex-col flex-1">
                 <div className="flex items-center justify-between mb-2">
                   <span className="font-mono text-xs text-moss">{product.type}</span>
                   <span className="font-mono text-xs text-warm-gray">{product.formats}</span>
                 </div>
-                <h3 className="font-heading font-bold text-forest text-lg">{product.name}</h3>
+                <Link to={`/produits/${product.slug}`}>
+                  <h3 className="font-heading font-bold text-forest text-lg group-hover:text-madagascar transition-colors">{product.name}</h3>
+                </Link>
                 <p className="font-body text-warm-gray text-sm mt-2 leading-relaxed flex-1">
                   {product.description}
                 </p>
+                <Link
+                  to={`/produits/${product.slug}`}
+                  className="mt-3 inline-flex items-center gap-1 font-heading text-xs font-semibold text-moss hover:text-forest transition-colors"
+                >
+                  Voir le produit <ArrowRight size={12} />
+                </Link>
                 <a
                   href={whatsappUrl(`Bonjour Kazépices, je souhaite commander du ${product.name}.`)}
                   target="_blank"

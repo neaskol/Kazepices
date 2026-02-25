@@ -5,6 +5,7 @@ import ScrollToTop from './components/ScrollToTop'
 import HomePage from './components/HomePage'
 
 const ProductsPage = lazy(() => import('./ProductsPage'))
+const ProductDetailPage = lazy(() => import('./ProductDetailPage'))
 const AboutPage = lazy(() => import('./AboutPage'))
 const ContactPage = lazy(() => import('./ContactPage'))
 const NotFoundPage = lazy(() => import('./components/NotFoundPage'))
@@ -26,6 +27,7 @@ export default function AppRouter() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/produits" element={<ProductsPage />} />
+          <Route path="/produits/:slug" element={<ProductDetailPage />} />
           <Route path="/a-propos" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="*" element={<NotFoundPage />} />
