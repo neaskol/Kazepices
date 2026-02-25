@@ -1,27 +1,29 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useTranslation } from 'react-i18next'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function Protocol() {
   const sectionRef = useRef(null)
+  const { t } = useTranslation()
 
   const steps = [
     {
       num: '01',
-      title: 'Récolte',
-      description: "Nos épices sont récoltées à la main par des agriculteurs malgaches passionnés, au moment optimal de maturité.",
+      title: t('protocol.step1Title'),
+      description: t('protocol.step1Desc'),
     },
     {
       num: '02',
-      title: 'Transformation',
-      description: "Séchage naturel, broyage artisanal et contrôle qualité rigoureux dans nos ateliers à Madagascar.",
+      title: t('protocol.step2Title'),
+      description: t('protocol.step2Desc'),
     },
     {
       num: '03',
-      title: 'Livraison',
-      description: "Emballées avec soin dans des conditionnements esthétiques et professionnels, prêtes à sublimer vos recettes.",
+      title: t('protocol.step3Title'),
+      description: t('protocol.step3Desc'),
     },
   ]
 
@@ -56,10 +58,10 @@ export default function Protocol() {
     <section ref={sectionRef} className="py-24 md:py-32 px-6 md:px-16 lg:px-24 bg-forest-light section-round mx-4 md:mx-8">
       <div className="max-w-6xl mx-auto">
         <div className="protocol-title mb-16">
-          <span className="font-mono text-xs text-moss-light tracking-widest uppercase">Notre processus</span>
+          <span className="font-mono text-xs text-moss-light tracking-widest uppercase">{t('protocol.sectionLabel')}</span>
           <h2 className="font-heading font-extrabold text-white text-3xl md:text-5xl mt-3 tracking-tight">
-            De la terre{' '}
-            <span className="font-drama italic text-madagascar-light">à votre table.</span>
+            {t('protocol.heading1')}{' '}
+            <span className="font-drama italic text-madagascar-light">{t('protocol.heading2')}</span>
           </h2>
         </div>
 
@@ -74,7 +76,6 @@ export default function Protocol() {
               <h3 className="font-heading font-bold text-white text-2xl mt-3">{step.title}</h3>
               <p className="font-body text-white/70 text-sm mt-3 leading-relaxed">{step.description}</p>
 
-              {/* Decorative SVG animation */}
               <div className="mt-auto pt-6">
                 {step.num === '01' && (
                   <svg viewBox="0 0 120 40" className="w-full h-10 opacity-30" aria-hidden="true">

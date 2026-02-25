@@ -3,12 +3,16 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Link } from 'react-router-dom'
 import { Mail, MessageCircle, MapPin, Globe } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { useLanguageRouter } from '../hooks/useLanguageRouter'
 import { whatsappUrl } from '../data/config'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function ContactCTA() {
   const sectionRef = useRef(null)
+  const { t } = useTranslation()
+  const { routes } = useLanguageRouter()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -29,31 +33,31 @@ export default function ContactCTA() {
   return (
     <section id="contact" ref={sectionRef} className="py-24 md:py-32 px-6 md:px-16 lg:px-24">
       <div className="max-w-4xl mx-auto text-center contact-cta-content">
-        <span className="font-mono text-xs text-moss tracking-widest uppercase">Contact</span>
+        <span className="font-mono text-xs text-moss tracking-widest uppercase">{t('contactCTA.sectionLabel')}</span>
         <h2 className="font-heading font-extrabold text-forest text-3xl md:text-5xl mt-3 tracking-tight">
-          Prêt à commander ?
+          {t('contactCTA.heading')}
         </h2>
         <p className="font-drama italic text-madagascar text-2xl md:text-4xl mt-2">
-          Parlons épices.
+          {t('contactCTA.tagline')}
         </p>
         <p className="font-body text-warm-gray text-base mt-6 max-w-lg mx-auto leading-relaxed">
-          Commandez directement via WhatsApp ou envoyez-nous un message via notre formulaire de contact. Nous répondons dans les 24 heures.
+          {t('contactCTA.description')}
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-4 mt-10">
           <Link
-            to="/contact"
+            to={routes.contact}
             className="btn-magnetic inline-flex items-center gap-2 bg-madagascar text-white font-heading font-semibold px-7 py-3.5 text-sm"
             style={{ borderRadius: '2rem' }}
           >
             <span className="btn-bg bg-madagascar-light" style={{ borderRadius: '2rem' }} />
             <span className="relative z-10 flex items-center gap-2">
               <Mail size={16} />
-              Nous écrire
+              {t('contactCTA.ctaContact')}
             </span>
           </Link>
           <a
-            href={whatsappUrl('Bonjour Kazépices, je souhaite en savoir plus sur vos produits.')}
+            href={whatsappUrl(t('contactCTA.whatsappMsg'))}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-magnetic inline-flex items-center gap-2 bg-[#25D366] text-white font-heading font-semibold px-7 py-3.5 text-sm"
@@ -61,7 +65,7 @@ export default function ContactCTA() {
           >
             <span className="relative z-10 flex items-center gap-2">
               <MessageCircle size={16} />
-              WhatsApp
+              {t('contactCTA.ctaWhatsApp')}
             </span>
           </a>
         </div>
@@ -69,11 +73,11 @@ export default function ContactCTA() {
         <div className="flex flex-wrap items-center justify-center gap-8 mt-12 text-sm text-warm-gray font-body">
           <div className="flex items-center gap-2">
             <MapPin size={16} className="text-moss" aria-hidden="true" />
-            Madagascar
+            {t('common.madagascar')}
           </div>
           <div className="flex items-center gap-2">
             <Globe size={16} className="text-moss" aria-hidden="true" />
-            Livraison internationale
+            {t('common.internationalShipping')}
           </div>
         </div>
       </div>

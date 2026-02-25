@@ -3,14 +3,19 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Link } from 'react-router-dom'
 import { Package, MessageCircle, ArrowRight } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { useLanguageRouter } from '../hooks/useLanguageRouter'
 
 import products from '../data/products'
+import { pt } from '../data/products'
 import { whatsappUrl } from '../data/config'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function Products() {
   const sectionRef = useRef(null)
+  const { t } = useTranslation()
+  const { lang, routes } = useLanguageRouter()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -43,29 +48,28 @@ export default function Products() {
     <section id="produits" ref={sectionRef} className="py-24 md:py-32 px-6 md:px-16 lg:px-24">
       <div className="max-w-6xl mx-auto">
         <div className="product-title mb-16">
-          <span className="font-mono text-xs text-moss tracking-widest uppercase">Catalogue</span>
+          <span className="font-mono text-xs text-moss tracking-widest uppercase">{t('products.sectionLabel')}</span>
           <h2 className="font-heading font-extrabold text-forest text-3xl md:text-5xl mt-3 tracking-tight">
-            Nos produits{' '}
-            <span className="font-drama italic text-madagascar">100% naturels.</span>
+            {t('products.heading1')}{' '}
+            <span className="font-drama italic text-madagascar">{t('products.heading2')}</span>
           </h2>
           <p className="font-body text-warm-gray text-base mt-4 max-w-xl">
-            Chaque produit est cultivé, récolté et conditionné à Madagascar avec un savoir-faire artisanal unique.
+            {t('products.description')}
           </p>
         </div>
 
         <div className="product-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => (
             <div
-              key={product.name}
+              key={product.slug}
               className="product-card card-kazepices bg-cream overflow-hidden flex flex-col group"
             >
-              {/* Product image — clickable */}
-              <Link to={`/produits/${product.slug}`} className="block">
+              <Link to={`${routes.products}/${product.slug}`} className="block">
                 <div className={`relative h-48 bg-gradient-to-b ${product.color} to-cream flex items-center justify-center overflow-hidden`}>
                   {product.image ? (
                     <img
                       src={product.image}
-                      alt={product.alt || product.name}
+                      alt={pt(product.alt, lang)}
                       loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
@@ -76,23 +80,23 @@ export default function Products() {
               </Link>
               <div className="p-6 flex flex-col flex-1">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="font-mono text-xs text-moss">{product.type}</span>
-                  <span className="font-mono text-xs text-warm-gray">{product.formats}</span>
+                  <span className="font-mono text-xs text-moss">{pt(product.type, lang)}</span>
+                  <span className="font-mono text-xs text-warm-gray">{pt(product.formats, lang)}</span>
                 </div>
-                <Link to={`/produits/${product.slug}`}>
-                  <h3 className="font-heading font-bold text-forest text-lg group-hover:text-madagascar transition-colors">{product.name}</h3>
+                <Link to={`${routes.products}/${product.slug}`}>
+                  <h3 className="font-heading font-bold text-forest text-lg group-hover:text-madagascar transition-colors">{pt(product.name, lang)}</h3>
                 </Link>
                 <p className="font-body text-warm-gray text-sm mt-2 leading-relaxed flex-1">
-                  {product.description}
+                  {pt(product.description, lang)}
                 </p>
                 <Link
-                  to={`/produits/${product.slug}`}
+                  to={`${routes.products}/${product.slug}`}
                   className="mt-3 inline-flex items-center gap-1 font-heading text-xs font-semibold text-moss hover:text-forest transition-colors"
                 >
-                  Voir le produit <ArrowRight size={12} />
+                  {t('products.viewProduct')} <ArrowRight size={12} />
                 </Link>
                 <a
-                  href={whatsappUrl(`Bonjour Kazépices, je souhaite commander du ${product.name}.`)}
+                  href={whatsappUrl(t('products.whatsappMsg', { name: pt(product.name, lang) }))}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-magnetic mt-4 inline-flex items-center justify-center gap-2 bg-forest text-white font-heading font-semibold text-sm px-5 py-3"
@@ -101,7 +105,7 @@ export default function Products() {
                   <span className="btn-bg bg-forest-light" style={{ borderRadius: '1.5rem' }} />
                   <span className="relative z-10 flex items-center gap-2">
                     <MessageCircle size={14} />
-                    Commander via WhatsApp
+                    {t('products.orderWhatsApp')}
                   </span>
                 </a>
               </div>

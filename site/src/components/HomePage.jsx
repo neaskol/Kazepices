@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import usePageMeta from '../hooks/usePageMeta'
 import { LocalBusinessSchema } from './StructuredData'
 
@@ -10,9 +11,11 @@ import Protocol from './Protocol'
 import ContactCTA from './ContactCTA'
 
 export default function HomePage() {
+  const { t } = useTranslation()
+
   usePageMeta({
-    title: 'Kazépices Madagascar — Épices Naturelles & Artisanales de Madagascar',
-    description: 'Découvrez nos épices 100% naturelles de Madagascar : curcuma, poivre noir, gingembre, moringa, cannelle. Livraison internationale.',
+    title: t('homeMeta.title'),
+    description: t('homeMeta.description'),
     canonicalPath: '/',
   })
 

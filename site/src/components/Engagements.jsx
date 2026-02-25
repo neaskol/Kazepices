@@ -2,15 +2,17 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Globe, Leaf, Heart } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 gsap.registerPlugin(ScrollTrigger)
 
 /* Card 1: Diagnostic Shuffler */
 function ShufflerCard() {
+  const { t } = useTranslation()
   const [cards, setCards] = useState([
-    { label: 'Agriculture locale', icon: '🌾', color: 'bg-moss/10 text-moss' },
-    { label: 'Emplois créés', icon: '🤝', color: 'bg-forest/10 text-forest' },
-    { label: 'Communautés soutenues', icon: '🏘️', color: 'bg-madagascar/10 text-madagascar' },
+    { labelKey: 'engagements.card1Item1', icon: '\u{1F33E}', color: 'bg-moss/10 text-moss' },
+    { labelKey: 'engagements.card1Item2', icon: '\u{1F91D}', color: 'bg-forest/10 text-forest' },
+    { labelKey: 'engagements.card1Item3', icon: '\u{1F3D8}\uFE0F', color: 'bg-madagascar/10 text-madagascar' },
   ])
 
   useEffect(() => {
@@ -32,14 +34,14 @@ function ShufflerCard() {
         </div>
         <span className="font-mono text-xs text-warm-gray">01</span>
       </div>
-      <h3 className="font-heading font-bold text-forest text-xl mt-3">Impact Local</h3>
+      <h3 className="font-heading font-bold text-forest text-xl mt-3">{t('engagements.card1Title')}</h3>
       <p className="font-body text-warm-gray text-sm mt-2 leading-relaxed">
-        Création d'emplois et travail direct avec les agriculteurs malgaches.
+        {t('engagements.card1Desc')}
       </p>
       <div className="relative mt-6 flex-1 min-h-[180px]">
         {cards.map((card, i) => (
           <div
-            key={card.label}
+            key={card.labelKey}
             className={`absolute left-0 right-0 ${card.color} px-4 py-3 font-heading font-medium text-sm flex items-center gap-3 transition-all duration-500`}
             style={{
               borderRadius: '1rem',
@@ -51,7 +53,7 @@ function ShufflerCard() {
             }}
           >
             <span className="text-lg">{card.icon}</span>
-            {card.label}
+            {t(card.labelKey)}
           </div>
         ))}
       </div>
@@ -59,16 +61,17 @@ function ShufflerCard() {
   )
 }
 
-const TYPEWRITER_MESSAGES = [
-  '> Biodiversité préservée à Madagascar...',
-  '> Empreinte carbone réduite de 40%...',
-  '> Zéro produits chimiques utilisés...',
-  '> Emballages recyclables et bio...',
-  '> Reforestation : 200 arbres plantés...',
-]
-
 /* Card 2: Telemetry Typewriter */
 function TypewriterCard() {
+  const { t } = useTranslation()
+  const TYPEWRITER_MESSAGES = [
+    t('engagements.card2Msg1'),
+    t('engagements.card2Msg2'),
+    t('engagements.card2Msg3'),
+    t('engagements.card2Msg4'),
+    t('engagements.card2Msg5'),
+  ]
+
   const [currentMsg, setCurrentMsg] = useState(0)
   const [text, setText] = useState('')
   const [charIndex, setCharIndex] = useState(0)
@@ -88,7 +91,7 @@ function TypewriterCard() {
       }, 2000)
       return () => clearTimeout(timeout)
     }
-  }, [charIndex, currentMsg])
+  }, [charIndex, currentMsg, TYPEWRITER_MESSAGES])
 
   return (
     <div className="card-kazepices bg-cream p-8 flex flex-col h-full">
@@ -98,18 +101,18 @@ function TypewriterCard() {
         </div>
         <span className="font-mono text-xs text-warm-gray">02</span>
       </div>
-      <h3 className="font-heading font-bold text-forest text-xl mt-3">Environnement</h3>
+      <h3 className="font-heading font-bold text-forest text-xl mt-3">{t('engagements.card2Title')}</h3>
       <p className="font-body text-warm-gray text-sm mt-2 leading-relaxed">
-        Protection de la biodiversité et valorisation durable des ressources.
+        {t('engagements.card2Desc')}
       </p>
       <div className="mt-6 flex-1">
         <div className="flex items-center gap-2 mb-3">
           <span className="w-2 h-2 bg-moss rounded-full pulse-dot" aria-hidden="true" />
-          <span className="font-mono text-xs text-moss">Éco-impact en direct</span>
+          <span className="font-mono text-xs text-moss">{t('engagements.card2Live')}</span>
         </div>
         <div className="bg-forest/5 p-4 font-mono text-xs text-forest leading-relaxed" style={{ borderRadius: '1rem', minHeight: '80px' }}>
           {text}
-          <span className="blink-cursor text-madagascar">▊</span>
+          <span className="blink-cursor text-madagascar">{'\u258A'}</span>
         </div>
       </div>
     </div>
@@ -118,6 +121,7 @@ function TypewriterCard() {
 
 /* Card 3: Scheduler */
 function SchedulerCard() {
+  const { t } = useTranslation()
   const days = ['L', 'M', 'M', 'J', 'V', 'S', 'D']
   const [activeDay, setActiveDay] = useState(-1)
   const [cursorPos, setCursorPos] = useState({ x: -20, y: 20 })
@@ -165,9 +169,9 @@ function SchedulerCard() {
         </div>
         <span className="font-mono text-xs text-warm-gray">03</span>
       </div>
-      <h3 className="font-heading font-bold text-forest text-xl mt-3">Santé & Qualité</h3>
+      <h3 className="font-heading font-bold text-forest text-xl mt-3">{t('engagements.card3Title')}</h3>
       <p className="font-body text-warm-gray text-sm mt-2 leading-relaxed">
-        Savoir-faire artisanal et vertus naturelles des plantes malgaches.
+        {t('engagements.card3Desc')}
       </p>
       <div className="mt-6 flex-1 relative">
         <div className="bg-forest/5 p-4" style={{ borderRadius: '1rem' }}>
@@ -193,10 +197,9 @@ function SchedulerCard() {
               }`}
             style={{ borderRadius: '1rem' }}
           >
-            {saved ? 'Planifié !' : 'Planifier'}
+            {saved ? t('engagements.scheduled') : t('engagements.schedule')}
           </button>
         </div>
-        {/* Animated cursor */}
         <div
           className="absolute pointer-events-none transition-all duration-700 ease-out"
           style={{
@@ -216,6 +219,7 @@ function SchedulerCard() {
 
 export default function Engagements() {
   const sectionRef = useRef(null)
+  const { t } = useTranslation()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -248,10 +252,10 @@ export default function Engagements() {
     <section id="engagements" ref={sectionRef} className="py-24 md:py-32 px-6 md:px-16 lg:px-24">
       <div className="max-w-6xl mx-auto">
         <div className="engagement-title mb-16">
-          <span className="font-mono text-xs text-moss tracking-widest uppercase">Nos engagements</span>
+          <span className="font-mono text-xs text-moss tracking-widest uppercase">{t('engagements.sectionLabel')}</span>
           <h2 className="font-heading font-extrabold text-forest text-3xl md:text-5xl mt-3 tracking-tight">
-            Un pont entre Madagascar<br />
-            <span className="font-drama italic text-madagascar">et le monde.</span>
+            {t('engagements.heading1')}<br />
+            <span className="font-drama italic text-madagascar">{t('engagements.heading2')}</span>
           </h2>
         </div>
         <div className="engagement-cards grid grid-cols-1 md:grid-cols-3 gap-6">

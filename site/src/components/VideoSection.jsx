@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, useCallback } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Volume2, VolumeX } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -13,6 +14,7 @@ export default function VideoSection() {
   const containerRef = useRef(null)
   const [isInView, setIsInView] = useState(false)
   const [isMuted, setIsMuted] = useState(true)
+  const { t } = useTranslation()
 
   const onPlayerReady = useCallback((event) => {
     playerRef.current = event.target
@@ -31,7 +33,6 @@ export default function VideoSection() {
     setIsMuted(!isMuted)
   }
 
-  // Load YouTube IFrame API & create player
   useEffect(() => {
     const playerVars = {
       autoplay: 0,
@@ -72,7 +73,6 @@ export default function VideoSection() {
     }
   }, [onPlayerReady])
 
-  // Scroll-triggered autoplay
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
@@ -93,7 +93,6 @@ export default function VideoSection() {
     return () => observer.disconnect()
   }, [])
 
-  // GSAP fade-in animation
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo('.video-content', { y: 50, opacity: 0 }, {
@@ -114,13 +113,13 @@ export default function VideoSection() {
     <section id="video" ref={sectionRef} className="py-24 md:py-32 px-6 md:px-16 lg:px-24">
       <div className="max-w-5xl mx-auto video-content">
         <div className="text-center mb-12">
-          <span className="font-mono text-xs text-moss tracking-widest uppercase">Notre histoire</span>
+          <span className="font-mono text-xs text-moss tracking-widest uppercase">{t('video.sectionLabel')}</span>
           <h2 className="font-heading font-extrabold text-forest text-3xl md:text-5xl mt-3 tracking-tight">
-            L'histoire de{' '}
-            <span className="font-drama italic text-madagascar">Kazepices.</span>
+            {t('video.heading1')}{' '}
+            <span className="font-drama italic text-madagascar">{t('video.heading2')}</span>
           </h2>
           <p className="font-body text-warm-gray text-base mt-4 max-w-lg mx-auto leading-relaxed">
-            Decouvrez notre parcours, nos valeurs et la passion qui anime chaque produit Kazepices.
+            {t('video.description')}
           </p>
         </div>
 
@@ -133,30 +132,28 @@ export default function VideoSection() {
             <div id="yt-player" className="absolute inset-0 w-full h-full" />
           </div>
 
-          {/* Sound toggle button */}
           <button
             onClick={toggleMute}
             className="absolute bottom-6 right-6 z-10 flex items-center gap-2 px-4 py-2 rounded-full bg-black/60 backdrop-blur-sm text-white text-sm font-body transition-all hover:bg-black/80 cursor-pointer"
-            aria-label={isMuted ? 'Activer le son' : 'Couper le son'}
+            aria-label={isMuted ? t('video.muteLabel') : t('video.unmuteLabel')}
           >
             {isMuted ? (
               <>
                 <VolumeX size={18} />
-                <span>Cliquez pour le son</span>
+                <span>{t('video.clickForSound')}</span>
               </>
             ) : (
               <>
                 <Volume2 size={18} />
-                <span>Son actif</span>
+                <span>{t('video.soundActive')}</span>
               </>
             )}
           </button>
 
           <p className="sr-only">
-            Lecteur video montrant la presentation de Kazepices Madagascar.
+            {t('video.srDescription')}
           </p>
 
-          {/* Border glow — decorative */}
           <div
             className="absolute inset-0 border-2 border-moss/20 pointer-events-none"
             style={{ borderRadius: '2.5rem' }}

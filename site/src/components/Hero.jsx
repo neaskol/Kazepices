@@ -2,9 +2,13 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { Link } from 'react-router-dom'
 import { ArrowRight, Play, ChevronDown } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { useLanguageRouter } from '../hooks/useLanguageRouter'
 
 export default function Hero() {
   const heroRef = useRef(null)
+  const { t } = useTranslation()
+  const { routes } = useLanguageRouter()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -21,7 +25,6 @@ export default function Hero() {
 
   return (
     <section id="hero" ref={heroRef} className="relative h-dvh min-h-[600px] overflow-hidden">
-      {/* Hero image background */}
       <img
         src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=1920&q=90"
         srcSet="
@@ -30,43 +33,35 @@ export default function Hero() {
           https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=1920&q=90 1920w"
         sizes="100vw"
         fetchPriority="high"
-        alt="Épices de Madagascar"
+        alt={t('hero.imageAlt')}
         crossOrigin="anonymous"
         referrerPolicy="no-referrer"
         className="absolute inset-0 w-full h-full object-cover -scale-x-100"
       />
-
-      {/* Gradient overlay */}
       <div className="hero-overlay absolute inset-0" />
-
-      {/* Content */}
       <div className="relative z-10 h-full flex flex-col justify-end px-6 md:px-16 lg:px-24 pb-16 md:pb-24 max-w-5xl">
         <div className="hero-tag inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white/80 text-xs font-mono px-4 py-1.5 mb-6 w-fit" style={{ borderRadius: '2rem' }}>
           <span className="w-2 h-2 bg-moss-light rounded-full pulse-dot" />
-          MADAGASCAR — ÉPICES NATURELLES
+          {t('hero.tag')}
         </div>
-
         <h1 className="hero-line-1 font-heading font-extrabold text-white text-4xl md:text-6xl lg:text-7xl tracking-tight leading-[1.05]">
-          La nature est le{' '}
+          {t('hero.headline1')}{' '}
           <span className="hero-line-2 font-drama italic text-madagascar-light text-5xl md:text-7xl lg:text-[5.5rem]">
-            secret.
+            {t('hero.headline2')}
           </span>
         </h1>
-
         <p className="hero-desc text-white/70 font-body text-base md:text-lg max-w-xl mt-6 leading-relaxed">
-          Fondée par Ikbal Chariffou, Kazépices Madagascar incarne une vision simple :
-          offrir des produits naturels de haute qualité, tout en respectant l'homme et l'environnement.
+          {t('hero.description')}
         </p>
-
         <div className="hero-cta flex flex-wrap items-center gap-4 mt-8">
           <Link
-            to="/produits"
+            to={routes.products}
             className="btn-magnetic inline-flex items-center gap-2 bg-madagascar text-white font-heading font-semibold px-7 py-3.5 text-sm"
             style={{ borderRadius: '2rem' }}
           >
             <span className="btn-bg bg-madagascar-light" style={{ borderRadius: '2rem' }} />
             <span className="relative z-10 flex items-center gap-2">
-              Découvrir nos produits <ArrowRight size={16} />
+              {t('hero.ctaProducts')} <ArrowRight size={16} />
             </span>
           </Link>
           <a
@@ -76,14 +71,13 @@ export default function Hero() {
           >
             <span className="relative z-10 flex items-center gap-2">
               <Play size={16} />
-              Notre histoire
+              {t('hero.ctaStory')}
             </span>
           </a>
         </div>
-
         <a href="#engagements" className="hero-scroll flex items-center gap-2 text-white/60 text-xs font-mono mt-12 hover-lift">
           <ChevronDown size={14} className="animate-bounce" />
-          DÉFILER POUR DÉCOUVRIR
+          {t('hero.scroll')}
         </a>
       </div>
     </section>
