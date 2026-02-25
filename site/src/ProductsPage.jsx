@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import usePageMeta from './hooks/usePageMeta'
 import { useLanguageRouter } from './hooks/useLanguageRouter'
 import { ProductListSchema, BreadcrumbSchema } from './components/StructuredData'
-import { ArrowLeft, MessageCircle, Package, Filter, ArrowRight } from 'lucide-react'
+import { ArrowLeft, MessageCircle, Package, Filter, ArrowRight, ChevronRight, Search, X } from 'lucide-react'
 
 import products, { pt, productSlug } from './data/products'
 import { whatsappUrl } from './data/config'
@@ -18,7 +18,25 @@ export default function ProductsPage() {
   const { lang, routes } = useLanguageRouter()
   const heroRef = useRef(null)
   const catalogRef = useRef(null)
-  const [activeCategory, setActiveCategory] = useState('all')
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const validCategories = ['all', 'poudre', 'fruit-sec']
+  const paramCategory = searchParams.get('category')
+  const activeCategory = validCategories.includes(paramCategory) ? paramCategory : 'all'
+
+  const searchQuery = searchParams.get('q') || ''
+
+  const updateParams = (updates) => {
+    const next = new URLSearchParams(searchParams)
+    Object.entries(updates).forEach(([k, v]) => {
+      if (!v || v === 'all') next.delete(k)
+      else next.set(k, v)
+    })
+    setSearchParams(next, { replace: true })
+  }
+
+  const setActiveCategory = (key) => updateParams({ category: key })
+  const setSearchQuery = (q) => updateParams({ q })
 
   const categories = [
     { key: 'all', label: t('productsPage.filterAll') },
@@ -26,9 +44,17 @@ export default function ProductsPage() {
     { key: 'fruit-sec', label: t('productsPage.filterDriedFruits') },
   ]
 
-  const filtered = activeCategory === 'all'
-    ? products
-    : products.filter((p) => p.category === activeCategory)
+  const filtered = products.filter((p) => {
+    if (activeCategory !== 'all' && p.category !== activeCategory) return false
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase()
+      const name = pt(p.name, lang).toLowerCase()
+      const type = pt(p.type, lang).toLowerCase()
+      const desc = pt(p.description, lang).toLowerCase()
+      if (!name.includes(q) && !type.includes(q) && !desc.includes(q)) return false
+    }
+    return true
+  })
 
   // Language-resolved products for structured data schema
   const schemaProducts = products.map(p => ({
@@ -104,8 +130,7 @@ export default function ProductsPage() {
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <Link
             to="/"
-            className="products-hero-tag inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white/70 text-xs font-mono px-4 py-1.5 mb-8 hover:bg-white/15 transition-colors"
-            style={{ borderRadius: '2rem' }}
+            className="products-hero-tag inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white/70 text-xs font-mono px-4 py-1.5 mb-8 hover:bg-white/15 transition-colors rounded-4xl"
           >
             <ArrowLeft size={14} />
             {t('common.backHome')}
@@ -144,8 +169,41 @@ export default function ProductsPage() {
       <section ref={catalogRef} className="py-20 md:py-28 px-6 md:px-16 lg:px-24">
         <div className="max-w-6xl mx-auto">
 
+          {/* Visual breadcrumb */}
+          <nav aria-label="Breadcrumb" className="mb-8">
+            <ol className="flex items-center gap-1.5 font-mono text-xs text-warm-gray">
+              <li>
+                <Link to="/" className="hover:text-forest transition-colors">{t('footer.home')}</Link>
+              </li>
+              <li aria-hidden="true"><ChevronRight size={12} /></li>
+              <li aria-current="page" className="text-forest font-medium">{t('nav.products')}</li>
+            </ol>
+          </nav>
+
+          {/* Search */}
+          <div className="catalog-filters relative mb-6">
+            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-warm-gray/50 pointer-events-none" aria-hidden="true" />
+            <input
+              type="search"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder={t('productsPage.searchPlaceholder')}
+              aria-label={t('productsPage.searchLabel')}
+              className="w-full bg-white border border-moss/20 font-body text-charcoal text-sm pl-10 pr-10 py-3 outline-none transition-all duration-300 focus:border-forest focus:ring-2 focus:ring-forest/10 placeholder:text-warm-gray/50 rounded-2xl"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-warm-gray/50 hover:text-forest transition-colors"
+                aria-label={t('productsPage.searchClear')}
+              >
+                <X size={16} />
+              </button>
+            )}
+          </div>
+
           {/* Filters */}
-          <div className="catalog-filters flex flex-wrap items-center gap-3 mb-12" role="group" aria-label={t('productsPage.filterLabel')}>
+          <div className="flex flex-wrap items-center gap-3 mb-12" role="group" aria-label={t('productsPage.filterLabel')}>
             <Filter size={16} className="text-moss" aria-hidden="true" />
             {categories.map((cat) => (
               <button
@@ -155,8 +213,7 @@ export default function ProductsPage() {
                 className={`font-heading font-semibold text-sm px-5 py-2.5 transition-all duration-300 ${activeCategory === cat.key
                     ? 'bg-forest text-white'
                     : 'bg-forest/5 text-forest hover:bg-forest/10'
-                  }`}
-                style={{ borderRadius: '2rem' }}
+                  } rounded-4xl`}
               >
                 {cat.label}
               </button>
@@ -167,6 +224,13 @@ export default function ProductsPage() {
           </div>
 
           {/* Product grid */}
+          {filtered.length === 0 && (
+            <div className="text-center py-16">
+              <Search size={40} className="mx-auto text-forest/20 mb-4" />
+              <p className="font-heading font-semibold text-forest text-lg">{t('productsPage.noResults')}</p>
+              <p className="font-body text-warm-gray text-sm mt-2">{t('productsPage.noResultsHint')}</p>
+            </div>
+          )}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((product) => (
               <div
@@ -175,12 +239,14 @@ export default function ProductsPage() {
               >
                 {/* Product image — clickable */}
                 <Link to={`${routes.products}/${productSlug(product, lang)}`} className="block">
-                  <div className={`relative h-56 bg-gradient-to-b ${product.color} to-cream flex items-center justify-center overflow-hidden`}>
+                  <div className={`relative h-56 bg-gradient-to-b ${product.color} to-cream flex items-center justify-center overflow-hidden skeleton-shimmer`}>
                     {product.image ? (
                       <img
                         src={product.image}
                         alt={pt(product.alt, lang) || pt(product.name, lang)}
                         loading="lazy"
+                        width={600}
+                        height={448}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     ) : (
@@ -188,15 +254,13 @@ export default function ProductsPage() {
                     )}
                     {/* Badge type */}
                     <span
-                      className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-forest font-mono text-xs font-medium px-3 py-1"
-                      style={{ borderRadius: '1rem' }}
+                      className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-forest font-mono text-xs font-medium px-3 py-1 rounded-2xl"
                     >
                       {pt(product.type, lang)}
                     </span>
                     {/* Badge formats */}
                     <span
-                      className="absolute top-4 right-4 bg-charcoal/70 backdrop-blur-sm text-white font-mono text-xs px-3 py-1"
-                      style={{ borderRadius: '1rem' }}
+                      className="absolute top-4 right-4 bg-charcoal/70 backdrop-blur-sm text-white font-mono text-xs px-3 py-1 rounded-2xl"
                     >
                       {pt(product.formats, lang)}
                     </span>
@@ -223,10 +287,9 @@ export default function ProductsPage() {
                       href={whatsappUrl(t('products.whatsappMsgFormats', { name: pt(product.name, lang), formats: pt(product.formats, lang) }))}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-magnetic w-full inline-flex items-center justify-center gap-2 bg-forest text-white font-heading font-semibold text-sm px-5 py-3"
-                      style={{ borderRadius: '1.5rem' }}
+                      className="btn-magnetic w-full inline-flex items-center justify-center gap-2 bg-forest text-white font-heading font-semibold text-sm px-5 py-3 rounded-3xl"
                     >
-                      <span className="btn-bg bg-forest-light" style={{ borderRadius: '1.5rem' }} />
+                      <span className="btn-bg bg-forest-light rounded-3xl" />
                       <span className="relative z-10 flex items-center gap-2">
                         <MessageCircle size={14} />
                         {t('products.orderWhatsApp')}
@@ -256,8 +319,7 @@ export default function ProductsPage() {
               href={whatsappUrl(t('productsPage.helpWhatsAppMsg'))}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-magnetic inline-flex items-center gap-2 bg-[#25D366] text-white font-heading font-semibold px-7 py-3.5 text-sm"
-              style={{ borderRadius: '2rem' }}
+              className="btn-magnetic inline-flex items-center gap-2 bg-[#25D366] text-white font-heading font-semibold px-7 py-3.5 text-sm rounded-4xl"
             >
               <span className="relative z-10 flex items-center gap-2">
                 <MessageCircle size={16} />
@@ -266,8 +328,7 @@ export default function ProductsPage() {
             </a>
             <Link
               to={routes.contact}
-              className="btn-magnetic inline-flex items-center gap-2 border border-white/30 text-white font-heading font-medium px-6 py-3.5 text-sm bg-white/5 backdrop-blur-sm"
-              style={{ borderRadius: '2rem' }}
+              className="btn-magnetic inline-flex items-center gap-2 border border-white/30 text-white font-heading font-medium px-6 py-3.5 text-sm bg-white/5 backdrop-blur-sm rounded-4xl"
             >
               <span className="relative z-10 flex items-center gap-2">
                 {t('productsPage.helpContact')} <ArrowRight size={16} />

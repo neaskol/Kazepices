@@ -114,12 +114,12 @@ export default function Navbar() {
     <nav
       ref={navRef}
       aria-label={t('nav.mainMenu')}
-      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-out ${
+      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-out rounded-6xl ${
         scrolled || !isHome
           ? 'bg-cream/85 backdrop-blur-xl border border-moss/20 shadow-lg'
           : 'bg-charcoal/40 backdrop-blur-md border border-white/15'
       }`}
-      style={{ borderRadius: '3rem', padding: '0.6rem 1.2rem', maxWidth: 'calc(100vw - 2rem)' }}
+      style={{ padding: '0.6rem 1.2rem', maxWidth: 'calc(100vw - 2rem)' }}
     >
       <div className="flex items-center gap-3 md:gap-6">
         <Link to="/" className="flex-shrink-0">
@@ -157,10 +157,9 @@ export default function Navbar() {
 
         <Link
           to={routes.products}
-          className="hidden md:inline-flex btn-magnetic items-center gap-2 bg-madagascar text-white text-sm font-semibold font-heading px-5 py-2.5"
-          style={{ borderRadius: '2rem' }}
+          className="hidden md:inline-flex btn-magnetic items-center gap-2 bg-madagascar text-white text-sm font-semibold font-heading px-5 py-2.5 rounded-4xl"
         >
-          <span className="btn-bg bg-madagascar-light" style={{ borderRadius: '2rem' }} />
+          <span className="btn-bg bg-madagascar-light rounded-4xl" />
           <span className="relative z-10 flex items-center gap-2">
             {t('nav.products')} <ArrowRight size={14} aria-hidden="true" />
           </span>
@@ -213,8 +212,7 @@ export default function Navbar() {
             to={routes.products}
             role="menuitem"
             onClick={() => setMenuOpen(false)}
-            className="btn-magnetic bg-madagascar text-white text-sm font-semibold font-heading px-5 py-2.5 text-center"
-            style={{ borderRadius: '2rem' }}
+            className="btn-magnetic bg-madagascar text-white text-sm font-semibold font-heading px-5 py-2.5 text-center rounded-4xl"
           >
             {t('nav.products')}
           </Link>

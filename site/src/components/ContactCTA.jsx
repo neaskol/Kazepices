@@ -47,10 +47,9 @@ export default function ContactCTA() {
         <div className="flex flex-wrap items-center justify-center gap-4 mt-10">
           <Link
             to={routes.contact}
-            className="btn-magnetic inline-flex items-center gap-2 bg-madagascar text-white font-heading font-semibold px-7 py-3.5 text-sm"
-            style={{ borderRadius: '2rem' }}
+            className="btn-magnetic inline-flex items-center gap-2 bg-madagascar text-white font-heading font-semibold px-7 py-3.5 text-sm rounded-4xl"
           >
-            <span className="btn-bg bg-madagascar-light" style={{ borderRadius: '2rem' }} />
+            <span className="btn-bg bg-madagascar-light rounded-4xl" />
             <span className="relative z-10 flex items-center gap-2">
               <Mail size={16} />
               {t('contactCTA.ctaContact')}
@@ -60,8 +59,7 @@ export default function ContactCTA() {
             href={whatsappUrl(t('contactCTA.whatsappMsg'))}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-magnetic inline-flex items-center gap-2 bg-[#25D366] text-white font-heading font-semibold px-7 py-3.5 text-sm"
-            style={{ borderRadius: '2rem' }}
+            className="btn-magnetic inline-flex items-center gap-2 bg-[#25D366] text-white font-heading font-semibold px-7 py-3.5 text-sm rounded-4xl"
           >
             <span className="relative z-10 flex items-center gap-2">
               <MessageCircle size={16} />

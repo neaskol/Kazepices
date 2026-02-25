@@ -112,7 +112,12 @@
     "helpDesc": "Contact us directly via WhatsApp for a quick response, or send us a message through our form.",
     "helpWhatsApp": "WhatsApp",
     "helpContact": "Contact us",
-    "helpWhatsAppMsg": "Hello Kazepices, I have a question about your products."
+    "helpWhatsAppMsg": "Hello Kazepices, I have a question about your products.",
+    "searchPlaceholder": "Search for a product...",
+    "searchLabel": "Search products",
+    "searchClear": "Clear search",
+    "noResults": "No products found",
+    "noResultsHint": "Try another term or adjust the filters."
   },
   "productDetail": {
     "allProducts": "All products",
@@ -265,7 +270,24 @@
   "notFound": {
     "label": "Error 404",
     "heading": "404",
-    "message": "This page does not exist."
+    "message": "This page does not exist.",
+    "suggestion": "Here are some pages you might find helpful:",
+    "linkProducts": "Our products",
+    "linkAbout": "Our story",
+    "linkContact": "Contact us"
+  },
+  "productNotFound": {
+    "label": "Product not found",
+    "heading": "This product doesn't exist",
+    "message": "The product you're looking for is not available or has been moved.",
+    "browseCta": "Browse our products",
+    "suggestionsHeading": "You might like"
+  },
+  "errorBoundary": {
+    "label": "Error",
+    "heading": "Something went wrong.",
+    "message": "Please refresh the page or go back to the homepage.",
+    "backHome": "Back to home"
   },
   "homeMeta": {
     "title": "Kazepices Madagascar — Natural & Artisanal Spices from Madagascar",

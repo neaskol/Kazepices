@@ -112,7 +112,12 @@
     "helpDesc": "Contactez-nous directement via WhatsApp pour une réponse rapide, ou envoyez-nous un message via notre formulaire.",
     "helpWhatsApp": "WhatsApp",
     "helpContact": "Nous contacter",
-    "helpWhatsAppMsg": "Bonjour Kazépices, j'ai une question sur vos produits."
+    "helpWhatsAppMsg": "Bonjour Kazépices, j'ai une question sur vos produits.",
+    "searchPlaceholder": "Rechercher un produit...",
+    "searchLabel": "Rechercher parmi les produits",
+    "searchClear": "Effacer la recherche",
+    "noResults": "Aucun produit trouvé",
+    "noResultsHint": "Essayez un autre terme ou modifiez les filtres."
   },
   "productDetail": {
     "allProducts": "Tous les produits",
@@ -265,7 +270,24 @@
   "notFound": {
     "label": "Erreur 404",
     "heading": "404",
-    "message": "Cette page n'existe pas."
+    "message": "Cette page n'existe pas.",
+    "suggestion": "Voici quelques pages qui pourraient vous intéresser :",
+    "linkProducts": "Nos produits",
+    "linkAbout": "Notre histoire",
+    "linkContact": "Nous contacter"
+  },
+  "productNotFound": {
+    "label": "Produit introuvable",
+    "heading": "Ce produit n'existe pas",
+    "message": "Le produit que vous recherchez n'est pas disponible ou a été déplacé.",
+    "browseCta": "Parcourir nos produits",
+    "suggestionsHeading": "Vous pourriez aimer"
+  },
+  "errorBoundary": {
+    "label": "Erreur",
+    "heading": "Une erreur est survenue.",
+    "message": "Veuillez rafraîchir la page ou revenir à l'accueil.",
+    "backHome": "Retour à l'accueil"
   },
   "homeMeta": {
     "title": "Kazépices Madagascar — Épices Naturelles & Artisanales de Madagascar",

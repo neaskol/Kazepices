@@ -167,8 +167,7 @@ export default function ContactPage() {
     }
   }
 
-  const inputClasses = 'w-full bg-white border border-moss/20 font-body text-charcoal text-sm px-4 py-3.5 outline-none transition-all duration-300 focus:border-forest focus:ring-2 focus:ring-forest/10 placeholder:text-warm-gray/50'
-  const inputStyle = { borderRadius: '1rem' }
+  const inputClasses = 'w-full bg-white border border-moss/20 font-body text-charcoal text-sm px-4 py-3.5 outline-none transition-all duration-300 focus:border-forest focus:ring-2 focus:ring-forest/10 placeholder:text-warm-gray/50 rounded-2xl'
 
   return (
     <>
@@ -193,8 +192,7 @@ export default function ContactPage() {
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <Link
             to="/"
-            className="contact-hero-tag inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white/70 text-xs font-mono px-4 py-1.5 mb-8 hover:bg-white/15 transition-colors"
-            style={{ borderRadius: '2rem' }}
+            className="contact-hero-tag inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white/70 text-xs font-mono px-4 py-1.5 mb-8 hover:bg-white/15 transition-colors rounded-4xl"
           >
             <ArrowLeft size={14} />
             {t('contact.heroHeading1')}
@@ -272,7 +270,7 @@ export default function ContactPage() {
             </div>
 
             {/* Trust signal */}
-            <div className="mt-12 p-5 bg-forest/5 border border-forest/10" style={{ borderRadius: '1.5rem' }}>
+            <div className="mt-12 p-5 bg-forest/5 border border-forest/10 rounded-3xl">
               <p className="font-body text-forest/80 text-sm leading-relaxed">
                 <span className="font-heading font-semibold text-forest">{t('contact.directOrder')}</span>{' '}
                 {t('contact.directOrderDesc')}
@@ -308,7 +306,7 @@ export default function ContactPage() {
                     aria-invalid={!!errors.name}
                     aria-describedby={errors.name ? 'error-name' : undefined}
                     className={inputClasses}
-                    style={inputStyle}
+
                   />
                   {errors.name && <p id="error-name" role="alert" className="text-madagascar text-xs mt-1 font-body">{errors.name}</p>}
                 </div>
@@ -327,7 +325,7 @@ export default function ContactPage() {
                     aria-invalid={!!errors.email}
                     aria-describedby={errors.email ? 'error-email' : undefined}
                     className={inputClasses}
-                    style={inputStyle}
+
                   />
                   {errors.email && <p id="error-email" role="alert" className="text-madagascar text-xs mt-1 font-body">{errors.email}</p>}
                 </div>
@@ -344,7 +342,7 @@ export default function ContactPage() {
                   aria-invalid={!!errors.subject}
                   aria-describedby={errors.subject ? 'error-subject' : undefined}
                   className={`${inputClasses} ${!formData.subject ? 'text-warm-gray/50' : ''}`}
-                  style={inputStyle}
+
                 >
                   <option value="" disabled>{t('contact.subjectDefault')}</option>
                   <option value="Commande">{t('contact.subjectOrder')}</option>
@@ -369,9 +367,14 @@ export default function ContactPage() {
                   aria-invalid={!!errors.message}
                   aria-describedby={errors.message ? 'error-message' : undefined}
                   className={`${inputClasses} resize-none`}
-                  style={inputStyle}
+
                 />
-                {errors.message && <p id="error-message" role="alert" className="text-madagascar text-xs mt-1 font-body">{errors.message}</p>}
+                <div className="flex justify-between items-center mt-1">
+                  {errors.message ? <p id="error-message" role="alert" className="text-madagascar text-xs font-body">{errors.message}</p> : <span />}
+                  <span className={`font-mono text-xs ${formData.message.length > 4500 ? 'text-madagascar' : 'text-warm-gray/50'}`} aria-live="polite">
+                    {formData.message.length} / 5000
+                  </span>
+                </div>
               </div>
 
               {/* Honeypot anti-spam — accessible label for screen readers but visually hidden */}
@@ -383,10 +386,9 @@ export default function ContactPage() {
               <button
                 type="submit"
                 disabled={status === 'submitting' || status === 'rate-limited'}
-                className="btn-magnetic w-full inline-flex items-center justify-center gap-2 bg-madagascar text-white font-heading font-semibold text-sm px-7 py-4 disabled:opacity-60 disabled:cursor-not-allowed"
-                style={{ borderRadius: '1.5rem' }}
+                className="btn-magnetic w-full inline-flex items-center justify-center gap-2 bg-madagascar text-white font-heading font-semibold text-sm px-7 py-4 disabled:opacity-60 disabled:cursor-not-allowed rounded-3xl"
               >
-                <span className="btn-bg bg-madagascar-light" style={{ borderRadius: '1.5rem' }} />
+                <span className="btn-bg bg-madagascar-light rounded-3xl" />
                 <span className="relative z-10 flex items-center gap-2">
                   {status === 'submitting' ? (
                     <>
@@ -407,7 +409,7 @@ export default function ContactPage() {
 
               {/* Success message */}
               {status === 'success' && (
-                <div role="status" className="flex items-center gap-3 bg-moss/10 text-moss px-5 py-4 font-body text-sm" style={{ borderRadius: '1rem' }}>
+                <div role="status" className="flex items-center gap-3 bg-moss/10 text-moss px-5 py-4 font-body text-sm rounded-2xl">
                   <CheckCircle size={18} className="flex-shrink-0" />
                   {t('contact.successMsg')}
                 </div>
@@ -415,7 +417,7 @@ export default function ContactPage() {
 
               {/* Error message */}
               {status === 'error' && (
-                <div role="status" className="flex items-center gap-3 bg-madagascar/10 text-madagascar px-5 py-4 font-body text-sm" style={{ borderRadius: '1rem' }}>
+                <div role="status" className="flex items-center gap-3 bg-madagascar/10 text-madagascar px-5 py-4 font-body text-sm rounded-2xl">
                   <AlertCircle size={18} className="flex-shrink-0" />
                   {t('contact.errorMsg')}
                 </div>
@@ -423,7 +425,7 @@ export default function ContactPage() {
 
               {/* Rate limit message */}
               {status === 'rate-limited' && (
-                <div role="status" className="flex items-center gap-3 bg-madagascar/10 text-madagascar px-5 py-4 font-body text-sm" style={{ borderRadius: '1rem' }}>
+                <div role="status" className="flex items-center gap-3 bg-madagascar/10 text-madagascar px-5 py-4 font-body text-sm rounded-2xl">
                   <AlertCircle size={18} className="flex-shrink-0" />
                   {t('contact.rateLimitMsg')}
                 </div>

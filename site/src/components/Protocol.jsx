@@ -69,8 +69,7 @@ export default function Protocol() {
           {steps.map((step) => (
             <div
               key={step.num}
-              className="protocol-card bg-white/10 backdrop-blur-sm border border-white/10 p-8 flex flex-col"
-              style={{ borderRadius: '2rem' }}
+              className="protocol-card bg-white/10 backdrop-blur-sm border border-white/10 p-8 flex flex-col rounded-4xl"
             >
               <span className="font-mono text-madagascar-light text-sm">{step.num}</span>
               <h3 className="font-heading font-bold text-white text-2xl mt-3">{step.title}</h3>

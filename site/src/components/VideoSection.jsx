@@ -125,8 +125,7 @@ export default function VideoSection() {
 
         <div
           ref={containerRef}
-          className="relative overflow-hidden bg-charcoal"
-          style={{ borderRadius: '2.5rem' }}
+          className="relative overflow-hidden bg-charcoal rounded-5xl"
         >
           <div className="w-full aspect-video relative">
             <div id="yt-player" className="absolute inset-0 w-full h-full" />
@@ -155,8 +154,7 @@ export default function VideoSection() {
           </p>
 
           <div
-            className="absolute inset-0 border-2 border-moss/20 pointer-events-none"
-            style={{ borderRadius: '2.5rem' }}
+            className="absolute inset-0 border-2 border-moss/20 pointer-events-none rounded-5xl"
             aria-hidden="true"
           />
         </div>

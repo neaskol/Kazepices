@@ -42,9 +42,8 @@ function ShufflerCard() {
         {cards.map((card, i) => (
           <div
             key={card.labelKey}
-            className={`absolute left-0 right-0 ${card.color} px-4 py-3 font-heading font-medium text-sm flex items-center gap-3 transition-all duration-500`}
+            className={`absolute left-0 right-0 ${card.color} px-4 py-3 font-heading font-medium text-sm flex items-center gap-3 transition-all duration-500 rounded-2xl`}
             style={{
-              borderRadius: '1rem',
               top: `${i * 48}px`,
               zIndex: 3 - i,
               opacity: 1 - i * 0.25,
@@ -110,7 +109,7 @@ function TypewriterCard() {
           <span className="w-2 h-2 bg-moss rounded-full pulse-dot" aria-hidden="true" />
           <span className="font-mono text-xs text-moss">{t('engagements.card2Live')}</span>
         </div>
-        <div className="bg-forest/5 p-4 font-mono text-xs text-forest leading-relaxed" style={{ borderRadius: '1rem', minHeight: '80px' }}>
+        <div className="bg-forest/5 p-4 font-mono text-xs text-forest leading-relaxed rounded-2xl" style={{ minHeight: '80px' }}>
           {text}
           <span className="blink-cursor text-madagascar">{'\u258A'}</span>
         </div>
@@ -174,17 +173,16 @@ function SchedulerCard() {
         {t('engagements.card3Desc')}
       </p>
       <div className="mt-6 flex-1 relative">
-        <div className="bg-forest/5 p-4" style={{ borderRadius: '1rem' }}>
+        <div className="bg-forest/5 p-4 rounded-2xl">
           <div className="flex gap-1 mb-3">
             {days.map((day, i) => (
               <div
                 key={i}
-                className={`w-9 h-9 flex items-center justify-center text-xs font-heading font-semibold transition-all duration-300 ${activeDay === i
+                className={`w-9 h-9 flex items-center justify-center text-xs font-heading font-semibold transition-all duration-300 rounded-xl ${activeDay === i
                   ? 'bg-madagascar text-white'
                   : 'bg-cream text-forest'
                   }`}
                 style={{
-                  borderRadius: '0.75rem',
                   transform: activeDay === i ? 'scale(0.95)' : 'scale(1)',
                 }}
               >
@@ -194,8 +192,7 @@ function SchedulerCard() {
           </div>
           <button
             className={`font-heading text-xs font-semibold px-4 py-2 transition-all duration-300 ${saved ? 'bg-moss text-white' : 'bg-forest/10 text-forest'
-              }`}
-            style={{ borderRadius: '1rem' }}
+              } rounded-2xl`}
           >
             {saved ? t('engagements.scheduled') : t('engagements.schedule')}
           </button>

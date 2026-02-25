@@ -29,10 +29,9 @@ export default function Philosophy() {
   return (
     <section id="philosophie" ref={sectionRef} className="relative py-32 md:py-40 px-6 md:px-16 lg:px-24 bg-charcoal overflow-hidden section-round mx-4 md:mx-8">
       <div
-        className="absolute inset-0 opacity-10 bg-cover bg-center"
+        className="absolute inset-0 opacity-10 bg-cover bg-center rounded-[inherit]"
         style={{
           backgroundImage: `url('https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=1200&q=80')`,
-          borderRadius: 'inherit',
         }}
       />
       <div className="relative z-10 max-w-5xl mx-auto">

@@ -1,15 +1,16 @@
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useLanguageRouter } from '../hooks/useLanguageRouter'
+import products, { pt, productSlug } from '../data/products'
 
 import logoImg from '../assets/logo.webp'
 
 export default function Footer() {
   const { t } = useTranslation()
-  const { routes } = useLanguageRouter()
+  const { lang, routes } = useLanguageRouter()
 
   return (
-    <footer className="bg-charcoal text-white px-6 md:px-16 lg:px-24 py-16 md:py-20 mx-4 md:mx-8 mb-4" style={{ borderRadius: '3rem' }}>
+    <footer className="bg-charcoal text-white px-6 md:px-16 lg:px-24 py-16 md:py-20 mx-4 md:mx-8 mb-4 rounded-6xl">
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
           {/* Brand */}
@@ -55,8 +56,14 @@ export default function Footer() {
           <div>
             <h4 className="font-heading font-semibold text-sm mb-4 text-white/80">{t('footer.productsHeading')}</h4>
             <div className="flex flex-col gap-2">
-              {['Curcuma', 'Poivre Noir', 'Gingembre', 'Moringa', 'Cannelle', 'Huile de Moringa'].map((p) => (
-                <span key={p} className="font-body text-white/70 text-sm">{p}</span>
+              {products.map((product) => (
+                <Link
+                  key={productSlug(product, 'fr')}
+                  to={`${routes.products}/${productSlug(product, lang)}`}
+                  className="font-body text-white/70 text-sm hover:text-white/90 hover-lift transition-colors"
+                >
+                  {pt(product.name, lang)}
+                </Link>
               ))}
             </div>
           </div>

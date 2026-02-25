@@ -44,8 +44,7 @@ function AboutHero() {
       <div className="relative z-10 max-w-4xl mx-auto text-center">
         <Link
           to="/"
-          className="about-hero-tag inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white/70 text-xs font-mono px-4 py-1.5 mb-8 hover:bg-white/15 transition-colors"
-          style={{ borderRadius: '2rem' }}
+          className="about-hero-tag inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white/70 text-xs font-mono px-4 py-1.5 mb-8 hover:bg-white/15 transition-colors rounded-4xl"
         >
           <ArrowLeft size={14} />
           {t('about.heroBackLink', 'Retour à l\'accueil')}
@@ -128,7 +127,7 @@ function OriginStory() {
 
         {/* Right: Image */}
         <div className="origin-image relative">
-          <div className="overflow-hidden" style={{ borderRadius: '2.5rem' }}>
+          <div className="overflow-hidden rounded-5xl">
             <img
               src="https://images.unsplash.com/photo-1564198729838-cb82ee0c733c?w=800&q=85"
               srcSet="
@@ -145,8 +144,7 @@ function OriginStory() {
           </div>
           {/* Floating badge */}
           <div
-            className="absolute -bottom-6 -left-4 md:-left-8 bg-cream border border-moss/15 px-6 py-4 shadow-lg"
-            style={{ borderRadius: '1.5rem' }}
+            className="absolute -bottom-6 -left-4 md:-left-8 bg-cream border border-moss/15 px-6 py-4 shadow-lg rounded-3xl"
           >
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-madagascar/10 flex items-center justify-center">
@@ -190,10 +188,9 @@ function Founder() {
     <section ref={sectionRef} className="relative py-28 md:py-36 px-6 md:px-16 lg:px-24 bg-forest section-round mx-4 md:mx-8 overflow-hidden">
       {/* Subtle background */}
       <div
-        className="absolute inset-0 opacity-8 bg-cover bg-center"
+        className="absolute inset-0 opacity-8 bg-cover bg-center rounded-[inherit]"
         style={{
           backgroundImage: `url('https://images.unsplash.com/photo-1532336414038-cf19250c5757?w=1200&q=80')`,
-          borderRadius: 'inherit',
         }}
       />
 
@@ -203,8 +200,7 @@ function Founder() {
           <div className="founder-content lg:col-span-2 flex justify-center">
             <div className="relative">
               <div
-                className="w-72 md:w-80 bg-white/10 backdrop-blur-sm border-2 border-white/20 flex items-center justify-center overflow-hidden"
-                style={{ borderRadius: '2.5rem' }}
+                className="w-72 md:w-80 bg-white/10 backdrop-blur-sm border-2 border-white/20 flex items-center justify-center overflow-hidden rounded-5xl"
               >
                 <img
                   src={ikbalImg}
@@ -215,8 +211,7 @@ function Founder() {
               </div>
               {/* Decorative ring */}
               <div
-                className="absolute -inset-3 border border-white/10 pointer-events-none"
-                style={{ borderRadius: '3rem' }}
+                className="absolute -inset-3 border border-white/10 pointer-events-none rounded-6xl"
               />
             </div>
           </div>
@@ -235,7 +230,7 @@ function Founder() {
               {t('about.founderDesc')}
             </p>
 
-            <div className="founder-content mt-8 flex items-start gap-4 bg-white/5 backdrop-blur-sm border border-white/10 p-6" style={{ borderRadius: '1.5rem' }}>
+            <div className="founder-content mt-8 flex items-start gap-4 bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-3xl">
               <Quote size={24} className="text-madagascar-light flex-shrink-0 mt-1" />
               <p className="font-drama italic text-white/80 text-lg leading-relaxed">
                 {t('about.founderQuote')}
@@ -468,8 +463,7 @@ function Engagements() {
             return (
               <div
                 key={pillar.title}
-                className="engagement-pillar bg-white/5 backdrop-blur-sm border border-white/10 p-8 flex flex-col transition-all duration-400 hover:bg-white/8 hover:border-white/15"
-                style={{ borderRadius: '2rem' }}
+                className="engagement-pillar bg-white/5 backdrop-blur-sm border border-white/10 p-8 flex flex-col transition-all duration-400 hover:bg-white/8 hover:border-white/15 rounded-4xl"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
@@ -590,18 +584,16 @@ function AboutCTA() {
         <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
           <Link
             to={routes.products}
-            className="btn-magnetic inline-flex items-center gap-2 bg-madagascar text-white font-heading font-semibold px-7 py-3.5 text-sm"
-            style={{ borderRadius: '2rem' }}
+            className="btn-magnetic inline-flex items-center gap-2 bg-madagascar text-white font-heading font-semibold px-7 py-3.5 text-sm rounded-4xl"
           >
-            <span className="btn-bg bg-madagascar-light" style={{ borderRadius: '2rem' }} />
+            <span className="btn-bg bg-madagascar-light rounded-4xl" />
             <span className="relative z-10 flex items-center gap-2">
               {t('about.ctaProducts')} <ArrowRight size={16} />
             </span>
           </Link>
           <Link
             to={routes.contact}
-            className="btn-magnetic inline-flex items-center gap-2 border border-white/30 text-white font-heading font-medium px-6 py-3.5 text-sm bg-white/5 backdrop-blur-sm"
-            style={{ borderRadius: '2rem' }}
+            className="btn-magnetic inline-flex items-center gap-2 border border-white/30 text-white font-heading font-medium px-6 py-3.5 text-sm bg-white/5 backdrop-blur-sm rounded-4xl"
           >
             <span className="relative z-10 flex items-center gap-2">
               <MessageCircle size={16} />

@@ -40,7 +40,7 @@ export default function Hero() {
       />
       <div className="hero-overlay absolute inset-0" />
       <div className="relative z-10 h-full flex flex-col justify-end px-6 md:px-16 lg:px-24 pb-16 md:pb-24 max-w-5xl">
-        <div className="hero-tag inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white/80 text-xs font-mono px-4 py-1.5 mb-6 w-fit" style={{ borderRadius: '2rem' }}>
+        <div className="hero-tag inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white/80 text-xs font-mono px-4 py-1.5 mb-6 w-fit rounded-4xl">
           <span className="w-2 h-2 bg-moss-light rounded-full pulse-dot" />
           {t('hero.tag')}
         </div>
@@ -56,18 +56,16 @@ export default function Hero() {
         <div className="hero-cta flex flex-wrap items-center gap-4 mt-8">
           <Link
             to={routes.products}
-            className="btn-magnetic inline-flex items-center gap-2 bg-madagascar text-white font-heading font-semibold px-7 py-3.5 text-sm"
-            style={{ borderRadius: '2rem' }}
+            className="btn-magnetic inline-flex items-center gap-2 bg-madagascar text-white font-heading font-semibold px-7 py-3.5 text-sm rounded-4xl"
           >
-            <span className="btn-bg bg-madagascar-light" style={{ borderRadius: '2rem' }} />
+            <span className="btn-bg bg-madagascar-light rounded-4xl" />
             <span className="relative z-10 flex items-center gap-2">
               {t('hero.ctaProducts')} <ArrowRight size={16} />
             </span>
           </Link>
           <a
             href="#video"
-            className="btn-magnetic inline-flex items-center gap-2 border border-white/30 text-white font-heading font-medium px-6 py-3.5 text-sm bg-white/5 backdrop-blur-sm"
-            style={{ borderRadius: '2rem' }}
+            className="btn-magnetic inline-flex items-center gap-2 border border-white/30 text-white font-heading font-medium px-6 py-3.5 text-sm bg-white/5 backdrop-blur-sm rounded-4xl"
           >
             <span className="relative z-10 flex items-center gap-2">
               <Play size={16} />

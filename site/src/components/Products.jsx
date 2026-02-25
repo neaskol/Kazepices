@@ -64,12 +64,14 @@ export default function Products() {
               className="product-card card-kazepices bg-cream overflow-hidden flex flex-col group"
             >
               <Link to={`${routes.products}/${productSlug(product, lang)}`} className="block">
-                <div className={`relative h-48 bg-gradient-to-b ${product.color} to-cream flex items-center justify-center overflow-hidden`}>
+                <div className={`relative h-48 bg-gradient-to-b ${product.color} to-cream flex items-center justify-center overflow-hidden skeleton-shimmer`}>
                   {product.image ? (
                     <img
                       src={product.image}
                       alt={pt(product.alt, lang)}
                       loading="lazy"
+                      width={600}
+                      height={384}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   ) : (
@@ -98,10 +100,9 @@ export default function Products() {
                   href={whatsappUrl(t('products.whatsappMsg', { name: pt(product.name, lang) }))}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-magnetic mt-4 inline-flex items-center justify-center gap-2 bg-forest text-white font-heading font-semibold text-sm px-5 py-3"
-                  style={{ borderRadius: '1.5rem' }}
+                  className="btn-magnetic mt-4 inline-flex items-center justify-center gap-2 bg-forest text-white font-heading font-semibold text-sm px-5 py-3 rounded-3xl"
                 >
-                  <span className="btn-bg bg-forest-light" style={{ borderRadius: '1.5rem' }} />
+                  <span className="btn-bg bg-forest-light rounded-3xl" />
                   <span className="relative z-10 flex items-center gap-2">
                     <MessageCircle size={14} />
                     {t('products.orderWhatsApp')}

@@ -1,15 +1,16 @@
 import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useParams, Link, Navigate } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import usePageMeta from './hooks/usePageMeta'
 import { useLanguageRouter } from './hooks/useLanguageRouter'
 import { BreadcrumbSchema } from './components/StructuredData'
-import { ArrowLeft, MessageCircle, Mail, ArrowRight, Leaf, Package } from 'lucide-react'
+import { ArrowLeft, MessageCircle, Mail, ArrowRight, Leaf, Package, ChevronRight } from 'lucide-react'
 
 import products, { pt, productSlug, findProductBySlug } from './data/products'
 import { whatsappUrl } from './data/config'
+import { Search } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -71,13 +72,74 @@ export default function ProductDetailPage() {
   }, [product])
 
   if (!product) {
-    return <Navigate to={routes.products} replace />
+    const suggestions = products.slice(0, 3)
+    return (
+      <div className="min-h-dvh flex flex-col items-center justify-center px-6 py-32 text-center">
+        <div className="w-16 h-16 bg-forest/10 rounded-full flex items-center justify-center mb-6">
+          <Search size={28} className="text-forest/40" />
+        </div>
+        <span className="font-mono text-xs text-moss tracking-widest uppercase">{t('productNotFound.label')}</span>
+        <h1 className="font-heading font-extrabold text-forest text-3xl md:text-4xl mt-3 tracking-tight">
+          {t('productNotFound.heading')}
+        </h1>
+        <p className="font-body text-warm-gray text-base mt-3 max-w-md">
+          {t('productNotFound.message')}
+        </p>
+        <Link
+          to={routes.products}
+          className="mt-8 inline-flex items-center gap-2 bg-madagascar text-white font-heading font-semibold px-7 py-3.5 text-sm rounded-4xl"
+        >
+          <ArrowLeft size={16} />
+          {t('productNotFound.browseCta')}
+        </Link>
+
+        {suggestions.length > 0 && (
+          <div className="mt-16 w-full max-w-4xl">
+            <h2 className="font-heading font-bold text-forest text-lg mb-6">
+              {t('productNotFound.suggestionsHeading')}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {suggestions.map((p) => (
+                <Link
+                  key={productSlug(p, 'fr')}
+                  to={`${routes.products}/${productSlug(p, lang)}`}
+                  className="card-kazepices bg-cream overflow-hidden flex flex-col group text-left"
+                >
+                  <div className={`relative h-40 bg-gradient-to-b ${p.color} to-cream flex items-center justify-center overflow-hidden`}>
+                    {p.image ? (
+                      <img
+                        src={p.image}
+                        alt={pt(p.alt, lang) || pt(p.name, lang)}
+                        loading="lazy"
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        width={400}
+                        height={160}
+                      />
+                    ) : (
+                      <Package size={48} className="text-forest/20" />
+                    )}
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-heading font-bold text-forest group-hover:text-madagascar transition-colors">{pt(p.name, lang)}</h3>
+                    <span className="inline-flex items-center gap-1 font-heading text-xs font-semibold text-moss mt-2 group-hover:text-forest transition-colors">
+                      {t('products.viewProduct')} <ArrowRight size={12} />
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    )
   }
 
   // Find related products (same category, exclude current)
-  const related = products
-    .filter((p) => productSlug(p, 'fr') !== productSlug(product, 'fr'))
-    .slice(0, 3)
+  const sameCategory = products
+    .filter((p) => p.category === product.category && productSlug(p, 'fr') !== productSlug(product, 'fr'))
+  const related = sameCategory.length > 0
+    ? sameCategory.slice(0, 3)
+    : products.filter((p) => productSlug(p, 'fr') !== productSlug(product, 'fr')).slice(0, 3)
 
   return (
     <>
@@ -95,6 +157,8 @@ export default function ProductDetailPage() {
             <img
               src={product.image}
               alt={pt(product.alt, lang) || pt(product.name, lang)}
+              width={1920}
+              height={1080}
               className="w-full h-full object-cover"
             />
           ) : (
@@ -107,8 +171,7 @@ export default function ProductDetailPage() {
           <div className="max-w-4xl">
             <Link
               to={routes.products}
-              className="detail-hero-back inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white/70 text-xs font-mono px-4 py-1.5 mb-6 hover:bg-white/15 transition-colors"
-              style={{ borderRadius: '2rem' }}
+              className="detail-hero-back inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white/70 text-xs font-mono px-4 py-1.5 mb-6 hover:bg-white/15 transition-colors rounded-4xl"
             >
               <ArrowLeft size={14} />
               {t('productDetail.allProducts')}
@@ -116,14 +179,12 @@ export default function ProductDetailPage() {
 
             <div className="detail-hero-badge flex items-center gap-3 mb-4">
               <span
-                className="bg-white/15 backdrop-blur-sm text-white font-mono text-xs font-medium px-3 py-1"
-                style={{ borderRadius: '1rem' }}
+                className="bg-white/15 backdrop-blur-sm text-white font-mono text-xs font-medium px-3 py-1 rounded-2xl"
               >
                 {pt(product.type, lang)}
               </span>
               <span
-                className="bg-white/10 backdrop-blur-sm text-white/70 font-mono text-xs px-3 py-1"
-                style={{ borderRadius: '1rem' }}
+                className="bg-white/10 backdrop-blur-sm text-white/70 font-mono text-xs px-3 py-1 rounded-2xl"
               >
                 {pt(product.formats, lang)}
               </span>
@@ -146,8 +207,7 @@ export default function ProductDetailPage() {
                 href={whatsappUrl(t('productDetail.buyWhatsAppMsg', { name: pt(product.name, lang), formats: pt(product.formats, lang) }))}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-magnetic inline-flex items-center gap-2 bg-[#25D366] text-white font-heading font-semibold px-7 py-3.5 text-sm"
-                style={{ borderRadius: '2rem' }}
+                className="btn-magnetic inline-flex items-center gap-2 bg-[#25D366] text-white font-heading font-semibold px-7 py-3.5 text-sm rounded-4xl"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   <MessageCircle size={16} />
@@ -156,8 +216,7 @@ export default function ProductDetailPage() {
               </a>
               <Link
                 to={routes.contact}
-                className="btn-magnetic inline-flex items-center gap-2 border border-white/30 text-white font-heading font-medium px-6 py-3.5 text-sm bg-white/5 backdrop-blur-sm"
-                style={{ borderRadius: '2rem' }}
+                className="btn-magnetic inline-flex items-center gap-2 border border-white/30 text-white font-heading font-medium px-6 py-3.5 text-sm bg-white/5 backdrop-blur-sm rounded-4xl"
               >
                 <span className="relative z-10 flex items-center gap-2">
                   <Mail size={16} />
@@ -173,6 +232,21 @@ export default function ProductDetailPage() {
       <section ref={contentRef} className="py-20 md:py-28 px-6 md:px-16 lg:px-24">
         <div className="max-w-5xl mx-auto">
 
+          {/* Visual breadcrumb */}
+          <nav aria-label="Breadcrumb" className="mb-10">
+            <ol className="flex items-center gap-1.5 font-mono text-xs text-warm-gray">
+              <li>
+                <Link to="/" className="hover:text-forest transition-colors">{t('footer.home')}</Link>
+              </li>
+              <li aria-hidden="true"><ChevronRight size={12} /></li>
+              <li>
+                <Link to={routes.products} className="hover:text-forest transition-colors">{t('nav.products')}</Link>
+              </li>
+              <li aria-hidden="true"><ChevronRight size={12} /></li>
+              <li aria-current="page" className="text-forest font-medium">{pt(product.name, lang)}</li>
+            </ol>
+          </nav>
+
           {/* Benefits grid */}
           {product.benefits && product.benefits.length > 0 && (
             <div className="detail-benefits grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -182,7 +256,7 @@ export default function ProductDetailPage() {
                   className="detail-benefit card-kazepices bg-cream p-8"
                 >
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 bg-forest/10 flex items-center justify-center" style={{ borderRadius: '1rem' }}>
+                    <div className="w-10 h-10 bg-forest/10 flex items-center justify-center rounded-2xl">
                       <Leaf size={18} className="text-forest" />
                     </div>
                     <h3 className="font-heading font-bold text-forest text-lg">{pt(benefit.label, lang)}</h3>
@@ -243,8 +317,7 @@ export default function ProductDetailPage() {
               href={whatsappUrl(t('productDetail.buyWhatsAppMsg', { name: pt(product.name, lang), formats: pt(product.formats, lang) }))}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-magnetic inline-flex items-center gap-2 bg-[#25D366] text-white font-heading font-semibold px-7 py-3.5 text-sm"
-              style={{ borderRadius: '2rem' }}
+              className="btn-magnetic inline-flex items-center gap-2 bg-[#25D366] text-white font-heading font-semibold px-7 py-3.5 text-sm rounded-4xl"
             >
               <span className="relative z-10 flex items-center gap-2">
                 <MessageCircle size={16} />
@@ -253,8 +326,7 @@ export default function ProductDetailPage() {
             </a>
             <Link
               to={routes.contact}
-              className="btn-magnetic inline-flex items-center gap-2 border border-white/30 text-white font-heading font-medium px-6 py-3.5 text-sm bg-white/5 backdrop-blur-sm"
-              style={{ borderRadius: '2rem' }}
+              className="btn-magnetic inline-flex items-center gap-2 border border-white/30 text-white font-heading font-medium px-6 py-3.5 text-sm bg-white/5 backdrop-blur-sm rounded-4xl"
             >
               <span className="relative z-10 flex items-center gap-2">
                 <Mail size={16} />
@@ -289,14 +361,15 @@ export default function ProductDetailPage() {
                         src={p.image}
                         alt={pt(p.alt, lang) || pt(p.name, lang)}
                         loading="lazy"
+                        width={600}
+                        height={384}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     ) : (
                       <Package size={48} className="text-forest/20" />
                     )}
                     <span
-                      className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-forest font-mono text-xs font-medium px-3 py-1"
-                      style={{ borderRadius: '1rem' }}
+                      className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-forest font-mono text-xs font-medium px-3 py-1 rounded-2xl"
                     >
                       {pt(p.type, lang)}
                     </span>

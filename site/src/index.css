@@ -17,6 +17,9 @@
   --font-drama: "Cormorant Garamond", serif;
   --font-mono: "IBM Plex Mono", monospace;
   --font-body: "Outfit", "Plus Jakarta Sans", sans-serif;
+
+  --radius-5xl: 2.5rem;
+  --radius-6xl: 3rem;
 }
 
 /* Noise overlay */
@@ -104,6 +107,35 @@ body {
     rgba(27, 58, 42, 0.55) 60%,
     rgba(27, 58, 42, 0.40) 100%
   );
+}
+
+/* Skeleton shimmer for image loading placeholders */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.skeleton-shimmer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,0.15) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+  z-index: 1;
+  pointer-events: none;
+}
+.skeleton-shimmer:has(img[complete]) ::before,
+.skeleton-shimmer img[style*="opacity: 1"] + .skeleton-shimmer::before {
+  display: none;
 }
 
 /* Pulsing dot */
