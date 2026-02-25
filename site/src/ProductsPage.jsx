@@ -1,35 +1,47 @@
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Link } from 'react-router-dom'
 import usePageMeta from './hooks/usePageMeta'
+import { useLanguageRouter } from './hooks/useLanguageRouter'
 import { ProductListSchema, BreadcrumbSchema } from './components/StructuredData'
 import { ArrowLeft, MessageCircle, Package, Filter, ArrowRight } from 'lucide-react'
 
-import products from './data/products'
+import products, { pt } from './data/products'
 import { whatsappUrl } from './data/config'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const categories = [
-  { key: 'all', label: 'Tous' },
-  { key: 'poudre', label: 'Poudres' },
-  { key: 'fruit-sec', label: 'Fruits secs' },
-]
-
 export default function ProductsPage() {
+  const { t } = useTranslation()
+  const { lang, routes } = useLanguageRouter()
   const heroRef = useRef(null)
   const catalogRef = useRef(null)
   const [activeCategory, setActiveCategory] = useState('all')
+
+  const categories = [
+    { key: 'all', label: t('productsPage.filterAll') },
+    { key: 'poudre', label: t('productsPage.filterPowders') },
+    { key: 'fruit-sec', label: t('productsPage.filterDriedFruits') },
+  ]
 
   const filtered = activeCategory === 'all'
     ? products
     : products.filter((p) => p.category === activeCategory)
 
+  // Language-resolved products for structured data schema
+  const schemaProducts = products.map(p => ({
+    name: pt(p.name, lang),
+    description: pt(p.description, lang),
+    image: p.image,
+    type: pt(p.type, lang),
+  }))
+
   usePageMeta({
-    title: 'Nos Produits — Épices & Huiles Naturelles | Kazépices Madagascar',
-    description: 'Catalogue complet Kazépices : curcuma, poivre noir, gingembre, moringa, cannelle en poudre et huile de moringa. 100% naturel, sans produits chimiques.',
-    canonicalPath: '/produits',
+    title: t('productsPage.title'),
+    description: t('productsPage.metaDesc'),
+    canonicalPath: routes.products,
   })
 
   useEffect(() => {
@@ -71,10 +83,10 @@ export default function ProductsPage() {
 
   return (
     <>
-      <ProductListSchema products={products} />
+      <ProductListSchema products={schemaProducts} />
       <BreadcrumbSchema items={[
-        { name: 'Accueil', url: 'https://kazepices.com/' },
-        { name: 'Produits', url: 'https://kazepices.com/produits' },
+        { name: t('footer.home'), url: 'https://kazepices.com/' },
+        { name: t('nav.products'), url: `https://kazepices.com${routes.products}` },
       ]} />
       {/* Hero banner */}
       <section
@@ -96,34 +108,33 @@ export default function ProductsPage() {
             style={{ borderRadius: '2rem' }}
           >
             <ArrowLeft size={14} />
-            Retour à l'accueil
+            {t('common.backHome')}
           </Link>
 
           <h1 className="products-hero-title font-heading font-extrabold text-white text-4xl md:text-6xl tracking-tight leading-[1.1]">
-            Nos produits{' '}
-            <span className="font-drama italic text-madagascar-light">100% naturels.</span>
+            {t('productsPage.heading1')}{' '}
+            <span className="font-drama italic text-madagascar-light">{t('productsPage.heading2')}</span>
           </h1>
 
           <p className="products-hero-desc font-body text-white/70 text-base md:text-lg mt-6 max-w-xl mx-auto leading-relaxed">
-            Chaque produit est cultivé, récolté et conditionné à Madagascar avec un savoir-faire artisanal unique.
-            Provenance garantie, qualité sans compromis.
+            {t('productsPage.description')}
           </p>
 
           {/* Stats */}
           <div className="products-hero-stats flex flex-wrap items-center justify-center gap-8 mt-10">
             <div className="text-center">
               <p className="font-heading font-extrabold text-white text-2xl md:text-3xl">{products.length}</p>
-              <p className="font-mono text-xs text-white/60 mt-1">Produits</p>
+              <p className="font-mono text-xs text-white/60 mt-1">{t('productsPage.statProducts')}</p>
             </div>
             <div className="w-px h-10 bg-white/15" />
             <div className="text-center">
               <p className="font-heading font-extrabold text-white text-2xl md:text-3xl">100%</p>
-              <p className="font-mono text-xs text-white/60 mt-1">Naturel</p>
+              <p className="font-mono text-xs text-white/60 mt-1">{t('productsPage.statNatural')}</p>
             </div>
             <div className="w-px h-10 bg-white/15" />
             <div className="text-center">
               <p className="font-heading font-extrabold text-white text-2xl md:text-3xl">0</p>
-              <p className="font-mono text-xs text-white/60 mt-1">Produits chimiques</p>
+              <p className="font-mono text-xs text-white/60 mt-1">{t('productsPage.statChemicals')}</p>
             </div>
           </div>
         </div>
@@ -134,7 +145,7 @@ export default function ProductsPage() {
         <div className="max-w-6xl mx-auto">
 
           {/* Filters */}
-          <div className="catalog-filters flex flex-wrap items-center gap-3 mb-12" role="group" aria-label="Filtrer par categorie">
+          <div className="catalog-filters flex flex-wrap items-center gap-3 mb-12" role="group" aria-label={t('productsPage.filterLabel')}>
             <Filter size={16} className="text-moss" aria-hidden="true" />
             {categories.map((cat) => (
               <button
@@ -151,7 +162,7 @@ export default function ProductsPage() {
               </button>
             ))}
             <span className="font-mono text-xs text-warm-gray ml-auto" aria-live="polite">
-              {filtered.length} produit{filtered.length > 1 ? 's' : ''}
+              {filtered.length} {filtered.length > 1 ? t('productsPage.productPlural') : t('productsPage.productSingular')}
             </span>
           </div>
 
@@ -159,16 +170,16 @@ export default function ProductsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filtered.map((product) => (
               <div
-                key={product.name}
+                key={product.slug}
                 className="product-page-card card-kazepices bg-cream overflow-hidden flex flex-col group"
               >
                 {/* Product image — clickable */}
-                <Link to={`/produits/${product.slug}`} className="block">
+                <Link to={`${routes.products}/${product.slug}`} className="block">
                   <div className={`relative h-56 bg-gradient-to-b ${product.color} to-cream flex items-center justify-center overflow-hidden`}>
                     {product.image ? (
                       <img
                         src={product.image}
-                        alt={product.alt || product.name}
+                        alt={pt(product.alt, lang) || pt(product.name, lang)}
                         loading="lazy"
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
@@ -180,36 +191,36 @@ export default function ProductsPage() {
                       className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-forest font-mono text-xs font-medium px-3 py-1"
                       style={{ borderRadius: '1rem' }}
                     >
-                      {product.type}
+                      {pt(product.type, lang)}
                     </span>
                     {/* Badge formats */}
                     <span
                       className="absolute top-4 right-4 bg-charcoal/70 backdrop-blur-sm text-white font-mono text-xs px-3 py-1"
                       style={{ borderRadius: '1rem' }}
                     >
-                      {product.formats}
+                      {pt(product.formats, lang)}
                     </span>
                   </div>
                 </Link>
 
                 <div className="p-6 flex flex-col flex-1">
-                  <Link to={`/produits/${product.slug}`} className="hover:text-madagascar transition-colors">
-                    <h3 className="font-heading font-bold text-forest text-xl group-hover:text-madagascar transition-colors">{product.name}</h3>
+                  <Link to={`${routes.products}/${product.slug}`} className="hover:text-madagascar transition-colors">
+                    <h3 className="font-heading font-bold text-forest text-xl group-hover:text-madagascar transition-colors">{pt(product.name, lang)}</h3>
                   </Link>
                   <p className="font-body text-warm-gray text-sm mt-2 leading-relaxed">
-                    {product.description}
+                    {pt(product.description, lang)}
                   </p>
 
                   <Link
-                    to={`/produits/${product.slug}`}
+                    to={`${routes.products}/${product.slug}`}
                     className="mt-3 inline-flex items-center gap-1 font-heading text-xs font-semibold text-moss hover:text-forest transition-colors"
                   >
-                    Voir le produit <ArrowRight size={12} />
+                    {t('products.viewProduct')} <ArrowRight size={12} />
                   </Link>
 
                   <div className="mt-auto pt-4">
                     <a
-                      href={whatsappUrl(`Bonjour Kazépices, je souhaite commander du ${product.name} (${product.formats}).`)}
+                      href={whatsappUrl(t('products.whatsappMsgFormats', { name: pt(product.name, lang), formats: pt(product.formats, lang) }))}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn-magnetic w-full inline-flex items-center justify-center gap-2 bg-forest text-white font-heading font-semibold text-sm px-5 py-3"
@@ -218,7 +229,7 @@ export default function ProductsPage() {
                       <span className="btn-bg bg-forest-light" style={{ borderRadius: '1.5rem' }} />
                       <span className="relative z-10 flex items-center gap-2">
                         <MessageCircle size={14} />
-                        Commander via WhatsApp
+                        {t('products.orderWhatsApp')}
                       </span>
                     </a>
                   </div>
@@ -232,17 +243,17 @@ export default function ProductsPage() {
       {/* CTA bottom */}
       <section className="pb-20 md:pb-28 px-6 md:px-16 lg:px-24">
         <div className="max-w-4xl mx-auto bg-forest section-round p-10 md:p-16 text-center">
-          <span className="font-mono text-xs text-moss-light tracking-widest uppercase">Besoin d'aide ?</span>
+          <span className="font-mono text-xs text-moss-light tracking-widest uppercase">{t('productsPage.helpLabel')}</span>
           <h2 className="font-heading font-extrabold text-white text-2xl md:text-4xl mt-3 tracking-tight">
-            Une question sur nos{' '}
-            <span className="font-drama italic text-madagascar-light">produits ?</span>
+            {t('productsPage.helpHeading1')}{' '}
+            <span className="font-drama italic text-madagascar-light">{t('productsPage.helpHeading2')}</span>
           </h2>
           <p className="font-body text-white/70 text-sm md:text-base mt-4 max-w-lg mx-auto leading-relaxed">
-            Contactez-nous directement via WhatsApp pour une réponse rapide, ou envoyez-nous un message via notre formulaire.
+            {t('productsPage.helpDesc')}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
             <a
-              href={whatsappUrl('Bonjour Kazépices, j\'ai une question sur vos produits.')}
+              href={whatsappUrl(t('productsPage.helpWhatsAppMsg'))}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-magnetic inline-flex items-center gap-2 bg-[#25D366] text-white font-heading font-semibold px-7 py-3.5 text-sm"
@@ -250,16 +261,16 @@ export default function ProductsPage() {
             >
               <span className="relative z-10 flex items-center gap-2">
                 <MessageCircle size={16} />
-                WhatsApp
+                {t('productsPage.helpWhatsApp')}
               </span>
             </a>
             <Link
-              to="/contact"
+              to={routes.contact}
               className="btn-magnetic inline-flex items-center gap-2 border border-white/30 text-white font-heading font-medium px-6 py-3.5 text-sm bg-white/5 backdrop-blur-sm"
               style={{ borderRadius: '2rem' }}
             >
               <span className="relative z-10 flex items-center gap-2">
-                Nous contacter <ArrowRight size={16} />
+                {t('productsPage.helpContact')} <ArrowRight size={16} />
               </span>
             </Link>
           </div>
