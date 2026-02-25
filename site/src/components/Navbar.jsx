@@ -2,8 +2,37 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, ArrowRight } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
+import { useLanguageRouter } from '../hooks/useLanguageRouter'
 
 import logoImg from '../assets/logo.webp'
+
+function LanguageToggle({ scrolled, isHome, lang, switchLanguage }) {
+  return (
+    <div className="flex items-center gap-1">
+      <button
+        onClick={() => switchLanguage('fr')}
+        className={`text-xs font-heading font-semibold px-2 py-1 rounded-full transition-colors ${
+          lang === 'fr'
+            ? (scrolled || !isHome ? 'bg-forest text-white' : 'bg-white/20 text-white')
+            : (scrolled || !isHome ? 'text-forest/50 hover:text-forest' : 'text-white/50 hover:text-white')
+        }`}
+      >
+        FR
+      </button>
+      <button
+        onClick={() => switchLanguage('en')}
+        className={`text-xs font-heading font-semibold px-2 py-1 rounded-full transition-colors ${
+          lang === 'en'
+            ? (scrolled || !isHome ? 'bg-forest text-white' : 'bg-white/20 text-white')
+            : (scrolled || !isHome ? 'text-forest/50 hover:text-forest' : 'text-white/50 hover:text-white')
+        }`}
+      >
+        EN
+      </button>
+    </div>
+  )
+}
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -13,6 +42,8 @@ export default function Navbar() {
   const toggleRef = useRef(null)
   const location = useLocation()
   const isHome = location.pathname === '/'
+  const { t } = useTranslation()
+  const { lang, routes, switchLanguage } = useLanguageRouter()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -82,7 +113,7 @@ export default function Navbar() {
   return (
     <nav
       ref={navRef}
-      aria-label="Menu principal"
+      aria-label={t('nav.mainMenu')}
       className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-out ${
         scrolled || !isHome
           ? 'bg-cream/85 backdrop-blur-xl border border-moss/20 shadow-lg'
@@ -94,7 +125,7 @@ export default function Navbar() {
         <Link to="/" className="flex-shrink-0">
           <img
             src={logoImg}
-            alt="Kazepices — Accueil"
+            alt={t('nav.logoAlt')}
             className="h-8 md:h-10 w-auto"
           />
         </Link>
@@ -102,31 +133,36 @@ export default function Navbar() {
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-6">
           <Link
-            to="/a-propos"
+            to={routes.about}
             className={`text-sm font-medium font-heading hover-lift transition-colors ${
               scrolled || !isHome ? 'text-forest' : 'text-white'
             }`}
           >
-            A propos
+            {t('nav.about')}
           </Link>
           <Link
-            to="/contact"
+            to={routes.contact}
             className={`text-sm font-medium font-heading hover-lift transition-colors ${
               scrolled || !isHome ? 'text-forest' : 'text-white'
             }`}
           >
-            Contact
+            {t('nav.contact')}
           </Link>
         </div>
 
+        {/* Desktop language toggle */}
+        <div className="hidden md:flex">
+          <LanguageToggle scrolled={scrolled} isHome={isHome} lang={lang} switchLanguage={switchLanguage} />
+        </div>
+
         <Link
-          to="/produits"
+          to={routes.products}
           className="hidden md:inline-flex btn-magnetic items-center gap-2 bg-madagascar text-white text-sm font-semibold font-heading px-5 py-2.5"
           style={{ borderRadius: '2rem' }}
         >
           <span className="btn-bg bg-madagascar-light" style={{ borderRadius: '2rem' }} />
           <span className="relative z-10 flex items-center gap-2">
-            Nos produits <ArrowRight size={14} aria-hidden="true" />
+            {t('nav.products')} <ArrowRight size={14} aria-hidden="true" />
           </span>
         </Link>
 
@@ -137,7 +173,7 @@ export default function Navbar() {
           onClick={() => setMenuOpen(!menuOpen)}
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
-          aria-label={menuOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+          aria-label={menuOpen ? t('nav.closeMenu') : t('nav.openMenu')}
         >
           {menuOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
         </button>
@@ -152,33 +188,35 @@ export default function Navbar() {
           className="md:hidden mt-4 pb-4 flex flex-col gap-3 border-t border-moss/20 pt-4"
         >
           <Link
-            to="/a-propos"
+            to={routes.about}
             role="menuitem"
             onClick={() => setMenuOpen(false)}
             className={`text-sm font-medium font-heading ${
               scrolled || !isHome ? 'text-forest' : 'text-white'
             }`}
           >
-            A propos
+            {t('nav.about')}
           </Link>
           <Link
-            to="/contact"
+            to={routes.contact}
             role="menuitem"
             onClick={() => setMenuOpen(false)}
             className={`text-sm font-medium font-heading ${
               scrolled || !isHome ? 'text-forest' : 'text-white'
             }`}
           >
-            Contact
+            {t('nav.contact')}
           </Link>
+          {/* Mobile language toggle */}
+          <LanguageToggle scrolled={scrolled} isHome={isHome} lang={lang} switchLanguage={switchLanguage} />
           <Link
-            to="/produits"
+            to={routes.products}
             role="menuitem"
             onClick={() => setMenuOpen(false)}
             className="btn-magnetic bg-madagascar text-white text-sm font-semibold font-heading px-5 py-2.5 text-center"
             style={{ borderRadius: '2rem' }}
           >
-            Nos produits
+            {t('nav.products')}
           </Link>
         </div>
       )}
