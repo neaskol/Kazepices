@@ -197,7 +197,7 @@ function Founder() {
       <div className="relative z-10 max-w-5xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
           {/* Left: image area */}
-          <div className="founder-content lg:col-span-2 flex justify-center">
+          <div className="founder-content lg:col-span-2 flex justify-center order-2 lg:order-1">
             <div className="relative">
               <div
                 className="w-72 md:w-80 bg-white/10 backdrop-blur-sm border-2 border-white/20 flex items-center justify-center overflow-hidden rounded-5xl"
@@ -217,7 +217,7 @@ function Founder() {
           </div>
 
           {/* Right: text */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-3 order-1 lg:order-2">
             <div className="founder-content">
               <span className="font-mono text-xs text-moss-light tracking-widest uppercase">{t('about.founderLabel')}</span>
               <h2 className="font-heading font-extrabold text-white text-3xl md:text-4xl mt-3 tracking-tight leading-tight">

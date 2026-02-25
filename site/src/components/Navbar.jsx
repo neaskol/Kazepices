@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, ArrowRight } from 'lucide-react'
+import { Menu, X, ArrowRight, Sun, Moon } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useLanguageRouter } from '../hooks/useLanguageRouter'
 import { useTheme } from '../context/ThemeContext'
@@ -17,8 +17,8 @@ export default function Navbar() {
   const location = useLocation()
   const isHome = location.pathname === '/'
   const { t } = useTranslation()
-  const { routes } = useLanguageRouter()
-  const { isDark } = useTheme()
+  const { routes, lang, switchLanguage } = useLanguageRouter()
+  const { isDark, toggleTheme } = useTheme()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -174,6 +174,44 @@ export default function Navbar() {
           >
             {t('nav.contact')}
           </Link>
+
+          {/* Mobile language + theme toggles */}
+          <div className="flex items-center justify-between gap-4 pt-3 border-t border-moss/20">
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => switchLanguage('fr')}
+                className={`text-xs font-heading font-semibold px-3 py-1.5 rounded-full transition-colors ${
+                  lang === 'fr'
+                    ? isDark ? 'bg-white/20 text-white' : 'bg-forest text-white'
+                    : isDark ? 'text-white/50 hover:text-white' : 'text-forest/50 hover:text-forest'
+                }`}
+              >
+                FR
+              </button>
+              <button
+                onClick={() => switchLanguage('en')}
+                className={`text-xs font-heading font-semibold px-3 py-1.5 rounded-full transition-colors ${
+                  lang === 'en'
+                    ? isDark ? 'bg-white/20 text-white' : 'bg-forest text-white'
+                    : isDark ? 'text-white/50 hover:text-white' : 'text-forest/50 hover:text-forest'
+                }`}
+              >
+                EN
+              </button>
+            </div>
+            <button
+              onClick={toggleTheme}
+              aria-label={isDark ? 'Activer le mode clair' : 'Activer le mode sombre'}
+              className={`p-2 rounded-full transition-all duration-300 ${
+                isDark
+                  ? 'text-white/70 hover:text-white hover:bg-white/10'
+                  : 'text-forest/70 hover:text-forest hover:bg-forest/10'
+              }`}
+            >
+              {isDark ? <Sun size={18} aria-hidden="true" /> : <Moon size={18} aria-hidden="true" />}
+            </button>
+          </div>
+
           <Link
             to={routes.products}
             role="menuitem"

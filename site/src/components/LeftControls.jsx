@@ -22,7 +22,7 @@ export default function LeftControls() {
   const isLight = scrolled || !isHome
 
   return (
-    <div className="fixed top-4 left-4 md:left-8 z-50 flex flex-col gap-2">
+    <div className="hidden md:flex fixed top-4 left-4 md:left-8 z-50 flex-col gap-2">
       {/* Language toggle */}
       <div
         className={`flex flex-col gap-1 p-2 rounded-3xl transition-all duration-500 ${
