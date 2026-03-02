@@ -6,7 +6,6 @@ import NoiseOverlay from './components/NoiseOverlay'
 import Navbar from './components/Navbar'
 import LeftControls from './components/LeftControls'
 import Footer from './components/Footer'
-import WhatsAppFloat from './components/WhatsAppFloat'
 import { OrganizationSchema } from './components/StructuredData'
 import AppRouter from './AppRouter'
 import { ThemeProvider } from './context/ThemeContext'
@@ -28,7 +27,6 @@ function AppContent() {
         <AppRouter />
       </main>
       <Footer />
-      <WhatsAppFloat />
     </>
   )
 }
