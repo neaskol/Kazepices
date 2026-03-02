@@ -378,7 +378,6 @@ export default function AboutPage() {
       <AboutHero />
       <OriginStory />
       <Founder />
-      <SavoirFaire />
       <BridgeSection />
       <AboutCTA />
     </>
