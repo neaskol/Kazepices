@@ -6,11 +6,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import usePageMeta from './hooks/usePageMeta'
 import { useLanguageRouter } from './hooks/useLanguageRouter'
 import { BreadcrumbSchema } from './components/StructuredData'
-import { ArrowLeft, MessageCircle, Mail, ArrowRight, Leaf, Package, ChevronRight } from 'lucide-react'
+import { ArrowLeft, Mail, ArrowRight, Leaf, Package, ChevronRight, Search } from 'lucide-react'
 
 import products, { pt, productSlug, findProductBySlug } from './data/products'
-import { whatsappUrl } from './data/config'
-import { Search } from 'lucide-react'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -75,14 +73,14 @@ export default function ProductDetailPage() {
     const suggestions = products.slice(0, 3)
     return (
       <div className="min-h-dvh flex flex-col items-center justify-center px-6 py-32 text-center">
-        <div className="w-16 h-16 bg-forest/10 rounded-full flex items-center justify-center mb-6">
-          <Search size={28} className="text-forest/40" />
+        <div className="w-16 h-16 bg-forest/10 dark:bg-forest/20 rounded-full flex items-center justify-center mb-6">
+          <Search size={28} className="text-forest/40 dark:text-moss-light/40" />
         </div>
         <span className="font-mono text-xs text-moss dark:text-moss-light tracking-widest uppercase">{t('productNotFound.label')}</span>
         <h1 className="font-heading font-extrabold text-forest dark:text-cream text-3xl md:text-4xl mt-3 tracking-tight">
           {t('productNotFound.heading')}
         </h1>
-        <p className="font-body text-warm-gray dark:text-white/60 text-base mt-3 max-w-md">
+        <p className="font-body text-warm-gray dark:text-white/70 text-base mt-3 max-w-md">
           {t('productNotFound.message')}
         </p>
         <Link
@@ -203,21 +201,11 @@ export default function ProductDetailPage() {
 
             {/* CTA Buttons */}
             <div className="detail-hero-cta flex flex-wrap items-center gap-4 mt-8">
-              <a
-                href={whatsappUrl(t('productDetail.buyWhatsAppMsg', { name: pt(product.name, lang), formats: pt(product.formats, lang) }))}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-magnetic inline-flex items-center gap-2 bg-[#25D366] text-white font-heading font-semibold px-7 py-3.5 text-sm rounded-4xl"
-              >
-                <span className="relative z-10 flex items-center gap-2">
-                  <MessageCircle size={16} />
-                  {t('productDetail.buyWhatsApp')}
-                </span>
-              </a>
               <Link
                 to={routes.contact}
-                className="btn-magnetic inline-flex items-center gap-2 border border-white/30 text-white font-heading font-medium px-6 py-3.5 text-sm bg-white/5 backdrop-blur-sm rounded-4xl"
+                className="btn-magnetic inline-flex items-center gap-2 bg-madagascar text-white font-heading font-semibold px-7 py-3.5 text-sm rounded-4xl"
               >
+                <span className="btn-bg bg-madagascar-light rounded-4xl" />
                 <span className="relative z-10 flex items-center gap-2">
                   <Mail size={16} />
                   {t('productDetail.contactUs')}
@@ -313,21 +301,11 @@ export default function ProductDetailPage() {
             {t('productDetail.orderDesc')}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
-            <a
-              href={whatsappUrl(t('productDetail.buyWhatsAppMsg', { name: pt(product.name, lang), formats: pt(product.formats, lang) }))}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-magnetic inline-flex items-center gap-2 bg-[#25D366] text-white font-heading font-semibold px-7 py-3.5 text-sm rounded-4xl"
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                <MessageCircle size={16} />
-                {t('productDetail.buyWhatsApp')}
-              </span>
-            </a>
             <Link
               to={routes.contact}
-              className="btn-magnetic inline-flex items-center gap-2 border border-white/30 text-white font-heading font-medium px-6 py-3.5 text-sm bg-white/5 backdrop-blur-sm rounded-4xl"
+              className="btn-magnetic inline-flex items-center gap-2 bg-madagascar text-white font-heading font-semibold px-7 py-3.5 text-sm rounded-4xl"
             >
+              <span className="btn-bg bg-madagascar-light rounded-4xl" />
               <span className="relative z-10 flex items-center gap-2">
                 <Mail size={16} />
                 {t('productDetail.contactUs')} <ArrowRight size={16} />

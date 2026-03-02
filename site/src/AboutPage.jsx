@@ -152,7 +152,7 @@ function OriginStory() {
               </div>
               <div>
                 <p className="font-heading font-bold text-forest dark:text-moss-light text-sm">{t('about.originBadgeTitle')}</p>
-                <p className="font-mono text-xs text-warm-gray">{t('about.originBadgeDesc')}</p>
+                <p className="font-mono text-xs text-warm-gray dark:text-white/65">{t('about.originBadgeDesc')}</p>
               </div>
             </div>
           </div>

@@ -5,9 +5,8 @@ import { Link } from 'react-router-dom'
 import usePageMeta from './hooks/usePageMeta'
 import { useLanguageRouter } from './hooks/useLanguageRouter'
 import { BreadcrumbSchema } from './components/StructuredData'
-import { Mail, MessageCircle, MapPin, Globe, Send, CheckCircle, AlertCircle, ArrowLeft } from 'lucide-react'
-
-import { whatsappUrl } from './data/config'
+import { Mail, MapPin, Globe, Send, CheckCircle, AlertCircle, ArrowLeft } from 'lucide-react'
+import { CONTACT_INFO } from './config/contact'
 
 // Input sanitization: strip HTML tags and trim
 function sanitize(str) {
@@ -167,7 +166,7 @@ export default function ContactPage() {
     }
   }
 
-  const inputClasses = 'w-full bg-white dark:bg-charcoal dark:text-cream border border-moss/20 dark:border-white/10 font-body text-charcoal text-sm px-4 py-3.5 outline-none transition-all duration-300 focus:border-forest focus:ring-2 focus:ring-forest/10 placeholder:text-warm-gray/50 rounded-2xl'
+  const inputClasses = 'w-full bg-white dark:bg-charcoal dark:text-cream border border-moss/20 dark:border-white/10 font-body text-charcoal text-sm px-4 py-3.5 outline-none transition-all duration-300 focus:border-forest dark:focus:border-moss-light focus:ring-2 focus:ring-forest/10 dark:focus:ring-moss-light/10 placeholder:text-warm-gray/50 dark:placeholder:text-white/40 rounded-2xl'
 
   return (
     <>
@@ -221,60 +220,55 @@ export default function ContactPage() {
 
             <div className="flex flex-col gap-6 mt-10">
               <a
-                href="mailto:contact@kazepices.com"
+                href={`mailto:${CONTACT_INFO.email}`}
                 className="flex items-center gap-4 group hover-lift"
               >
-                <div className="w-14 h-14 rounded-full bg-forest/10 flex items-center justify-center group-hover:bg-forest/20 transition-colors flex-shrink-0">
-                  <Mail size={22} className="text-forest" />
+                <div className="w-14 h-14 rounded-full bg-forest/10 dark:bg-forest/20 flex items-center justify-center group-hover:bg-forest/20 dark:group-hover:bg-forest/30 transition-colors flex-shrink-0">
+                  <Mail size={22} className="text-forest dark:text-moss-light" />
                 </div>
                 <div>
                   <p className="font-heading font-semibold text-forest dark:text-cream text-sm">{t('contact.infoEmail')}</p>
-                  <p className="font-body text-warm-gray dark:text-white/60 text-sm">contact@kazepices.com</p>
+                  <p className="font-body text-warm-gray dark:text-white/70 text-sm">{CONTACT_INFO.email}</p>
                 </div>
               </a>
 
               <a
-                href={whatsappUrl(t('contact.whatsappMsg'))}
+                href={`tel:${CONTACT_INFO.phone}`}
+                className="flex items-center gap-4 group hover-lift"
+              >
+                <div className="w-14 h-14 rounded-full bg-madagascar/10 dark:bg-madagascar/20 flex items-center justify-center group-hover:bg-madagascar/20 dark:group-hover:bg-madagascar/30 transition-colors flex-shrink-0">
+                  <Mail size={22} className="text-madagascar dark:text-madagascar" />
+                </div>
+                <div>
+                  <p className="font-heading font-semibold text-forest dark:text-cream text-sm">{t('contact.infoPhone')}</p>
+                  <p className="font-body text-warm-gray dark:text-white/70 text-sm">{CONTACT_INFO.phoneDisplay}</p>
+                </div>
+              </a>
+
+              <a
+                href={CONTACT_INFO.websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-4 group hover-lift"
               >
-                <div className="w-14 h-14 rounded-full bg-[#25D366]/10 flex items-center justify-center group-hover:bg-[#25D366]/20 transition-colors flex-shrink-0">
-                  <MessageCircle size={22} className="text-[#25D366]" />
+                <div className="w-14 h-14 rounded-full bg-moss/10 dark:bg-moss/20 flex items-center justify-center group-hover:bg-moss/20 dark:group-hover:bg-moss/30 transition-colors flex-shrink-0">
+                  <Globe size={22} className="text-moss dark:text-moss-light" />
                 </div>
                 <div>
-                  <p className="font-heading font-semibold text-forest dark:text-cream text-sm">{t('contact.infoWhatsApp')}</p>
-                  <p className="font-body text-warm-gray dark:text-white/60 text-sm">{t('contact.infoWhatsAppDesc')}</p>
+                  <p className="font-heading font-semibold text-forest dark:text-cream text-sm">{t('contact.infoWebsite')}</p>
+                  <p className="font-body text-warm-gray dark:text-white/70 text-sm">{CONTACT_INFO.website}</p>
                 </div>
               </a>
 
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-full bg-madagascar/10 flex items-center justify-center flex-shrink-0">
-                  <MapPin size={22} className="text-madagascar" />
+                <div className="w-14 h-14 rounded-full bg-forest/10 dark:bg-forest/20 flex items-center justify-center flex-shrink-0">
+                  <MapPin size={22} className="text-forest dark:text-moss-light" />
                 </div>
                 <div>
-                  <p className="font-heading font-semibold text-forest dark:text-cream text-sm">{t('contact.infoLocation')}</p>
-                  <p className="font-body text-warm-gray dark:text-white/60 text-sm">{t('contact.infoLocationDesc')}</p>
+                  <p className="font-heading font-semibold text-forest dark:text-cream text-sm">{t('contact.infoContact')}</p>
+                  <p className="font-body text-warm-gray dark:text-white/70 text-sm">{CONTACT_INFO.contactPerson}</p>
                 </div>
               </div>
-
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-full bg-moss/10 flex items-center justify-center flex-shrink-0">
-                  <Globe size={22} className="text-moss dark:text-moss-light" />
-                </div>
-                <div>
-                  <p className="font-heading font-semibold text-forest dark:text-cream text-sm">{t('contact.infoHours')}</p>
-                  <p className="font-body text-warm-gray dark:text-white/60 text-sm">{t('contact.infoHoursDesc')}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Trust signal */}
-            <div className="mt-12 p-5 bg-forest/5 dark:bg-moss/10 border border-forest/10 dark:border-moss/20 rounded-3xl">
-              <p className="font-body text-forest/80 dark:text-white/70 text-sm leading-relaxed">
-                <span className="font-heading font-semibold text-forest dark:text-moss-light">{t('contact.directOrder')}</span>{' '}
-                {t('contact.directOrderDesc')}
-              </p>
             </div>
           </div>
 
@@ -287,7 +281,7 @@ export default function ContactPage() {
             >
               <div>
                 <h3 className="font-heading font-bold text-forest dark:text-cream text-xl">{t('contact.formHeading')}</h3>
-                <p className="font-body text-warm-gray dark:text-white/60 text-sm mt-1">{t('contact.formRequired')}</p>
+                <p className="font-body text-warm-gray dark:text-white/70 text-sm mt-1">{t('contact.formRequired')}</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -341,7 +335,7 @@ export default function ContactPage() {
                   onChange={handleChange}
                   aria-invalid={!!errors.subject}
                   aria-describedby={errors.subject ? 'error-subject' : undefined}
-                  className={`${inputClasses} ${!formData.subject ? 'text-warm-gray/50' : ''}`}
+                  className={`${inputClasses} ${!formData.subject ? 'text-warm-gray/50 dark:text-white/40' : ''}`}
 
                 >
                   <option value="" disabled>{t('contact.subjectDefault')}</option>
@@ -371,7 +365,7 @@ export default function ContactPage() {
                 />
                 <div className="flex justify-between items-center mt-1">
                   {errors.message ? <p id="error-message" role="alert" className="text-madagascar text-xs font-body">{errors.message}</p> : <span />}
-                  <span className={`font-mono text-xs ${formData.message.length > 4500 ? 'text-madagascar' : 'text-warm-gray/50'}`} aria-live="polite">
+                  <span className={`font-mono text-xs ${formData.message.length > 4500 ? 'text-madagascar' : 'text-warm-gray/50 dark:text-white/50'}`} aria-live="polite">
                     {formData.message.length} / 5000
                   </span>
                 </div>

@@ -2,12 +2,11 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Link } from 'react-router-dom'
-import { Package, MessageCircle, ArrowRight } from 'lucide-react'
+import { Package, ArrowRight } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useLanguageRouter } from '../hooks/useLanguageRouter'
 
 import products, { pt, productSlug } from '../data/products'
-import { whatsappUrl } from '../data/config'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -52,7 +51,7 @@ export default function Products() {
             {t('products.heading1')}{' '}
             <span className="font-drama italic text-madagascar">{t('products.heading2')}</span>
           </h2>
-          <p className="font-body text-warm-gray dark:text-white/60 text-base mt-4 max-w-xl">
+          <p className="font-body text-warm-gray dark:text-white/70 text-base mt-4 max-w-xl">
             {t('products.description')}
           </p>
         </div>
@@ -82,12 +81,12 @@ export default function Products() {
               <div className="p-6 flex flex-col flex-1">
                 <div className="flex items-center justify-between mb-2">
                   <span className="font-mono text-xs text-moss dark:text-moss-light">{pt(product.type, lang)}</span>
-                  <span className="font-mono text-xs text-warm-gray dark:text-white/50">{pt(product.formats, lang)}</span>
+                  <span className="font-mono text-xs text-warm-gray dark:text-white/65">{pt(product.formats, lang)}</span>
                 </div>
                 <Link to={`${routes.products}/${productSlug(product, lang)}`}>
                   <h3 className="font-heading font-bold text-forest dark:text-cream text-lg group-hover:text-madagascar transition-colors">{pt(product.name, lang)}</h3>
                 </Link>
-                <p className="font-body text-warm-gray dark:text-white/60 text-sm mt-2 leading-relaxed flex-1">
+                <p className="font-body text-warm-gray dark:text-white/70 text-sm mt-2 leading-relaxed flex-1">
                   {pt(product.description, lang)}
                 </p>
                 <Link
@@ -96,18 +95,6 @@ export default function Products() {
                 >
                   {t('products.viewProduct')} <ArrowRight size={12} />
                 </Link>
-                <a
-                  href={whatsappUrl(t('products.whatsappMsg', { name: pt(product.name, lang) }))}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-magnetic mt-4 inline-flex items-center justify-center gap-2 bg-forest text-white font-heading font-semibold text-sm px-5 py-3 rounded-3xl"
-                >
-                  <span className="btn-bg bg-forest-light rounded-3xl" />
-                  <span className="relative z-10 flex items-center gap-2">
-                    <MessageCircle size={14} />
-                    {t('products.orderWhatsApp')}
-                  </span>
-                </a>
               </div>
             </div>
           ))}

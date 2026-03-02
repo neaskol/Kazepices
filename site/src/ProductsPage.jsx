@@ -6,10 +6,9 @@ import { Link, useSearchParams } from 'react-router-dom'
 import usePageMeta from './hooks/usePageMeta'
 import { useLanguageRouter } from './hooks/useLanguageRouter'
 import { ProductListSchema, BreadcrumbSchema } from './components/StructuredData'
-import { ArrowLeft, MessageCircle, Package, Filter, ArrowRight, ChevronRight, Search, X } from 'lucide-react'
+import { ArrowLeft, Package, Filter, ArrowRight, ChevronRight, Search, X } from 'lucide-react'
 
 import products, { pt, productSlug } from './data/products'
-import { whatsappUrl } from './data/config'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -182,19 +181,19 @@ export default function ProductsPage() {
 
           {/* Search */}
           <div className="catalog-filters relative mb-6">
-            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-warm-gray/50 pointer-events-none" aria-hidden="true" />
+            <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-warm-gray/50 dark:text-white/40 pointer-events-none" aria-hidden="true" />
             <input
               type="search"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder={t('productsPage.searchPlaceholder')}
               aria-label={t('productsPage.searchLabel')}
-              className="w-full bg-white dark:bg-charcoal dark:text-cream border border-moss/20 dark:border-white/10 font-body text-charcoal text-sm pl-10 pr-10 py-3 outline-none transition-all duration-300 focus:border-forest focus:ring-2 focus:ring-forest/10 placeholder:text-warm-gray/50 rounded-2xl"
+              className="w-full bg-white dark:bg-charcoal dark:text-cream border border-moss/20 dark:border-white/10 font-body text-charcoal text-sm pl-10 pr-10 py-3 outline-none transition-all duration-300 focus:border-forest dark:focus:border-moss-light focus:ring-2 focus:ring-forest/10 dark:focus:ring-moss-light/10 placeholder:text-warm-gray/50 dark:placeholder:text-white/40 rounded-2xl"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-warm-gray/50 hover:text-forest transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-warm-gray/50 dark:text-white/50 hover:text-forest dark:hover:text-moss-light transition-colors"
                 aria-label={t('productsPage.searchClear')}
               >
                 <X size={16} />
@@ -282,20 +281,6 @@ export default function ProductsPage() {
                     {t('products.viewProduct')} <ArrowRight size={12} />
                   </Link>
 
-                  <div className="mt-auto pt-4">
-                    <a
-                      href={whatsappUrl(t('products.whatsappMsgFormats', { name: pt(product.name, lang), formats: pt(product.formats, lang) }))}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-magnetic w-full inline-flex items-center justify-center gap-2 bg-forest text-white font-heading font-semibold text-sm px-5 py-3 rounded-3xl"
-                    >
-                      <span className="btn-bg bg-forest-light rounded-3xl" />
-                      <span className="relative z-10 flex items-center gap-2">
-                        <MessageCircle size={14} />
-                        {t('products.orderWhatsApp')}
-                      </span>
-                    </a>
-                  </div>
                 </div>
               </div>
             ))}
@@ -315,21 +300,11 @@ export default function ProductsPage() {
             {t('productsPage.helpDesc')}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 mt-8">
-            <a
-              href={whatsappUrl(t('productsPage.helpWhatsAppMsg'))}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-magnetic inline-flex items-center gap-2 bg-[#25D366] text-white font-heading font-semibold px-7 py-3.5 text-sm rounded-4xl"
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                <MessageCircle size={16} />
-                {t('productsPage.helpWhatsApp')}
-              </span>
-            </a>
             <Link
               to={routes.contact}
-              className="btn-magnetic inline-flex items-center gap-2 border border-white/30 text-white font-heading font-medium px-6 py-3.5 text-sm bg-white/5 backdrop-blur-sm rounded-4xl"
+              className="btn-magnetic inline-flex items-center gap-2 bg-madagascar text-white font-heading font-semibold px-7 py-3.5 text-sm rounded-4xl"
             >
+              <span className="btn-bg bg-madagascar-light rounded-4xl" />
               <span className="relative z-10 flex items-center gap-2">
                 {t('productsPage.helpContact')} <ArrowRight size={16} />
               </span>
