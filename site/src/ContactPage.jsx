@@ -238,7 +238,7 @@ export default function ContactPage() {
           </div>
 
           {/* Right — Form (3 cols) */}
-          <div className="contact-form-block lg:col-span-3 lg:pt-[52px]">
+          <div className="contact-form-block lg:col-span-3 lg:pt-[88px]">
             <form
               onSubmit={handleSubmit}
               aria-busy={status === 'submitting'}
