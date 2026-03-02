@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { gsap } from 'gsap'
-import { Link } from 'react-router-dom'
 import usePageMeta from './hooks/usePageMeta'
 import { useLanguageRouter } from './hooks/useLanguageRouter'
 import { BreadcrumbSchema } from './components/StructuredData'
-import { Mail, MapPin, Globe, Send, CheckCircle, AlertCircle, ArrowLeft } from 'lucide-react'
+import { Mail, MapPin, Globe, Send, CheckCircle, AlertCircle } from 'lucide-react'
 import { CONTACT_INFO } from './config/contact'
 
 // Input sanitization: strip HTML tags and trim
@@ -34,7 +33,6 @@ function checkRateLimit() {
 export default function ContactPage() {
   const { t } = useTranslation()
   const { lang, routes } = useLanguageRouter()
-  const heroRef = useRef(null)
   const formRef = useRef(null)
   const loadTime = useRef(0)
   const [formData, setFormData] = useState({
@@ -56,16 +54,6 @@ export default function ContactPage() {
     description: t('contact.metaDesc'),
     canonicalPath: '/contact',
   })
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ delay: 0.3 })
-      tl.fromTo('.contact-hero-tag', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' })
-        .fromTo('.contact-hero-title', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' }, '-=0.3')
-        .fromTo('.contact-hero-desc', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' }, '-=0.3')
-    }, heroRef)
-    return () => ctx.revert()
-  }, [])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -174,41 +162,9 @@ export default function ContactPage() {
         { name: t('common.home'), url: 'https://kazepices.com/' },
         { name: t('contact.breadcrumb'), url: 'https://kazepices.com/contact' },
       ]} />
-      {/* Hero banner */}
-      <section
-        ref={heroRef}
-        className="relative bg-charcoal overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28 px-6 md:px-16 lg:px-24"
-      >
-        {/* Background texture */}
-        <div
-          className="absolute inset-0 opacity-10 bg-cover bg-center"
-          style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=1200&q=80')`,
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-charcoal/80 to-charcoal/95" />
-
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <Link
-            to="/"
-            className="contact-hero-tag inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white/70 text-xs font-mono px-4 py-1.5 mb-8 hover:bg-white/15 transition-colors rounded-4xl"
-          >
-            <ArrowLeft size={14} />
-            {t('contact.heroHeading1')}
-          </Link>
-
-          <h1 className="contact-hero-title font-heading font-extrabold text-white text-4xl md:text-6xl tracking-tight leading-[1.1]">
-            {t('contact.heroHeading2')}
-          </h1>
-
-          <p className="contact-hero-desc font-body text-white/70 text-base md:text-lg mt-6 max-w-xl mx-auto leading-relaxed">
-            {t('contact.heroDesc')}
-          </p>
-        </div>
-      </section>
 
       {/* Form section */}
-      <section ref={formRef} className="py-20 md:py-28 px-6 md:px-16 lg:px-24">
+      <section ref={formRef} className="pt-32 pb-20 md:pt-40 md:pb-28 px-6 md:px-16 lg:px-24">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 items-start">
 
           {/* Left — Info (2 cols) */}
