@@ -226,6 +226,15 @@ export default function ContactPage() {
                 </div>
               </div>
             </div>
+
+            {/* Business card image */}
+            <div className="mt-8">
+              <img
+                src="/assets/carte.webp"
+                alt="Kazépices Business Card"
+                className="w-full h-auto rounded-2xl shadow-lg"
+              />
+            </div>
           </div>
 
           {/* Right — Form (3 cols) */}
