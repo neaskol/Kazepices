@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Play, ChevronDown } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useLanguageRouter } from '../hooks/useLanguageRouter'
+import kazImage from '../../../assets/kaz.webp'
 
 export default function Hero() {
   const heroRef = useRef(null)
@@ -26,17 +27,10 @@ export default function Hero() {
   return (
     <section id="hero" ref={heroRef} className="relative h-dvh min-h-[600px] overflow-hidden">
       <img
-        src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=1920&q=90"
-        srcSet="
-          https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=640&q=80 640w,
-          https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=1024&q=85 1024w,
-          https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=1920&q=90 1920w"
-        sizes="100vw"
+        src={kazImage}
         fetchPriority="high"
         alt={t('hero.imageAlt')}
-        crossOrigin="anonymous"
-        referrerPolicy="no-referrer"
-        className="absolute inset-0 w-full h-full object-cover -scale-x-100"
+        className="absolute inset-0 w-full h-full object-cover"
       />
       <div className="hero-overlay absolute inset-0" />
       <div className="relative z-10 h-full flex flex-col justify-end px-6 md:px-16 lg:px-24 pb-16 md:pb-24 max-w-5xl">
