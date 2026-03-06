@@ -1,3 +1,4 @@
+import { ChevronDown } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import kazImage from '../../../assets/kaz.webp'
 import kazMadaImage from '../../../assets/kazMada.webp'
@@ -19,6 +20,10 @@ export default function Hero() {
         alt={t('hero.imageAlt')}
         className="absolute inset-0 w-full h-full object-cover hidden md:block"
       />
+      <a href="#video" className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2 text-white/70 text-xs font-mono hover:text-white/90 transition-colors">
+        <ChevronDown size={14} className="animate-bounce" />
+        {t('hero.scroll')}
+      </a>
     </section>
   )
 }
