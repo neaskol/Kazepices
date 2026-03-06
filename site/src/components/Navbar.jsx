@@ -99,7 +99,7 @@ export default function Navbar() {
     <nav
       ref={navRef}
       aria-label={t('nav.mainMenu')}
-      className={`fixed ${scrolled || !isHome ? 'top-4' : 'top-8'} left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-out rounded-6xl ${navBg}`}
+      className={`fixed ${scrolled || !isHome ? 'top-4' : 'top-12'} left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-out rounded-6xl ${navBg}`}
       style={{ padding: '0.6rem 1.2rem', maxWidth: 'calc(100vw - 2rem)' }}
     >
       <div className="flex items-center gap-3 md:gap-6">
