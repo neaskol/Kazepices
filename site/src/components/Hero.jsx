@@ -20,7 +20,7 @@ export default function Hero() {
         alt={t('hero.imageAlt')}
         className="absolute inset-0 w-full h-full object-cover hidden md:block"
       />
-      <a href="#video" className="absolute bottom-16 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2 text-white text-xs font-mono whitespace-nowrap drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] hover:text-white/90 transition-colors">
+      <a href="#video" className="absolute bottom-18 left-1/2 -translate-x-1/2 z-10 flex items-center gap-2 text-white text-xs font-mono whitespace-nowrap drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] hover:text-white/90 transition-colors">
         <ChevronDown size={14} className="animate-bounce" />
         {t('hero.scroll')}
       </a>
