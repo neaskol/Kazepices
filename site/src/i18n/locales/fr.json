@@ -6,7 +6,6 @@
     "madagascar": "Madagascar",
     "natural": "100% Naturel",
     "noChemicals": "Sans produits chimiques",
-    "internationalShipping": "Livraison internationale",
     "backHome": "Retour à l'accueil",
     "provenance": "Provenance : Madagascar",
     "systemOperational": "Système opérationnel"
@@ -189,7 +188,7 @@
     "heading": "Prêt à commander ?",
     "tagline": "Parlons épices.",
     "description": "Envoyez-nous un message via notre formulaire de contact. Nous répondons dans les 24 heures.",
-    "ctaContact": "Nous écrire"
+    "ctaContact": "Contact"
   },
   "footer": {
     "logoAlt": "Kazépices",

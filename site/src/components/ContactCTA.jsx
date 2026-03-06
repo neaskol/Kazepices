@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Link } from 'react-router-dom'
-import { Mail, MapPin, Globe } from 'lucide-react'
+import { Mail, MapPin } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useLanguageRouter } from '../hooks/useLanguageRouter'
 
@@ -32,15 +32,8 @@ export default function ContactCTA() {
   return (
     <section id="contact" ref={sectionRef} className="py-24 md:py-32 px-6 md:px-16 lg:px-24">
       <div className="max-w-4xl mx-auto text-center contact-cta-content">
-        <span className="font-mono text-xs text-moss dark:text-moss-light tracking-widest uppercase">{t('contactCTA.sectionLabel')}</span>
-        <h2 className="font-heading font-extrabold text-forest dark:text-cream text-3xl md:text-5xl mt-3 tracking-tight">
-          {t('contactCTA.heading')}
-        </h2>
-        <p className="font-drama italic text-madagascar text-2xl md:text-4xl mt-2">
+        <p className="font-drama italic text-madagascar text-2xl md:text-4xl">
           {t('contactCTA.tagline')}
-        </p>
-        <p className="font-body text-warm-gray dark:text-white/70 text-base mt-6 max-w-lg mx-auto leading-relaxed">
-          {t('contactCTA.description')}
         </p>
 
         <div className="flex flex-wrap items-center justify-center gap-4 mt-10">
@@ -60,10 +53,6 @@ export default function ContactCTA() {
           <div className="flex items-center gap-2">
             <MapPin size={16} className="text-moss dark:text-moss-light" aria-hidden="true" />
             {t('common.madagascar')}
-          </div>
-          <div className="flex items-center gap-2">
-            <Globe size={16} className="text-moss dark:text-moss-light" aria-hidden="true" />
-            {t('common.internationalShipping')}
           </div>
         </div>
       </div>

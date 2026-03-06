@@ -6,7 +6,6 @@
     "madagascar": "Madagascar",
     "natural": "100% Natural",
     "noChemicals": "Chemical-free",
-    "internationalShipping": "International shipping",
     "backHome": "Back to home",
     "provenance": "Origin: Madagascar",
     "systemOperational": "System operational"
@@ -189,7 +188,7 @@
     "heading": "Ready to order?",
     "tagline": "Let's talk spices.",
     "description": "Send us a message through our contact form. We respond within 24 hours.",
-    "ctaContact": "Write to us"
+    "ctaContact": "Contact"
   },
   "footer": {
     "logoAlt": "Kazepices",
