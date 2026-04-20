@@ -8,8 +8,8 @@
 
 export const CONTACT_INFO = {
   email: 'contact@kazepices.com',
-  phone: '+33666755646',
-  phoneDisplay: '+33 6 66 75 56 46',
+  phone: '+33783742998',
+  phoneDisplay: '+33 7 83 74 29 98',
   website: 'www.kazepices.com',
   websiteUrl: 'https://www.kazepices.com',
   contactPerson: 'Mr Ikbal CHARIFOU'
