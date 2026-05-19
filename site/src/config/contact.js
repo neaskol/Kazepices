@@ -7,7 +7,7 @@
  */
 
 export const CONTACT_INFO = {
-  email: 'contact@kazepices.com',
+  email: 'yvesjet02@yahoo.com',
   phone: '+33666755646',
   phoneDisplay: '+33 6 66 75 56 46',
   website: 'www.kazepices.com',

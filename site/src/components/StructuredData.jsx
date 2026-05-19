@@ -41,7 +41,7 @@ export function OrganizationSchema() {
         },
         contactPoint: {
           '@type': 'ContactPoint',
-          email: 'contact@kazepices.com',
+          email: 'yvesjet02@yahoo.com',
           contactType: 'customer service',
           availableLanguage: ['French', 'English'],
         },
@@ -122,7 +122,7 @@ export function LocalBusinessSchema() {
     url: 'https://kazepices.com',
     logo: 'https://kazepices.com/logo.webp',
     image: 'https://kazepices.com/og-image.jpg',
-    email: 'contact@kazepices.com',
+    email: 'yvesjet02@yahoo.com',
     address: {
       '@type': 'PostalAddress',
       addressCountry: 'MG',

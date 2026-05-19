@@ -125,7 +125,7 @@ export default function ContactPage() {
         message: sanitize(formData.message),
       }
 
-      const response = await fetch('https://formsubmit.co/ajax/contact@kazepices.com', {
+      const response = await fetch('https://formsubmit.co/ajax/yvesjet02@yahoo.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
