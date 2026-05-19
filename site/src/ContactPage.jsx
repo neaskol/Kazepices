@@ -132,7 +132,7 @@ export default function ContactPage() {
           'Accept': 'application/json',
         },
         body: JSON.stringify({
-          access_key: 'c79e139c-42c1-4087-8cdc-8eb5c83ad4f7',
+          access_key: import.meta.env.VITE_WEB3FORMS_KEY,
           ...cleanData,
           subject: `Kazépices — ${cleanData.subject || 'Nouveau message'}`,
         }),
