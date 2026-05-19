@@ -125,17 +125,16 @@ export default function ContactPage() {
         message: sanitize(formData.message),
       }
 
-      const response = await fetch('https://formsubmit.co/ajax/yvesjet02@yahoo.com', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
         body: JSON.stringify({
+          access_key: 'c79e139c-42c1-4087-8cdc-8eb5c83ad4f7',
           ...cleanData,
-          _honey: '',
-          _captcha: 'false',
-          _subject: `Kazépices — ${cleanData.subject || 'Nouveau message'}`,
+          subject: `Kazépices — ${cleanData.subject || 'Nouveau message'}`,
         }),
       })
 
